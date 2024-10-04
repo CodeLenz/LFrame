@@ -1,0 +1,47 @@
+#
+# Exemplo Hibbeler 8.6, 10° ed.
+#
+
+materiais:
+  - nome: "aco"
+    G: 8.0e10
+    Ex: 2.1e11
+    
+loads: "4 3 -3000"
+
+geometrias:
+  - Iz: 1.256637061e-7
+    A: 1.256637061e-3
+    Iy: 1.256637061e-7
+    nome: "tubo1"
+    α: 0
+    J0: 2.513274123e-7
+
+deslocamentos:
+
+
+coordenadas:
+  0.0 -0.125 0.0
+  0.0 0.0 0.0
+  0.0 0.150 0.0
+  0.20 0.150 0.0
+
+
+conectividades: 
+  1 2 
+  2 3
+  3 4
+
+apoios: 
+  1 1 0.0
+  1 2 0.0
+  1 3 0.0
+  1 4 0.0
+  1 5 0.0
+  1 6 0.0
+
+
+dados_elementos:
+  aco tubo1
+  aco tubo1
+  aco tubo1
