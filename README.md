@@ -1,33 +1,34 @@
 # LFrame - Otimização Topológica de Pórticos 3D
 
-Este repositório contém os códigos desenvolvidos para o projeto de Iniciação Científica que visa otimizar estruturas compostas por elementos de pórtico em três dimensões, sem perdas no desempenho com a retirada de material.
+This repository contains the codes developed for the Scientific Initiation project aimed at optimizing structures composed of 3D frame elements, without performance loss as material is removed.
 
-## Sobre o nosso projeto
+## About Our Project :rocket:
 
-Utilizando o Método dos Elementos Finitos, implementamos técnicas de Otimização Topológica para elementos com seis graus de liberdade por nó. Buscamos minimizar o volume da estrututura com restrições de tensão e deslocamento.
+Using the Finite Element Method, we implemented Topology Optimization techniques for elements with six degrees of freedom per node. Our goal is to minimize the structure's volume while imposing constraints on stress and displacement.
 
-### Pontos principais
+### Key Points :sparkles:
 
-- Modelagem de elementos de pórtico
-- Função objetivo
-- Utilização de ferramentas de visualização para a geração da malha e resultados
-- Fácil implementação de exemplos para validação
+- Modeling of frame elements
+- Objective function: currently, minimizing the total volume of the structure
+- Use of the Augmented Lagrangian Method, through the Adjoint Problem approach
+- Utilization of visualization tools for mesh generation and results
+- Easy implementation of examples for validation
 
-### Como funciona
+### How it works :sunglasses:
 
-  - Definimos o problema em um arquivo .yaml
-  - Realizamos a análise inicial por MEF
-  - Inicia-se o processo de otimização e análise de sensibilidade
-  - Verificamos a convergência
-  - Caso o processo tenha fnalizado, o arquivo para visualização .pos para uso no software livre Gmsh é gravado.
+  - We define the problem in a '.yaml' file
+  - We perform the initial analysis using FEM
+  - The optimization and sensitivity analysis process begins
+  - We check for convergence
+  - If the process is completed, a '.pos' file for visualization, compatible with the open-source software Gmsh, is generated.
 
-## Como usar:
-### Requerimentos:
-- Linguagem Julia
-- O módulo 'Viga3D'
-- Outras dependências que podem ser vistas em 'colocar aqui'
+## How to use: :computer:
+### Requirements:
+- Julia Language
+- The module 'Viga3D'
+- Other dependencies can be found in 'colocar aq'
 
-## Exemplos de uso:
+## Examples:
 Colocar os exemplos aqui
 
 <p align="center">
