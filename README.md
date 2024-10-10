@@ -1,6 +1,8 @@
-# LFrame - Topology Optimization of 3D Frames 📐
+# LFrame - Topology Optimization of Spacial Frames 📐
 
-
+<p align="center">
+<img src="./docs/titulo.jpeg"  width="300">
+</p>
 
 This repository contains the codes developed for the undergraduate research project aimed at optimizing structures composed of 3D frame elements, without performance loss as material is removed.
 
