@@ -1,6 +1,8 @@
-# LFrame - Otimização Topológica de Pórticos 3D
+# LFrame - Topology Optimization of 3D Frames 📐
 
-This repository contains the codes developed for the Scientific Initiation project aimed at optimizing structures composed of 3D frame elements, without performance loss as material is removed.
+
+
+This repository contains the codes developed for the undergraduate research project aimed at optimizing structures composed of 3D frame elements, without performance loss as material is removed.
 
 ## About Our Project :rocket:
 
