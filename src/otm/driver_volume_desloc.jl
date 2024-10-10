@@ -1,7 +1,6 @@
 # Função Heaviside
 Heaviside(a) = max(a,0.0)
 
-# TODO - > normalizar o objetivo !!!
 
 
 function Driver_volume_desloc(ρ::Vector,r0::Float64, μ::Vector, Vb::Float64,
