@@ -20,20 +20,61 @@ Using the Finite Element Method, we implemented Topology Optimization techniques
 
 ### How it works :sunglasses:
 
-  - We define the problem in a '.yaml' file
+  - We define the problem in a `.yaml` file
   - We perform the initial analysis using FEM
   - The optimization and sensitivity analysis process begins
   - We check for convergence
-  - If the process is completed, a '.pos' file for visualization, compatible with the open-source software Gmsh, is generated.
+  - If the process is completed, a `.pos` file for visualization, compatible with the open-source software Gmsh, is generated.
 
-## How to use: :computer:
+## How to use :computer:
 ### Requirements:
 - Julia Language
-- The module 'Viga3D'
+- The module `Viga3D`
 - Other dependencies can be found in 'colocar aq'
 
-## Examples:
-Colocar os exemplos aqui
+### Installation:
+1. First, clone the repository:
+    ```bash
+   git clone https://github.com/your-repo/LFrame.git
+2. Navigate to the repository directory:
+   ```bash
+   cd("...\\LFrame")
+3. Install the required Julia packages
+   ```bash
+   ]instantiate()
+   ```
+
+### Running an Example:
+To run an exemple, simply use
+```bash
+  include("examples/example123.yaml")
+```
+
+This will perform an initial FEM analysis and start the optimization process. After the procedure is complete, a `.pos` file is generated for visualization in Gmsh. To view the results,
+1. Open Gmsh
+2. In the File menu, click Open
+3. Navigate to the folder of the examples, the file will be generated there
+4. Select the file
+
+## Mathematical Formulation ⚙️
+
+In this section, we describe the mathematical framework used for topology optimization os 3D frame elements. The optimization problem is formulated to minimize the volume of the structure while satisfying constraints on stress and displacement.
+
+### Objective Function:
+
+### The constraints
+
+### The Optimization Problem
+
+### Sensivity Analysis
+
+
+
+
+
+
+## Examples: 🛠️
+
 
 <p align="center">
 <img src="./docs/beam.jpeg"  width="300">
