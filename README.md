@@ -56,6 +56,8 @@ This will perform an initial FEM analysis and start the optimization process. Af
 3. Navigate to the folder of the examples, the file will be generated there
 4. Select the file
 
+## TODO 
+
 ## Mathematical Formulation ⚙️
 
 In this section, we describe the mathematical framework used for topology optimization os 3D frame elements. The optimization problem is formulated to minimize the volume of the structure while satisfying constraints on stress and displacement.
