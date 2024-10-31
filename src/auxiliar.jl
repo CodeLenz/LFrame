@@ -1,3 +1,6 @@
+# Função Heaviside
+Heaviside(a) = max(a,0.0)
+
 #
 # Devolve os gls de um elemento
 #

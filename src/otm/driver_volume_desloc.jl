@@ -1,5 +1,3 @@
-# Função Heaviside
-Heaviside(a) = max(a,0.0)
 
 
 
