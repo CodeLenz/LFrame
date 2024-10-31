@@ -1,116 +1,148 @@
 #
-# Arquivo que contém as alterações entre as linhas 60 e 161 do driver_volume_desloc.jl.
+# Aqui vamos ter a função que calcula a derivada da restrição de tensão dgσ_dxm do material
 #
 
-    ################ RESTRIÇÃO DE DESLOCAMENTO ##############
-
-    # Pega o numero de gls restritos
-    numero_gls_restritos = size(deslocamentos, 1)
-
-    # Inicializa o vetor de restrições de deslocamento
-    g2 = zeros(numero_gls_restritos)
+function Derivada_parcial_gtensao(ne,dados_elementos, dicionario_materiais, 
+    dicionario_geometrias, U, elems, coord)
 
 
-    # Loop para calcular as restrições de deslocamento
-    for i=1:numero_gls_restritos
-        no  = deslocamentos[i,1]
-        gl  = deslocamentos[i,2]
-        val = deslocamentos[i,3]
-        pos = Int(6*(no-1)+gl)
-        #@show U[pos]
-        u = U[pos]
-        g2[i] = (u/val)^2 - 1
-        #@show no, gl, val, pos, u, g2
-    end
-    #@show U
+# Inicializa um vetor de saída
+D2 = zeros(ne)
 
-    # Calcula a função LA
-    g = [g1 ;  g2]
+# Vetor de carregamento adjunto para a tensão
+Ds = zeros(n_gl)
 
-    if opcao=="g"
-        return g
-    end
+# Cada elemento possui 2 nós e cada nó possui dois "a"s:
+# Elementos...
+contador = 1
+for ele = 1:ne
 
-    LA = objetivo
-    for i=1:m
-        LA += (r0/2)*Heaviside(μ[i]/r0 + g[i])^2
-    end
+# Dados que vamos precisar:
+Ize, Iye, J0e, Ae, αe, Ee, Ge = Dados_fundamentais(ele, dados_elementos, dicionario_materiais, dicionario_geometrias)
 
-    if opcao=="LA"
-        return LA
-    end
+# Gls do elemento
+gls = [.......]
 
-    ################### DERIVADAS ##################
+# Extraindo o raio externo:
+re = sqrt(A/pi) 
 
-    # Calcula as derivadas da função objetivo
+# Calcula os esforços no elemento
+Fe = Esforcos_elemento(ele,elems,dados_elementos,dicionario_materiais,dicionario_geometrias,
+ L,coord,U)
 
-    df = Derivada_flex(ne,elems,dados_elementos, dicionario_materiais,
-                       dicionario_geometrias, L, coord, U, ρ)
+# Matriz de von-Mises:
+VM = [1.0 1.0 0.0 ;
+1.0 1.0 0.0 ;
+0.0 0.0 3.0]
 
-    # Calcula as derivadas da restrição de volume
-    # Normalizando
-    dV = Derivada_volume(ne, dicionario_geometrias, L, dados_elementos)./Vb
+# Assumindo que fe(x) = x_e
+# a derivada parcial em relação a x_m
+# vai ser 1 se e==m e 0 se e != m
+dfe_dxm = 1.0
 
-    # Calcula a derivada do LA - ainda sem o termo adjunto
-    dLA = dV .+ (r_sigma)*Heaviside(μ[1]/r_sigma + g[1])*dgsigma_dxm 
+# Nós...
+for no = 1:2
 
-    # NOVOS TERMOS DA DERIVADA DE DESLOCAMENTO
-    
-    #### Problema adjunto
-   
-    # Número total de graus de liberdade do sistema
-    n_gl = length(U)
+# Matriz Mn:
+if no == 1
+Mn = [-1   0   0   0   0   0   0   0   0   0   0   0;
+0   0   0  -1   0   0   0   0   0   0   0   0;
+0   0   0   0  -1   0   0   0   0   0   0   0;
+0   0   0   0   0  -1   0   0   0   0   0   0]
+else
+Mn = [0    0   0  0   0   0   1   0   0   0   0   0;
+0    0   0  0   0   0   0   0   0   1   0   0;
+0    0   0  0   0   0   0   0   0   0   1   0;
+0    0   0  0   0   0   0   0   0   0   0   1]
 
-    # Inicializa o vetor de carregamento adjunto
-    # reaproveitando o vetor já aumentado do 
-    # problema de equilíbrio
-    FA[1:n_gl] .=  0 
+end
 
-    # Loop pelas restrições
-    # de deslocamento
-    for j=1:numero_gls_restritos
+# Esforços no nó n (4x1)
+# N T My Mz
+En = Mn*fe
 
-        # Indice do gl restrito
-        no = deslocamentos[j, 1]
-        gl = deslocamentos[j, 2]
-        pos = Int(6*(no-1)+gl)
+# Extrai os momentos de En (esforços internos no nó)
+My = En[3]
+Mz = En[4]
 
-        # Deslocamento restrito
-        val = deslocamentos[j, 3]
+# Candidatos...
+for a = 0:1
 
-        # Deslocamento calculado para o gl correspondente
-        u_j = U[pos]
-
-        # Calcula a parte escalar da derivada parcial
-        dg_dU = 2/(val^2) * u_j
-
-        # Acumula as derivadas no vetor de "carregamento" para as restrições de deslocamento
-        escalar_deslocamento = (r_u)*Heaviside(μ[j+1]/r_u + g[j+1])*dg_dU
+# Matriz Pna:
+Pn = [1/A     0        0;
+0     0    (-re/I)^a;
+0    re/J0     0]
 
 
-    end
+# O momento resultante é:
+Mr = sqrt(My^2 + Mz^2)
 
-    # Acumula as derivadas no vetor de "carregamento" para as restrições de tensão
-    escalar_tensao = ((r_sigma)/(4*ne))*Heaviside(μ[j+1]/r_sigma + g[j+1])*dg_dU
-
-    # Somando
-    escalar = escalar_tensao + escalar_tensao
-    
-    # Acumula no vetor de "carregamento" adjunto
-    FA[pos] -= escalar
+# Matriz utilizada nas derivadas de tensão equivalente
+D = [1     0       0       0;
+0     1       0       0;
+0     0     My/Mr   Mz/Mr]
 
 
+# Vetor de tensões:
+vec_sigma = Tensao_no_elemento(e,no,a,Fe,dados_elementos,dicionario_geometrias)
+
+# Tensão equivalente de von-Mises:
+sigma_eq = sqrt(transpose(vec_sigma)*VM*vec_sigma)
+
+# A derivada parcial de g em relação a x_ele será 
+dg_dxm = 1/sigma_esc * 1/sigma_eq * transpose(vec_sigma)* VM * Pn * D * Mn * dfe_dxm * Fe
+
+# Acumula no vetor D2
+D2[ele] += Heaviside(mu[contador]/c_σ + g2[contador])*dg_dxm
+
+# Derivada parcial em relação ao U
+# vetor 12 x 1
+dg_dU = 1/sigma_esc * 1/sigma_eq * transpose(vec_sigma) * VM * Pn * D * Mn * fe * Ke0 * Re 
+
+# Acumula no vetor de carregamento adjunto
+Ds[gls] += Heaviside(mu[contador]/c_σ + g2[contador])*dg_dU
+
+# incrementa o contador
+contador += 1
+
+end # a
+end # nó
+end # ele
+
+return (c_σ/(4*ne))*D2, (c_σ transpose(vec_sigma)/(4*ne))*Ds
 
 
+end
 
-    # Atualiza o lado da direita
-    linsolve.b = FA
-    U_ = solve(linsolve)
-    λ = U_.u[1:n_gl]
+#
+# E agora a função que calcula dgσ_dU
+#
 
-    # Calcula o último termo restante, λ^T(dK/dρm)U
-    Dλ = derivada_λ(ne,elems,dados_elementos, dicionario_materiais,
-                    dicionario_geometrias, L, coord, U, ρ, λ)
+function Derivada_tensao_dU(Pn, D, Mn, VM, vec_sigma, fe, ne,dados_elementos, dicionario_materiais, dicionario_geometrias, U, elems, coord)
 
-    # Adiciona tudo na derivada da função de Lagrange Aumentada
-    dLA .= dLA .+ Dλ
+# Elementos...
+for ele = 1:ne
+# Dados que vamos precisar:
+Ize, Iye, J0e, Ae, αe, Ee, Ge = Dados_fundamentais(ele, dados_elementos, dicionario_materiais, dicionario_geometrias)
+# Extraindo o raio externo:
+re = sqrt(A/pi) #?????
+# Vamos precisar da rotação
+Re = Rotacao3d(ele, elem transpose(vec_sigma)s, coord, αe)
+# E da matriz de rigidez:
+Ke0 = Ke_portico3d(Ee, Ize, Iye, Ge, J0e, Le, Ae)
+# Nós...
+for no = 1:2
+# Candidatos...
+for a = 0:1
+# Termo b:
+b = fe * Ke0 * Re * He 
+# Finalmente,
+# A posição a ser ocupada no vetor é
+pos = ele + no + a 
+# E portanto,
+dg_dU[pos] = 1/sigma_esc * 1/sigma_eq * transpose(vec_sigma) * VM * Pn * D * Mn * b
+end
+end
+end
+return dg_dU
+end
