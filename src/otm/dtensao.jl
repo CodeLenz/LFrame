@@ -110,6 +110,6 @@ function Derivada_gtensao(ne,dados_elementos, dicionario_materiais,
     end # ele
 
     # Derivada parcial e também vetor de carregamento adjunto
-    return (c_σ/(4*ne))*D2, (c_σ transpose(vec_sigma)/(4*ne))*Ds
+    return (c_σ/(4*ne))*D2, (c_σ * transpose(vec_sigma)/(4*ne))*Ds
 
 end

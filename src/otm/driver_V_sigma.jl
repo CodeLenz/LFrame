@@ -15,15 +15,14 @@ end
 
 
 #
-# Minimizaçãode volume com restrição de tensão 
+# Minimização de volume com restrição de tensão 
 #
 #
 
 # tensao_limite::Vector <= pre-processar com os dados dos materiais de cada elemento
 
-function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, Vb::Float64,
-                        m::Int64, tensao_limite::Vector,
-                        ne,nnos,elems,dados_elementos,dicionario_materiais, 
+function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, σ_limite::Vector,
+                        m::Int64, ne,nnos,elems,dados_elementos,dicionario_materiais, 
                         dicionario_geometrias,L,coord, loads,floads, apoios, mpc, deslocamentos,
                         opcao::String )
 
@@ -102,7 +101,7 @@ function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, Vb::Float64,
     end #ele
 
     # Cálculo das restrições
-    g = vetor_vm./tensao_limite .- 1
+    g = vetor_vm./σ_limite .- 1
 
     if opcao=="g"
         return g

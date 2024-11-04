@@ -178,13 +178,13 @@ function Le_YAML(arquivo,ver=1.0)
    # Converte para uma matriz Float64
    apoios = Converte_array(string_apoios,3,Float64)
 
-   ######################################### Rest. Deslocamento ######################################
+   ######################################### Rest. Tensao ######################################
 
    # Recupera as informações
-   string_desloc = dados["deslocamentos"]
+   string_tensao_escoamento = dados["deslocamentos"]
 
    # Converte para matriz
-   deslocamentos = Converte_array(string_desloc,3,Float64)
+   tensoes_escoamento = Converte_array(string_tensao_escoamento,3,Float64)
 
    ########################################### Conectividades ########################################
 
@@ -264,7 +264,7 @@ function Le_YAML(arquivo,ver=1.0)
 
 
    # Retorna os dados do arquivo
-   return ne, nnos, coord, conect, apoios, dicionario_materiais, dicionario_geometrias, dados_elementos, loads, mpc, floads, deslocamentos
+   return ne, nnos, coord, conect, apoios, dicionario_materiais, dicionario_geometrias, dados_elementos, loads, mpc, floads, tensoes_escoamento
 
 end
 
