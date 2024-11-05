@@ -14,7 +14,7 @@ execução.
 function Otimiza_Portico3D_V_sigma(arquivo; verbose=true)
 
     # Le os dados do problema
-    ne,nnos,coord,elems,apoios,dicionario_materiais,dicionario_geometrias,dados_elementos,loads,mpc, floads, deslocamentos = Le_YAML(arquivo)
+    ne,nnos,coord,elems,apoios,dicionario_materiais,dicionario_geometrias,dados_elementos,loads,mpc, floads, tensao_escoamento = Le_YAML(arquivo)
 
     # Pré processamento para calcular os comprimentos dos elementos da malha
     L = Pre_processamento(elems, coord)
@@ -27,13 +27,13 @@ function Otimiza_Portico3D_V_sigma(arquivo; verbose=true)
     ρmax = ones(ne)
 
     # Número de iterações do procedimento de otimização
-    niter = 2
+    niter = 1
 
     # Fator de segurança da estrutura
     n = 2.5
 
     # E podemos recuperar a tensão de escoamento do material
-    σ_esc = tensao_escoamento
+    σ_esc = vec(tensao_escoamento)
 
     # Calcula o σ_limite (limite da restrição de tensao) - vai ser um vetor
     σ_limite = σ_esc./n
@@ -57,16 +57,16 @@ function Otimiza_Portico3D_V_sigma(arquivo; verbose=true)
 
     # Define os drivers
     LA(ρ) = Driver_V_sigma(ρ,r0,μ,σ_limite,m,ne,nnos,elems,dados_elementos,dicionario_materiais, 
-            dicionario_geometrias,L,coord, loads,floads, apoios, mpc, deslocamentos,"LA")
+            dicionario_geometrias,L,coord, loads,floads, apoios, mpc, "LA")
 
     dLA(ρ) = Driver_V_sigma(ρ,r0,μ,σ_limite,m,ne,nnos,elems,dados_elementos,dicionario_materiais, 
-            dicionario_geometrias,L,coord, loads,floads, apoios, mpc, deslocamentos,"dLA")
+            dicionario_geometrias,L,coord, loads,floads, apoios, mpc, "dLA")
 
     restr(ρ) = Driver_V_sigma(ρ,r0,μ,σ_limite,m,ne,nnos,elems,dados_elementos,dicionario_materiais, 
-            dicionario_geometrias,L,coord, loads,floads, apoios, mpc, deslocamentos, "g")
+            dicionario_geometrias,L,coord, loads,floads, apoios, mpc,  "g")
           
     equil(ρ) = Driver_V_sigma(ρ,r0,μ,σ_limite,m,ne,nnos,elems,dados_elementos,dicionario_materiais, 
-            dicionario_geometrias,L,coord, loads,floads, apoios, mpc, deslocamentos, "U")
+            dicionario_geometrias,L,coord, loads,floads, apoios, mpc,  "U")
 
 
             ###################################################################
@@ -98,9 +98,7 @@ function Otimiza_Portico3D_V_sigma(arquivo; verbose=true)
         flag_converged = output["CONVERGED"]
         opt_norm = output["NORM"]
         @show flag_converged, opt_norm
-
-        #ρ = Steepest(LA,dLA,ρ0,ρmin,ρmax) 
-        
+  
         # Agora vamos precisar calcular as restrições:
         # Vamos chamar a função de compreensao de lista das restrições
         g1 = restr1(ρ)

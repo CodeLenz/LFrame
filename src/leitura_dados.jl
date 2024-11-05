@@ -181,10 +181,10 @@ function Le_YAML(arquivo,ver=1.0)
    ######################################### Rest. Tensao ######################################
 
    # Recupera as informações
-   string_tensao_escoamento = dados["deslocamentos"]
+   string_tensao_escoamento = dados["tensao_escoamento"]
 
    # Converte para matriz
-   tensoes_escoamento = Converte_array(string_tensao_escoamento,3,Float64)
+   tensoes_escoamento = Converte_array(string_tensao_escoamento,1,Float64)
 
    ########################################### Conectividades ########################################
 

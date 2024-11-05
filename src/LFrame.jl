@@ -6,8 +6,8 @@ module LFrame
 	using OrderedCollections
     using YAML
 	#using BMesh
-	#using WallE
-	#using Lgmsh
+	using WallE
+	using Lgmsh
 	
 	# Carregando as outras rotinas:
 	include("auxiliar.jl")
@@ -22,12 +22,15 @@ module LFrame
 	
     # Otimização
 	#include("otm/criterio.jl")
-	#include("otm/volume.jl")
+	include("otm/volume.jl")
 	#include("otm/flex.jl")
 	#include("otm/driver_volume_desloc.jl")
 	#include("otm/golden.jl")
 	#include("otm/steepest.jl")
-	#include("otm/dlambda.jl")
+	include("otm/dlambda.jl")
+	include("otm/dtensao.jl")
+	include("otm/driver_V_sigma.jl")
+	include("otm/main_V_sigma.jl")
 	#include("otm/df.jl")
 
 	#include("main_volume_desloc.jl")
@@ -35,5 +38,6 @@ module LFrame
 
 	include("main.jl")
 	export Analise3D
+	export Otimiza_Portico3D_V_sigma
 
 end

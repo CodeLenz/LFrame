@@ -20,10 +20,9 @@ end
 #
 
 # tensao_limite::Vector <= pre-processar com os dados dos materiais de cada elemento
-
 function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, σ_limite::Vector,
                         m::Int64, ne,nnos,elems,dados_elementos,dicionario_materiais, 
-                        dicionario_geometrias,L,coord, loads,floads, apoios, mpc, deslocamentos,
+                        dicionario_geometrias,L,coord, loads,floads, apoios, mpc, 
                         opcao::String )
 
     # Verifica se opção é algo válido
@@ -63,7 +62,7 @@ function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, σ_limite::Vector,
     ################### OBJETIVO ##################
 
     # Calcula a função objetivo do problema
-    objetivo = Volume(ne,dicionario_geometrias,L,ρ, dados_elementos)
+    objetivo = Volume(ne,dicionario_geometrias,dicionario_materiais,L,ρ, dados_elementos)
 
     ################### CALCULA AS TENSÕES EQUIVALENTES ##################
 
@@ -101,7 +100,7 @@ function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, σ_limite::Vector,
     end #ele
 
     # Cálculo das restrições
-    g = vetor_vm./σ_limite .- 1
+    g = vetor_vm./σ_limite[1] .- 1
 
     if opcao=="g"
         return g
@@ -119,11 +118,11 @@ function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, σ_limite::Vector,
     ################### DERIVADAS ##################
 
     # Calcula as derivadas da função objetivo
-    df = Derivada_volume(ne, dicionario_geometrias, L, dados_elementos)
+    df = Derivada_volume(ne, dicionario_geometrias, dicionario_materiais, L, dados_elementos)
 
     # Calcular as derivadas relativas as restrições de tensão
     D2, F_s = Derivada_gtensao(ne,dados_elementos, dicionario_materiais, 
-                               dicionario_geometrias, U, elems, coord)
+                               dicionario_geometrias, L, σ_limite, U, elems, coord)
 
 
     
