@@ -101,22 +101,22 @@ function Otimiza_Portico3D_V_sigma(arquivo; verbose=true)
   
         # Agora vamos precisar calcular as restrições:
         # Vamos chamar a função de compreensao de lista das restrições
-        g1 = restr1(ρ)
+        g = restr(ρ)
 
         # Atualiza a penalização
         r0 = r0*1.1
 
         # Atualiza os multiplicadores
-        μ .= Heaviside.(μ .+ r0*g1)
+        μ .= Heaviside.(μ .+ r0*g)
 
-        @show g1, μ, g.*μ
+        @show g, μ, g.*μ
 
         # Atualiza o ponto de ótimo
         ρ0 .= ρ
 
         # Critério de parada seria 
-        if all(g1.*μ.<=1E-6)
-            println("Critério de parada atingido na iteração $iter ",g1.*μ)
+        if all(g.*μ.<=1E-6)
+            println("Critério de parada atingido na iteração $iter ",g.*μ)
             break
         end
         

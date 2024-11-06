@@ -12,7 +12,11 @@ function derivada_λ(ne::Int64,elems::Matrix{Int64},dados_elementos::Matrix{Stri
     # Loop pelos elementos (posições da derivada)
     for e=1:ne
 
-        Le, Ize, Iye, J0e, Ae, αe, Ke, Re, Ee, Ge = dados_fundamentais(ele, dados_elementos, dicionario_materiais)
+        # Dados que vamos precisar:
+        Ize, Iye, J0e, Ae, αe, Ee, Ge = Dados_fundamentais(e, dados_elementos, dicionario_materiais, dicionario_geometrias)
+
+        # Comprimento do elemento
+        Le = L[e]
 
         # Montra a matriz do elemento (Ke0)
         # no sistema local
@@ -41,7 +45,8 @@ function derivada_λ(ne::Int64,elems::Matrix{Int64},dados_elementos::Matrix{Stri
 
     end
 
-    return dλ
+    return dλ   
+
 
 end
 

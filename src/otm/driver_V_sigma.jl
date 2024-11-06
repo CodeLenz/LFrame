@@ -121,7 +121,7 @@ function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, σ_limite::Vector,
     df = Derivada_volume(ne, dicionario_geometrias, dicionario_materiais, L, dados_elementos)
 
     # Calcular as derivadas relativas as restrições de tensão
-    D2, F_s = Derivada_gtensao(ne,dados_elementos, dicionario_materiais, 
+    D2, F_s = Derivada_gtensao(ne, ρ, μ, r0, g, dados_elementos, dicionario_materiais, 
                                dicionario_geometrias, L, σ_limite, U, elems, coord)
 
 
@@ -146,7 +146,7 @@ function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, σ_limite::Vector,
                     dicionario_geometrias, L, coord, U, ρ, λ)
 
     # Adiciona tudo na derivada da função de Lagrange Aumentada
-    dLA .= df .+ Dλ .+ D2
+    dLA = df .+ Dλ .+ D2
 
     if opcao=="dLA"
        return dLA

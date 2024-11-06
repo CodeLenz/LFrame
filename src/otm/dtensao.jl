@@ -1,7 +1,7 @@
 #
 # Aqui vamos ter a função que calcula a derivada da restrição de tensão dgσ_dxm do material
 #
-function Derivada_gtensao(ne,dados_elementos, dicionario_materiais, 
+function Derivada_gtensao(ne, ρ, μ, c_σ, g, dados_elementos, dicionario_materiais,
                           dicionario_geometrias,L, tensao_limite,  U, elems, coord)
 
     # Inicializa um vetor de saída
@@ -41,6 +41,12 @@ function Derivada_gtensao(ne,dados_elementos, dicionario_materiais,
         # vai ser 1 se e==m e 0 se e != m
         dfe_dxm = dfe(ρ[ele])
 
+        # Matriz de rigidez do elemento
+        Ke0 = Ke_portico3d(Ee, Ize, Iye, Ge, J0e, L[ele], Ae)
+
+        # Matriz de rotação do elemento
+        Re = Rotacao3d(ele, elems, coord, αe)
+
         # Nós...
         for no = 1:2
 
@@ -59,7 +65,7 @@ function Derivada_gtensao(ne,dados_elementos, dicionario_materiais,
 
             # Esforços no nó n (4x1)
             # N T My Mz
-            En = Mn*fe
+            En = Mn*Fe
 
             # Extrai os momentos de En (esforços internos no nó)
             My = En[3]
@@ -69,7 +75,7 @@ function Derivada_gtensao(ne,dados_elementos, dicionario_materiais,
             for a = 0:1
 
                 # Matriz Pna:
-                Pn = [1/Ae     0        0;
+                Pn = [1/Ae    0         0;
                         0     0    (-re/Ize)^a;
                         0    re/J0e     0]
 
@@ -84,23 +90,24 @@ function Derivada_gtensao(ne,dados_elementos, dicionario_materiais,
 
 
                 # Vetor de tensões:
-                vec_sigma = Tensao_no_elemento(e,no,a,Fe,dados_elementos,dicionario_geometrias)
+                vec_sigma = Tensao_no_elemento(ele,no,a,Fe,dados_elementos,dicionario_geometrias)
 
                 # Tensão equivalente de von-Mises:
-                sigma_eq = sqrt(transpose(vec_sigma)*VM*vec_sigma)
+                sigma_eq = sqrt(dot(vec_sigma,VM,vec_sigma))
 
                 # A derivada parcial de g em relação a x_ele será 
                 dg_dxm = 1/sigma_esc * 1/sigma_eq * transpose(vec_sigma)* VM * Pn * D * Mn * dfe_dxm * Fe
 
                 # Acumula no vetor D2
-                D2[ele] += Heaviside(mu[contador]/c_σ + g[contador])*dg_dxm
+                D2[ele] += Heaviside(μ[contador]/c_σ + g[contador])*dg_dxm
 
                 # Derivada parcial em relação ao U
                 # vetor 12 x 1
-                dg_dU = (1/sigma_esc) * (1/sigma_eq) * transpose(vec_sigma) * VM * Pn * D * Mn * fe * Ke0 * Re 
+                produto = Pn * D * Mn * fe(ρ[ele]) * Ke0 * Re
+                dg_dU = (1/sigma_esc) * (1/sigma_eq) * transpose(vec_sigma)* VM * produto
 
                 # Acumula no vetor de carregamento adjunto
-                Ds[gls] += Heaviside(mu[contador]/c_σ + g[contador])*dg_dU
+                Ds[gls] .+= Heaviside(μ[contador]/c_σ + g[contador])*dg_dU[:]
 
                 # incrementa o contador
                 contador += 1
@@ -110,6 +117,6 @@ function Derivada_gtensao(ne,dados_elementos, dicionario_materiais,
     end # ele
 
     # Derivada parcial e também vetor de carregamento adjunto
-    return (c_σ/(4*ne))*D2, (c_σ * transpose(vec_sigma)/(4*ne))*Ds
+    return (c_σ/(4*ne))*D2, (c_σ/(4*ne))*Ds
 
 end
