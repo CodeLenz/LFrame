@@ -35,13 +35,14 @@ function Otimiza_Portico3D_V_sigma(arquivo; verbose=true)
     # Recuperando a tensão de escoamento
 
     # Dados dos materais
-    mat = dados_elementos[2,1]
+    mat = dados_elementos[1,1]
 
     # Todos os dados do material estão em um dicionário local
     material = dicionario_materiais[mat]
 
     # E podemos recuperar os dados usando os nomes como chaves
     σ_esc = material["S_esc"]
+    @show σ_esc
     
     # Calcula o σ_limite (limite da restrição de tensao) - vai ser um vetor
     σ_limite = σ_esc/n

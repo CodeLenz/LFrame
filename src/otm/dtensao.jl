@@ -34,7 +34,7 @@ function Derivada_gtensao(ne, ρ, μ, c_σ, g, dados_elementos, dicionario_mater
               0.0 0.0 3.0]
 
         # Tensão limite do material do elemento 
-        sigma_esc = tensao_limite[ele]
+        sigma_esc = 
 
         # Assumindo que fe(x) = x_e
         # a derivada parcial em relação a x_m
