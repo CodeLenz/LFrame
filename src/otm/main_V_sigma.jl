@@ -35,7 +35,7 @@ function Otimiza_Portico3D_V_sigma(arquivo; verbose=true)
     # Recuperando a tensão de escoamento
 
     # Dados dos materais
-    mat = dados_elementos[ele,1]
+    mat = dados_elementos[1,1]
 
     # Todos os dados do material estão em um dicionário local
     material = dicionario_materiais[mat]
