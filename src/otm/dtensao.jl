@@ -22,7 +22,7 @@ function Derivada_gtensao(ne, ρ, μ, c_σ, g, dados_elementos, dicionario_mater
         gls = Gls(ele,elems)
 
         # Extraindo o raio externo:
-        re = sqrt(Ae/pi) 
+        re = sqrt(J0e/Ae + Ae/(2*pi)) 
 
         # Calcula os esforços no elemento
         Fe = Esforcos_elemento(ele,elems,dados_elementos,dicionario_materiais,dicionario_geometrias,
