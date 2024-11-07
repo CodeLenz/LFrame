@@ -67,7 +67,7 @@ where $ \mathbf{K}_e^0 $ is the stiffness matrix evaluated using $ E^0 $.
 The Optimization Problem is defined as
 
 ### Equação (2)
-![Otimização](https://latex.codecogs.com/png.latex?P%20%20%5Cleft%5C%7B%0A%20%20%20%20%5Cbegin%7Baligned%7D%0A%20%20%20%20%26%20min%5C%20V%28%5Cbm%7B%5Crho%7D%29%20%5C%5C%0A%20%20%20%20%26%20S.t%20%5C%5C%0A%20%20%20%20%26%20%20%20%20%5Cmathbf%7BK%7D%28%5Cbm%7B%5Crho%7D%29%5Cmathbf%7BU%7D%28%5Cbm%7B%5Crho%7D%29%20%3D%20%5Cmathbf%7BF%7D%20%5C%5C%0A%20%20%20%20%26%20%20%20%20%5Csigma_%7Beq%2Ce%7D%20%5Cleq%20%5Csigma_%7Blimiting%7D%20%5C%5C%0A%20%20%20%20%26%20%20%20%20%5Cmathbf%7B0%7D%20%3C%20%5Cbm%7B%5Crho%7D%20%5Cleq%20%20%5Cmathbf%7B1%7D%20%5C%5C%0A%20%20%20%20%5Cend%7Baligned%7D%0A%5Cright%7D
+![Fórumula](https://latex.codecogs.com/png.latex?P%20%20%5Cleft%5C%7B%0A%20%20%20%20%5Cbegin%7Baligned%7D%0A%20%20%20%20%26%20min%5C%20V%28%5Cbm%7B%5Crho%7D%29%20%5C%5C%0A%20%20%20%20%26%20S.t%20%5C%5C%0A%20%20%20%20%26%20%20%20%20%5Cmathbf%7BK%7D%28%5Cbm%7B%5Crho%7D%29%5Cmathbf%7BU%7D%28%5Cbm%7B%5Crho%7D%29%20%3D%20%5Cmathbf%7BF%7D%20%5C%5C%0A%20%20%20%20%26%20%20%20%20%5Csigma_%7Beq%2Ce%7D%20%5Cleq%20%5Csigma_%7Blimiting%7D%20%5C%5C%0A%20%20%20%20%26%20%20%20%20%5Cmathbf%7B0%7D%20%3C%20%5Cbm%7B%5Crho%7D%20%5Cleq%20%20%5Cmathbf%7B1%7D%20%5C%5C%0A%20%20%20%20%5Cend%7Baligned%7D%0A%5Cright%7D
 
 Where
 
