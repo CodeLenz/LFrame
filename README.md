@@ -56,11 +56,15 @@ This will perform an initial FEM analysis and start the optimization process. Af
 3. Navigate to the folder of the examples, the file will be generated there
 4. Select the file
 
-## TODO 
-
 ## Mathematical Formulation ⚙️
 
-In this section, we describe the mathematical framework used for topology optimization os 3D frame elements. The optimization problem is formulated to minimize the volume of the structure while satisfying constraints on stress and displacement.
+In this section, we describe the mathematical framework used for topology optimization os 3D frame elements. The optimization problem is formulated to minimize the volume of the structure while satisfying constraints on stress, using the SIMP approach.
+
+According to the Solid Isotropic Material with Penalization method,
+![Fórmula 1](https://latex.codecogs.com/png.latex?\mathbf{K}_e(\rho_e)%20=%20\rho^p_e%20\mathbf{K}_e^0)
+
+where $ \mathbf{K}_e^0 $ is the stiffness matrix evaluated using $ E^0 $.
+
 
 ### Objective Function:
 
