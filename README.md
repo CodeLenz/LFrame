@@ -67,7 +67,8 @@ where $ \mathbf{K}_e^0 $ is the stiffness matrix evaluated using $ E^0 $.
 The Optimization Problem is defined as
 
 ### Equação (2)
-$$      P  \left\{
+'''math
+P  \left\{
     \begin{aligned}
     & min\; V(\bm{\rho}) \\
     & S.t \\
@@ -76,7 +77,7 @@ $$      P  \left\{
     & \quad \quad \mathbf{0} < \bm{\rho} \leq \mathbf{1} \\
     \end{aligned}
     \right.
-$$
+'''
 
 Where
 
