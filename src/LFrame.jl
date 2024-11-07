@@ -31,7 +31,7 @@ module LFrame
 	include("otm/dtensao.jl")
 	include("otm/driver_V_sigma.jl")
 	include("otm/main_V_sigma.jl")
-	#include("otm/df.jl")
+	include("otm/df.jl")
 
 	#include("main_volume_desloc.jl")
 	#export Otimiza_Portico3D_volume_desloc
