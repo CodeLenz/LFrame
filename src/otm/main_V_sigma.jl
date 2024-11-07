@@ -32,11 +32,19 @@ function Otimiza_Portico3D_V_sigma(arquivo; verbose=true)
     # Fator de segurança da estrutura
     n = 2.5
 
-    # E podemos recuperar a tensão de escoamento do material
-    σ_esc = vec(tensao_escoamento)
+    # Recuperando a tensão de escoamento
 
+    # Dados dos materais
+    mat = dados_elementos[ele,1]
+
+    # Todos os dados do material estão em um dicionário local
+    material = dicionario_materiais[mat]
+
+    # E podemos recuperar os dados usando os nomes como chaves
+    σ_esc = material["S_esc"]
+    
     # Calcula o σ_limite (limite da restrição de tensao) - vai ser um vetor
-    σ_limite = σ_esc./n
+    σ_limite = σ_esc/n
 
     # Número de restrições - no momento, apenas de tensão - 4 restrições por elemento
     m = 4*ne
@@ -72,15 +80,15 @@ function Otimiza_Portico3D_V_sigma(arquivo; verbose=true)
             ###################################################################
             ############################## TESTANDO ###########################
 
-    #println("Testando a derivada... :)")
-    #@show restr(ρ0)
+    println("Testando a derivada... :)")
+    @show restr(ρ0)
 
-    # Testa a derivada
-    #d_codigo = dLA(ρ0)        
-    #d_dfc = df(ρ0,1E-4,LA)
-    #@show d_codigo, d_dfc
+     Testa a derivada
+    d_codigo = dLA(ρ0)        
+    d_dfc = df(ρ0,1E-4,LA)
+    @show d_codigo, d_dfc
     
-    #return [d_codigo d_dfc]
+    return [d_codigo d_dfc]
     
             ###################################################################
 

@@ -62,7 +62,7 @@ function Le_YAML(arquivo,ver=1.0)
    vetor_materiais = dados["materiais"]
 
    # Dados obrigatórios para cada um dos materiais
-   dados_obrigatorios_materiais = ["nome","Ex","G"]
+   dados_obrigatorios_materiais = ["nome","Ex","G", "S_esc"]
 
    # Precisamos ter ao menos uma informação
    length(vetor_materiais)>=1 || throw("leitura_dados:: ao menos um material é necessário")
@@ -181,10 +181,10 @@ function Le_YAML(arquivo,ver=1.0)
    ######################################### Rest. Tensao ######################################
 
    # Recupera as informações
-   string_tensao_escoamento = dados["tensao_escoamento"]
+   #string_tensao_escoamento = dados["tensao_escoamento"]
 
    # Converte para matriz
-   tensoes_escoamento = Converte_array(string_tensao_escoamento,1,Float64)
+   #tensoes_escoamento = Converte_array(string_tensao_escoamento,1,Float64)
 
    ########################################### Conectividades ########################################
 
