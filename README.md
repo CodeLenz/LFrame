@@ -35,7 +35,7 @@ Using the Finite Element Method, we implemented Topology Optimization techniques
 ### Installation:
 1. First, clone the repository:
     ```bash
-   git clone https://github.com/your-repo/LFrame.git
+   git clone [https://github.com/CodeLenz/LFrame]
 2. Navigate to the repository directory:
    ```bash
    cd("...\\LFrame")
@@ -72,9 +72,9 @@ P  \left\{
     \begin{aligned}
     & min\; V(\bm{\rho}) \\
     & S.t \\
-    & \quad \quad \mathbf{K}(\bm{\rho})\mathbf{U}(\bm{\rho}) = \mathbf{F} \\
+    & \quad \quad \mathbf{K}(\mathbf{\rho})\mathbf{U}(\mathbf{\rho}) = \mathbf{F} \\
     & \quad \quad \sigma_{eq,e} \leq \sigma_{limiting} \\
-    & \quad \quad \mathbf{0} < \bm{\rho} \leq \mathbf{1} \\
+    & \quad \quad \mathbf{0} < \mathbf{\rho} \leq \mathbf{1} \\
     \end{aligned}
     \right.
 ```
@@ -83,11 +83,14 @@ Where
 
 
 ### Equação (3)
-![Volume](https://latex.codecogs.com/png.latex?V%28%5Cbm%7B%5Crho%7D%29%20%3D%20%5Csum_%7Be%3D1%7D%5En%20%5Crho_e%20v_e%5E0)
+```math
+   V(\bm{\rho}) = \sum_{e=1}^n \rho_e v^0_e
+```
 is the volume of the structure,
 ### Equação (4)
-![Matriz de Rigidez Global](https://latex.codecogs.com/png.latex?%5Cmathbf%7BK%7D%28%5Cbm%7B%5Crho%7D%29%20%3D%20%5Ccup_%7Be%3D1%7D%5En%20%5Crho_e%5Ep%20%5Cmathbf%7BK%7D_e%5E0)
-
+```math
+  \mathbf{K}(\bm{\rho})=\cup_{e=1}^{n} \rho_e^p \mathbf{K}^0_e
+```
 - \( \mathbf{K}(\bm{\rho}) \) is the global stiffness matrix, obtained by assembling the individual stiffness matrices \( \mathbf{K}_e^0 \) of the elements, scaled by the design variables \( \rho_e^p \).
 - \( \cup \) is the assembly operator that combines the elemental stiffness matrices to form the global matrix.
 - \( v_e^0 \) is the volume of element \( e \).
@@ -96,14 +99,15 @@ is the volume of the structure,
 - \( \sigma_{eq,e} \) is the **Von Mises equivalent stress** at element \( e \)
 - \( \sigma_{\text{limiting}} \) is the limiting stress, calculated considering the **yield stress** \( \sigma_{\text{yield}} \) of the material and a **safety factor** \( \text{FS} \). It is the maximum allowable stress in the system.
   - Specifically: 
-    \[
+    ```math
     \sigma_{\text{limiting}} = \frac{\sigma_{\text{yield}}}{\text{n}}
-    \]
+    ```
 
 Through the augmented Lagrangian approach, the optimization problem, in its streamlined form, as well as with the adjoint method, can be written as
 ### Equação (5)
-![Lagrangian](https://latex.codecogs.com/png.latex?L_A%20%3D%20V%20%20%2B%20%5Cfrac%7Bc_%7B%5Csigma%7D%7D%7B2%284ne%29%7D%20%5Csum_%7Be%3D1%7D%5Ene%20%5Csum_%7Bno%3D1%7D%5E2%5Csum_%7Ba%3D0%7D%5E1%5Cleft%3C%20%5Cfrac%7B%5Cmu_i%7D%7Bc%7D%2Bg_%7B%5Csigma%20j%7D%20%5Cright%3E%5E2%20%2B%20%5Cbm%7B%5Clambda%7D%5ET%28%5Cmathbb%7BK%7D%5Cmathbf%7BU%7D%20-%20%5Cmathbf%7BF%7D%29)
-
+```math
+   L_A = V  + \frac{c_{\sigma}}{2(4ne)} \sum_{e=1}^{ne} \sum_{no=1}^{2}\sum_{a=0}^{1}\left< \frac{\mu_i}{c}+g_{\sigma j} \right>^2 + \bm{\lambda}^T(\mathbb{K}\mathbf{U} - \mathbf{F})
+```
 Where:
 - \( L_A \) is the augmented Lagrangian function.
 - \( V \) is the volume.
