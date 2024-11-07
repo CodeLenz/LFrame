@@ -83,7 +83,7 @@ function Otimiza_Portico3D_V_sigma(arquivo; verbose=true)
     println("Testando a derivada... :)")
     @show restr(ρ0)
 
-     Testa a derivada
+    #Testa a derivada
     d_codigo = dLA(ρ0)        
     d_dfc = df(ρ0,1E-4,LA)
     @show d_codigo, d_dfc
