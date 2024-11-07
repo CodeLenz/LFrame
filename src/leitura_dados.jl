@@ -264,8 +264,7 @@ function Le_YAML(arquivo,ver=1.0)
 
 
    # Retorna os dados do arquivo
-   return ne, nnos, coord, conect, apoios, dicionario_materiais, dicionario_geometrias, dados_elementos, loads, mpc, floads, tensoes_escoamento
-
+   return ne, nnos, coord, conect, apoios, dicionario_materiais, dicionario_geometrias, dados_elementos, loads, mpc, floads
 end
 
 
