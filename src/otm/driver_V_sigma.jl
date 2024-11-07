@@ -20,7 +20,7 @@ end
 #
 
 # tensao_limite::Vector <= pre-processar com os dados dos materiais de cada elemento
-function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, σ_limite::Vector,
+function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, σ_limite::Float64,
                         m::Int64, ne,nnos,elems,dados_elementos,dicionario_materiais, 
                         dicionario_geometrias,L,coord, loads,floads, apoios, mpc, 
                         opcao::String )
