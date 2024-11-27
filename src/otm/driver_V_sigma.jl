@@ -137,7 +137,7 @@ function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, σ_limite::Float64,
     FA[1:n_gl] .=  F_s
 
     # Atualiza o lado da direita
-    linsolve.b = FA
+    linsolve.b = -FA
     U_ = solve(linsolve)
     λ = U_.u[1:n_gl]
 
