@@ -7,7 +7,7 @@ module LFrame
     using YAML
 	#using BMesh
 	using WallE
-	using Lgmsh
+	#using Lgmsh
 	
 	# Carregando as outras rotinas:
 	include("auxiliar.jl")
