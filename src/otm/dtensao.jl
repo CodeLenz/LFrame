@@ -85,8 +85,8 @@ function Derivada_gtensao(ne, ρ, μ, c_σ, g, dados_elementos, dicionario_mater
 
                 # Matriz utilizada nas derivadas de tensão equivalente
                 D = [1     0       0       0;
-                     0     1       0       0;
-                     0     0     My/Mr   Mz/Mr]
+                     0     0     My/Mr   Mz/Mr;
+                     0     1       0       0]
 
 
                 # Vetor de tensões:
