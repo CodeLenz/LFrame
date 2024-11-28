@@ -22,8 +22,8 @@ end
 # tensao_limite::Vector <= pre-processar com os dados dos materiais de cada elemento
 function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, σ_limite::Float64,
                         m::Int64, ne,nnos,elems,dados_elementos,dicionario_materiais, 
-                        dicionario_geometrias,L,coord, loads,floads, apoios, mpc, 
-                        opcao::String, sigma_esc )
+                        dicionario_geometrias,L,coord, loads,floads, apoios, mpc, sigma_esc,
+                        opcao::String )
 
     # Verifica se opção é algo válido
     opcao in ["LA","dLA","g","U"] || error("Driver::opção $opcao inválida")
