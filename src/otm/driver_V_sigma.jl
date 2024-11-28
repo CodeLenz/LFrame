@@ -122,7 +122,7 @@ function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, σ_limite::Float64,
 
     # Calcular as derivadas relativas as restrições de tensão
     D2, F_s = Derivada_gtensao(ne, ρ, μ, r0, g, dados_elementos, dicionario_materiais, 
-                               dicionario_geometrias, L, σ_limite, U, elems, coord, sigma_esc)
+                               dicionario_geometrias, L, U, elems, coord, sigma_esc)
 
 
     
@@ -140,6 +140,7 @@ function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, σ_limite::Float64,
     linsolve.b = -FA
     U_ = solve(linsolve)
     λ = U_.u[1:n_gl]
+    @show λ
 
     # Calcula o último termo restante, λ^T(dK/dρm)U
     Dλ = derivada_λ(ne,elems,dados_elementos, dicionario_materiais,

@@ -2,7 +2,7 @@
 # Aqui vamos ter a função que calcula a derivada da restrição de tensão dgσ_dxm do material
 #
 function Derivada_gtensao(ne, ρ, μ, c_σ, g, dados_elementos, dicionario_materiais,
-                          dicionario_geometrias,L, tensao_limite,  U, elems, coord, sigma_esc)
+                          dicionario_geometrias,L, U, elems, coord, sigma_esc)
 
     # Inicializa um vetor de saída 
     D2 = zeros(ne)
@@ -24,7 +24,7 @@ function Derivada_gtensao(ne, ρ, μ, c_σ, g, dados_elementos, dicionario_mater
         # Extraindo o raio externo:
         re = sqrt(J0e/Ae + Ae/(2*pi)) 
 
-        # Calcula os esforços no elemento
+        # Calcula os esforços no elemento - ordem: X Y Z
         Fe = Esforcos_elemento(ele,elems,dados_elementos,dicionario_materiais,dicionario_geometrias,
                                L,coord,U)
 
@@ -120,7 +120,12 @@ function Derivada_gtensao(ne, ρ, μ, c_σ, g, dados_elementos, dicionario_mater
         end # nó
     end # ele
 
+    # Por fim, multiplicamos os somatórios obtidos pelo termo com a penalização
+    derivada_parcial = (c_σ/(4*ne))*D2
+
+    F_σ = (c_σ/(4*ne))*Ds
+
     # Derivada parcial e também vetor de carregamento adjunto
-    return (c_σ/(4*ne))*D2, (c_σ/(4*ne))*Ds
+     return derivada_parcial, F_σ
 
 end
