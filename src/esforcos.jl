@@ -33,7 +33,7 @@ function Esforcos_elemento(ele,elems,dados_elementos::Matrix{String},
     fe = Ke*ul
 
     # Devolve as forças generalizadas nos nós deste elemento
-    @show fe
+    #@show fe
     return fe
 
 end
