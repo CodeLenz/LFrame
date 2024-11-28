@@ -30,8 +30,8 @@ function Derivada_gtensao(ne, ρ, μ, c_σ, g, dados_elementos, dicionario_mater
 
         # Matriz de von-Mises:
         VM = [1.0 1.0 0.0 ;
-              1.0 1.0 0.0 ;
-              0.0 0.0 3.0]
+              0.0 0.0 3.0 ;
+              1.0 1.0 0.0 ]
 
         # Assumindo que fe(x) = x_e
         # a derivada parcial em relação a x_m
@@ -73,7 +73,7 @@ function Derivada_gtensao(ne, ρ, μ, c_σ, g, dados_elementos, dicionario_mater
 
                 # Matriz Pna:
                 Pn = [1/Ae    0         0;
-                        0     0    (re/Ize)*(-1^a);
+                        0     0    (-1^a)*(re/Ize);
                         0    re/J0e     0]
 
 

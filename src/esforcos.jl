@@ -87,7 +87,7 @@ function Tensao_no_elemento(ele::Int,n::Int,a::Int,fe::Vector,dados_elementos::M
     s_xx_Mr = ((-1)^a) * Mr*r_e / Ize
 
     # Retorna o vetor com as tensões do elemento
-    return [s_xx_N ; s_xx_Mr ;  s_xy_T]
+    return [s_xx_N  ;  s_xy_T ; s_xx_Mr]
 
 end
 
