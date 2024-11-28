@@ -123,7 +123,7 @@ function Derivada_gtensao(ne, ρ, μ, c_σ, g, dados_elementos, dicionario_mater
     # Por fim, multiplicamos os somatórios obtidos pelo termo com a penalização
     derivada_parcial = (c_σ/(4*ne))*D2
 
-    F_σ = (c_σ/(4*ne))*Ds
+    F_σ = -(c_σ/(4*ne))*Ds
 
     # Derivada parcial e também vetor de carregamento adjunto
      return derivada_parcial, F_σ

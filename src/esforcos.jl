@@ -34,7 +34,7 @@ function Esforcos_elemento(ele,elems,dados_elementos::Matrix{String},
 
     # Devolve as forças generalizadas nos nós deste elemento
     #@show fe
-    return fe
+    return fe 
 
 end
 
@@ -85,7 +85,7 @@ function Tensao_no_elemento(ele::Int,n::Int,a::Int,fe::Vector,dados_elementos::M
     s_xy_T = T*r_e / J0e
 
     # Tensão normal devido à flexão oblíqua
-    s_xx_Mr = ((-1)^a) * Mr*r_e / Ize
+    s_xx_Mr = ((-1)^a) * Mr*r_e / Ize 
 
     # Retorna o vetor com as tensões do elemento
     return [s_xx_N  ;  s_xy_T ; s_xx_Mr]
@@ -99,8 +99,8 @@ function Tensao_equivalente(tensao::Vector)
 
     # Matriz de von-Mises
     VM = [1.0 1.0 0.0 ;
-          1.0 1.0 0.0 ;
-          0.0 0.0 3.0]
+          0.0 0.0 3.0 ;
+          1.0 1.0 0.0 ]
 
     # Tensão equivalente de von-Mises
     sqrt(transpose(tensao)*VM*tensao)
