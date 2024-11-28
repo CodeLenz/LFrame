@@ -20,14 +20,14 @@ function Otimiza_Portico3D_V_sigma(arquivo; verbose=true)
     L = Pre_processamento(elems, coord)
 
     # Cria o vetor ρ - vamos continuar usando essa parametrização né?
-    ρ0 = 0.5*ones(ne) 
+    ρ0 = ones(ne) 
 
     # Restrições laterais do problema
     ρmin = 1E-3*ones(ne)
     ρmax = ones(ne)
 
     # Número de iterações do procedimento de otimização
-    niter = 1
+    niter = 10
 
     # Fator de segurança da estrutura
     n = 2.5
@@ -81,11 +81,12 @@ function Otimiza_Portico3D_V_sigma(arquivo; verbose=true)
             ###################################################################
             ############################## TESTANDO ###########################
 
-    println("Testando a derivada... :)")
-    @show restr(ρ0)
+   
 
     #Testa a derivada
     #=
+    println("Testando a derivada... :)")
+    @show restr(ρ0)
     println("analitico")
     d_codigo = dLA(ρ0)
     println("numerico")        
@@ -126,7 +127,7 @@ function Otimiza_Portico3D_V_sigma(arquivo; verbose=true)
         # Atualiza os multiplicadores
         μ .= Heaviside.(μ .+ r0*g)
 
-        @show g, μ, g.*μ
+        @show maximum(g), maximum(g.*μ)
 
         # Atualiza o ponto de ótimo
         ρ0 .= ρ
@@ -169,6 +170,20 @@ function Otimiza_Portico3D_V_sigma(arquivo; verbose=true)
     Lgmsh_export_init("saida.pos",nnos,ne,coord,etypes,elems)
     Lgmsh_export_element_scalar("saida.pos",ρ0,"Variáveis de projeto")
 
+    # Calcula as restrições de tensão
+    g = restr(ρ0)
+
+    # A cada 4 posições, pega o maior valor de violação 
+    violacoes = zeros(ne)
+    for ele=1:ne
+        pos_ini = 4*(ele-1)+1
+        pos_fin = 4*(ele-1)+4
+        violacao_maxima = maximum(g[pos_ini:pos_fin])
+        violacoes[ele] = violacao_maxima
+    end
+
+    # Exporta para o gmsh
+    Lgmsh_export_element_scalar("saida.pos",ρ0,"Violações máximas por elemento")
 
     return ρ0
 end

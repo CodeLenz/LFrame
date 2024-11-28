@@ -2,14 +2,14 @@
 # define a função de relaxação para as tensões
 function fe(ρ_e)
 
-    return ρ_e
+    return ρ_e^(1.5)
 
 end
 
 # derivada da função de relaxação
 function dfe(ρ_e)
 
-    return 1.0
+    return 1.5*ρ_e^(1.5-1)
 
 end
 
