@@ -47,13 +47,14 @@ function Tensao_no_elemento(ele::Int,n::Int,a::Int,fe::Vector,dados_elementos::M
                            dicionario_geometrias)
 
     # Testa se as entradas são consistentes
-    n in [1,2] || error("Tensao_no_elemento::n deve ser 1 ou 2")
-    a in [0,1] || error("Tensao_no_elemento::a deve ser 0 ou 1")
+    n in [1,2] || error("Tensao_no_elemento::nó n deve ser 1 ou 2")
+    a in [0,1] || error("Tensao_no_elemento::posição a deve ser 0 ou 1")
 
     # Dependendo no nó, pegamos as componentes relativas aos 
     # esforços N, T, My e Mz. Para o primeiro nó, invertemos
     # os sinais (estamos trabalhando com esforços internos)
     if n==1
+              # N     T     My    Mz
         E = -[fe[1];fe[4];fe[5];fe[6]]
     else
         E = [fe[7];fe[10];fe[11];fe[12]]
@@ -93,16 +94,26 @@ function Tensao_no_elemento(ele::Int,n::Int,a::Int,fe::Vector,dados_elementos::M
 end
 
 #
+# Matriz de von-Mises, assumindo que as tensões são
+# dadas por um vetor com xx_N xy_T e xx_M
+#
+function Matriz_VM()
+
+     [1.0 0.0 1.0 ;
+      0.0 3.0 0.0 ;
+      1.0 0.0 1.0 ]
+
+end
+
+#
 # Calcula a tensão equivalente
 #
 function Tensao_equivalente(tensao::Vector)
 
     # Matriz de von-Mises
-    VM = [1.0 1.0 0.0 ;
-          0.0 0.0 3.0 ;
-          1.0 1.0 0.0 ]
+    VM = Matriz_VM()
 
     # Tensão equivalente de von-Mises
-    sqrt(abs(dot(tensao,VM,tensao)))
+    sqrt(dot(tensao,VM,tensao))
 
 end

@@ -85,10 +85,11 @@ function Otimiza_Portico3D_V_sigma(arquivo; verbose=true)
     @show restr(ρ0)
 
     #Testa a derivada
+    #=
     println("analitico")
     d_codigo = dLA(ρ0)
     println("numerico")        
-    d_dfc = df(ρ0,1E-4,LA)
+    d_dfc = df(ρ0,1E-6,LA)
     println("CODIGO")
     @show d_codigo
     println("DIFERENÇAS FINITAS")
@@ -96,6 +97,7 @@ function Otimiza_Portico3D_V_sigma(arquivo; verbose=true)
     
     
     return [d_codigo d_dfc]
+    =#
     
             ###################################################################
 

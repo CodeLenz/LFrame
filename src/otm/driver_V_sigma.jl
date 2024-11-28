@@ -69,13 +69,21 @@ function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, σ_limite::Float64,
     # Vetor com as tensões equivalentes em cada elemento/nó/pto a
     vetor_vm = zeros(m)
 
+    # Vetor com as restrições de tensão
+    # g = zeros(m)
+
     # Loop pelos elementos
     contador = 1
     for e=1:ne
 
-        # Calcula esforços no elemento 1
+        # Calcula esforços no elemento 
         Fe = Esforcos_elemento(e,elems,dados_elementos,dicionario_materiais,dicionario_geometrias,
                                L,coord,U)
+
+        # Descobre o material deste elemento e pega a tensão de escoamento.
+        # Se necessário, dividir pelo coeficiente de segurança
+        #
+        # σY = σ_limite do material
 
         # loop pelos nós do elemento
         for no=1:2
@@ -92,6 +100,9 @@ function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, σ_limite::Float64,
                 # guarda no vetor_vm - COM RELAXAÇÃO
                 vetor_vm[contador] = fe(ρ[e])*eq
 
+                # Já calcula a restrição para esse elemento/nó/ponto
+                # g[contador] = vetor_vm[contador]/σY - 1            
+
                 # atualiza o contador
                 contador += 1
 
@@ -100,6 +111,7 @@ function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, σ_limite::Float64,
     end #ele
 
     # Cálculo das restrições
+    # Como estamos passando a tensão limite via material 
     g = vetor_vm./σ_limite[1] .- 1
 
     if opcao=="g"
@@ -122,7 +134,7 @@ function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, σ_limite::Float64,
 
     # Calcular as derivadas relativas as restrições de tensão
     D2, F_s = Derivada_gtensao(ne, ρ, μ, r0, g, dados_elementos, dicionario_materiais, 
-                               dicionario_geometrias, L, U, elems, coord, sigma_esc)
+                               dicionario_geometrias, L, U, elems, coord, σ_limite[1])# sigma_esc)
 
 
     
@@ -136,7 +148,8 @@ function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, σ_limite::Float64,
     # problema de equilíbrio
     FA[1:n_gl] .=  F_s
 
-    # Atualiza o lado da direita
+    # Atualiza o lado da direita 
+    # O sinal negativo é devido à dedução do vetor de carregamento adjunto
     linsolve.b = -FA
     U_ = solve(linsolve)
     λ = U_.u[1:n_gl]

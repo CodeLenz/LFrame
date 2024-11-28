@@ -21,7 +21,7 @@ function Derivada_gtensao(ne, ρ, μ, c_σ, g, dados_elementos, dicionario_mater
         # Gls do elemento
         gls = Gls(ele,elems)
 
-        # Extraindo o raio externo:
+        # Calculando o raio externo:
         re = sqrt(J0e/Ae + Ae/(2*pi)) 
 
         # Calcula os esforços no elemento - ordem: X Y Z
@@ -32,9 +32,7 @@ function Derivada_gtensao(ne, ρ, μ, c_σ, g, dados_elementos, dicionario_mater
         # N
         # T
         # M
-        VM = [1.0 1.0 0.0 ;
-              0.0 0.0 3.0 ;
-              1.0 1.0 0.0 ]
+        VM = Matriz_VM()
 
         # Assumindo que fe(x) = x_e
         # a derivada parcial em relação a x_m
@@ -100,7 +98,7 @@ function Derivada_gtensao(ne, ρ, μ, c_σ, g, dados_elementos, dicionario_mater
                 sigma_eq = Tensao_equivalente(vec_sigma)
 
                 # A derivada parcial de g em relação a x_ele será 
-                dg_dxm = 1/sigma_esc * 1/sigma_eq * transpose(vec_sigma)* VM * Pn * D * Mn * dfe_dxm * Fe
+                dg_dxm = (1/sigma_esc) * (1/sigma_eq) * transpose(vec_sigma)* VM * Pn * D * Mn * dfe_dxm * Fe
 
                 # Acumula no vetor D2
                 D2[ele] += Heaviside(μ[contador]/c_σ + g[contador])*dg_dxm
