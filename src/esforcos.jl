@@ -103,6 +103,6 @@ function Tensao_equivalente(tensao::Vector)
           1.0 1.0 0.0 ]
 
     # Tensão equivalente de von-Mises
-    sqrt(transpose(tensao)*VM*tensao)
+    sqrt(dot(vec_sigma,VM,vec_sigma))
 
 end
