@@ -23,7 +23,7 @@ end
 function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, σ_limite::Float64,
                         m::Int64, ne,nnos,elems,dados_elementos,dicionario_materiais, 
                         dicionario_geometrias,L,coord, loads,floads, apoios, mpc, 
-                        opcao::String )
+                        opcao::String, sigma_esc )
 
     # Verifica se opção é algo válido
     opcao in ["LA","dLA","g","U"] || error("Driver::opção $opcao inválida")
@@ -122,7 +122,7 @@ function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, σ_limite::Float64,
 
     # Calcular as derivadas relativas as restrições de tensão
     D2, F_s = Derivada_gtensao(ne, ρ, μ, r0, g, dados_elementos, dicionario_materiais, 
-                               dicionario_geometrias, L, σ_limite, U, elems, coord)
+                               dicionario_geometrias, L, σ_limite, U, elems, coord, sigma_esc)
 
 
     

@@ -2,9 +2,9 @@
 # Aqui vamos ter a função que calcula a derivada da restrição de tensão dgσ_dxm do material
 #
 function Derivada_gtensao(ne, ρ, μ, c_σ, g, dados_elementos, dicionario_materiais,
-                          dicionario_geometrias,L, tensao_limite,  U, elems, coord)
+                          dicionario_geometrias,L, tensao_limite,  U, elems, coord, sigma_esc)
 
-    # Inicializa um vetor de saída
+    # Inicializa um vetor de saída 
     D2 = zeros(ne)
 
     # Vetor de carregamento adjunto para a tensão
@@ -32,9 +32,6 @@ function Derivada_gtensao(ne, ρ, μ, c_σ, g, dados_elementos, dicionario_mater
         VM = [1.0 1.0 0.0 ;
               1.0 1.0 0.0 ;
               0.0 0.0 3.0]
-
-        # Tensão limite do material do elemento 
-        sigma_esc = 
 
         # Assumindo que fe(x) = x_e
         # a derivada parcial em relação a x_m

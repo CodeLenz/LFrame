@@ -9,7 +9,7 @@ onde arquivo deve apontar para um .yaml com os dados  e verbose
 indica se queremos que a rotina faça comentários ao longo da
 execução.
 
-"""
+""" 
 
 function Otimiza_Portico3D_V_sigma(arquivo; verbose=true)
 
@@ -66,16 +66,16 @@ function Otimiza_Portico3D_V_sigma(arquivo; verbose=true)
 
     # Define os drivers
     LA(ρ) = Driver_V_sigma(ρ,r0,μ,σ_limite,m,ne,nnos,elems,dados_elementos,dicionario_materiais, 
-            dicionario_geometrias,L,coord, loads,floads, apoios, mpc, "LA")
+            dicionario_geometrias,L,coord, loads,floads, apoios, mpc, σ_esc, "LA")
 
     dLA(ρ) = Driver_V_sigma(ρ,r0,μ,σ_limite,m,ne,nnos,elems,dados_elementos,dicionario_materiais, 
-            dicionario_geometrias,L,coord, loads,floads, apoios, mpc, "dLA")
+            dicionario_geometrias,L,coord, loads,floads, apoios, mpc, σ_esc, "dLA")
 
     restr(ρ) = Driver_V_sigma(ρ,r0,μ,σ_limite,m,ne,nnos,elems,dados_elementos,dicionario_materiais, 
-            dicionario_geometrias,L,coord, loads,floads, apoios, mpc,  "g")
+            dicionario_geometrias,L,coord, loads,floads, apoios, mpc,σ_esc,   "g")
           
     equil(ρ) = Driver_V_sigma(ρ,r0,μ,σ_limite,m,ne,nnos,elems,dados_elementos,dicionario_materiais, 
-            dicionario_geometrias,L,coord, loads,floads, apoios, mpc,  "U")
+            dicionario_geometrias,L,coord, loads,floads, apoios, mpc,σ_esc,  "U")
 
 
             ###################################################################
