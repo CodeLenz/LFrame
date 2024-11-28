@@ -73,7 +73,7 @@ function Derivada_gtensao(ne, ρ, μ, c_σ, g, dados_elementos, dicionario_mater
 
                 # Matriz Pna:
                 Pn = [1/Ae    0         0;
-                        0     0    (-re/Ize)^a;
+                        0     0    (re/Ize)*(-1^a);
                         0    re/J0e     0]
 
 
@@ -90,7 +90,7 @@ function Derivada_gtensao(ne, ρ, μ, c_σ, g, dados_elementos, dicionario_mater
                 vec_sigma = Tensao_no_elemento(ele,no,a,Fe,dados_elementos,dicionario_geometrias)
 
                 # Tensão equivalente de von-Mises:
-                sigma_eq = sqrt(dot(vec_sigma,VM,vec_sigma))
+                sigma_eq = sqrt(transpose(vec_sigma)*VM*vec_sigma)
 
                 # A derivada parcial de g em relação a x_ele será 
                 dg_dxm = 1/sigma_esc * 1/sigma_eq * transpose(vec_sigma)* VM * Pn * D * Mn * dfe_dxm * Fe
