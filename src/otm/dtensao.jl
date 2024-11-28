@@ -30,11 +30,11 @@ function Derivada_gtensao(ne, ρ, μ, c_σ, g, dados_elementos, dicionario_mater
 
         # Matriz de von-Mises:
         # N
-        # M
         # T
+        # M
         VM = [1.0 1.0 0.0 ;
-              1.0 1.0 0.0 ;
-              0.0 0.0 3.0 ]
+              0.0 0.0 3.0 ;
+              1.0 1.0 0.0 ]
 
         # Assumindo que fe(x) = x_e
         # a derivada parcial em relação a x_m
@@ -51,17 +51,21 @@ function Derivada_gtensao(ne, ρ, μ, c_σ, g, dados_elementos, dicionario_mater
         for no = 1:2
 
             # Matriz Mn:
+            # N 
+            # T 
+            # M    
             if no == 1
-                Mn = [-1   0   0   0   0   0   0   0   0   0   0   0; # Fx
-                       0   0   0  -1   0   0   0   0   0   0   0   0; # Mx
+                Mn = [-1   0   0   0   0   0   0   0   0   0   0   0; # N
+                       0   0   0  -1   0   0   0   0   0   0   0   0; # T
                        0   0   0   0  -1   0   0   0   0   0   0   0; # My
                        0   0   0   0   0  -1   0   0   0   0   0   0] # Mz
             else
-                Mn = [0    0   0  0   0   0   1   0   0   0   0   0; # Fx
-                      0    0   0  0   0   0   0   0   0   1   0   0; # Mx
+                Mn = [0    0   0  0   0   0   1   0   0   0   0   0; # N
+                      0    0   0  0   0   0   0   0   0   1   0   0; # T
                       0    0   0  0   0   0   0   0   0   0   1   0; # My
                       0    0   0  0   0   0   0   0   0   0   0   1] # Mz
-            end
+            end 
+            
 
             # Esforços no nó n (4x1)
             # N T My Mz
@@ -75,24 +79,21 @@ function Derivada_gtensao(ne, ρ, μ, c_σ, g, dados_elementos, dicionario_mater
             for a = 0:1
 
                 # Matriz Pna:
-                Pn = [1/Ae    0         0;
-                        0     0    (-1^a)*(re/Ize);
-                        0    re/J0e     0]
+                Pn = [1/Ae    0            0;        # N
+                       0    re/J0e         0;        # T
+                       0     0    ((-1)^a)*(re/Ize)] # M
 
 
                 # O momento resultante é:
                 Mr = sqrt(My^2 + Mz^2)
 
                 # Matriz utilizada nas derivadas de tensão equivalente
-                # N
-                # M
-                # T
-                D = [1     0       0       0;
-                     0     0     My/Mr   Mz/Mr;
-                     0     1       0       0]
+                D = [1     0       0       0;   # N
+                     0     1       0       0;   # T
+                     0     0     My/Mr   Mz/Mr] # M
 
 
-                # Vetor de tensões:
+                # Vetor de tensões: N T M
                 vec_sigma = Tensao_no_elemento(ele,no,a,Fe,dados_elementos,dicionario_geometrias)
 
                 # Tensão equivalente de von-Mises:
