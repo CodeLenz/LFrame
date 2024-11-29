@@ -167,8 +167,8 @@ function Otimiza_Portico3D_V_sigma(arquivo; verbose=true)
 
     # Exporta dados para o gmsh
     etypes = ones(Int64,ne)
-    Lgmsh_export_init("saida.pos",nnos,ne,coord,etypes,elems)
-    Lgmsh_export_element_scalar("saida.pos",ρ0,"Variáveis de projeto")
+    Lgmsh_export_init("saida_vertical_inferior.pos",nnos,ne,coord,etypes,elems)
+    Lgmsh_export_element_scalar("saida_vertical_inferior.pos",ρ0,"Variáveis de projeto")
 
     # Calcula as restrições de tensão
     g = restr(ρ0)
@@ -183,7 +183,7 @@ function Otimiza_Portico3D_V_sigma(arquivo; verbose=true)
     end
 
     # Exporta para o gmsh
-    Lgmsh_export_element_scalar("saida.pos",ρ0,"Violações máximas por elemento")
+    Lgmsh_export_element_scalar("saida_vertical_inferior.pos",ρ0,"Violações máximas por elemento")
 
     return ρ0
 end
