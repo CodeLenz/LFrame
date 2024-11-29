@@ -2,7 +2,7 @@ materiais:
   - nome: "madeira"
     G: 8.0e8
     Ex: 9.0e9
-    S_esc: "200e6"
+    S_esc: "2e6"
 
 geometrias:
   - Iz: 8.291e-5

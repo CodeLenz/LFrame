@@ -2,7 +2,7 @@ materiais:
   - nome: "aco"
     G: 8.0e10
     Ex: 2.1e11
-    S_esc: "200e6"
+    S_esc: "2e6"
     
 loads: 
       " 18 2 -1000.0 
