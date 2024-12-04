@@ -22,7 +22,7 @@ end
 # tensao_limite::Vector <= pre-processar com os dados dos materiais de cada elemento
 function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, σ_limite::Float64,
                         m::Int64, ne,nnos,elems,dados_elementos,dicionario_materiais, 
-                        dicionario_geometrias,L,coord, loads,floads, apoios, mpc, sigma_esc,
+                        dicionario_geometrias,L,coord, loads,floads, apoios, mpc,
                         opcao::String )
 
     # Verifica se opção é algo válido
@@ -83,7 +83,7 @@ function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, σ_limite::Float64,
         # Descobre o material deste elemento e pega a tensão de escoamento.
         # Se necessário, dividir pelo coeficiente de segurança
         #
-        # σY = σ_limite do material
+        σY = σ_limite #do material
 
         # loop pelos nós do elemento
         for no=1:2
@@ -101,7 +101,7 @@ function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, σ_limite::Float64,
                 vetor_vm[contador] = fe(ρ[e])*eq
 
                 # Já calcula a restrição para esse elemento/nó/ponto
-                # g[contador] = vetor_vm[contador]/σY - 1            
+                g[contador] = vetor_vm[contador]/σY - 1            
 
                 # atualiza o contador
                 contador += 1
@@ -112,7 +112,7 @@ function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, σ_limite::Float64,
 
     # Cálculo das restrições
     # Como estamos passando a tensão limite via material 
-    g = vetor_vm./σ_limite[1] .- 1
+    #g = vetor_vm./σ_limite[1] .- 1
 
     if opcao=="g"
         return g

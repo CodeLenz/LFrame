@@ -30,7 +30,7 @@ function Otimiza_Portico3D_V_sigma(arquivo; verbose=true)
     niter = 10
 
     # Fator de segurança da estrutura
-    n = 2.5
+    #n = 2.5 vou usar direto a tensao limite na entrada de dados
 
     # Recuperando a tensão de escoamento
 
@@ -66,16 +66,16 @@ function Otimiza_Portico3D_V_sigma(arquivo; verbose=true)
 
     # Define os drivers
     LA(ρ) = Driver_V_sigma(ρ,r0,μ,σ_limite,m,ne,nnos,elems,dados_elementos,dicionario_materiais, 
-            dicionario_geometrias,L,coord, loads,floads, apoios, mpc, σ_esc, "LA")
+            dicionario_geometrias,L,coord, loads,floads, apoios, mpc, "LA")
 
     dLA(ρ) = Driver_V_sigma(ρ,r0,μ,σ_limite,m,ne,nnos,elems,dados_elementos,dicionario_materiais, 
-            dicionario_geometrias,L,coord, loads,floads, apoios, mpc, σ_esc, "dLA")
+            dicionario_geometrias,L,coord, loads,floads, apoios, mpc, "dLA")
 
     restr(ρ) = Driver_V_sigma(ρ,r0,μ,σ_limite,m,ne,nnos,elems,dados_elementos,dicionario_materiais, 
-            dicionario_geometrias,L,coord, loads,floads, apoios, mpc,σ_esc,   "g")
+            dicionario_geometrias,L,coord, loads,floads, apoios, mpc,  "g")
           
     equil(ρ) = Driver_V_sigma(ρ,r0,μ,σ_limite,m,ne,nnos,elems,dados_elementos,dicionario_materiais, 
-            dicionario_geometrias,L,coord, loads,floads, apoios, mpc,σ_esc,  "U")
+            dicionario_geometrias,L,coord, loads,floads, apoios, mpc,  "U")
 
 
             ###################################################################
