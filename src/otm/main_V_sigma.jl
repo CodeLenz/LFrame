@@ -45,7 +45,7 @@ function Otimiza_Portico3D_V_sigma(arquivo; verbose=true)
     @show σ_esc
     
     # Calcula o σ_limite (limite da restrição de tensao) - vai ser um vetor
-    σ_limite = σ_esc/n
+    σ_limite = σ_esc
 
     # Número de restrições - no momento, apenas de tensão - 4 restrições por elemento
     m = 4*ne
