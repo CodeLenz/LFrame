@@ -84,7 +84,7 @@ function Otimiza_Portico3D_V_sigma(arquivo; verbose=true)
    
 
     #Testa a derivada
-    #=
+    
     println("Testando a derivada... :)")
     @show restr(ρ0)
     println("analitico")
@@ -98,7 +98,7 @@ function Otimiza_Portico3D_V_sigma(arquivo; verbose=true)
     
     
     return [d_codigo d_dfc]
-    =#
+    
     
             ###################################################################
 
