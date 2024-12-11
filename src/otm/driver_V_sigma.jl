@@ -70,7 +70,7 @@ function Driver_V_sigma(ρ::Vector,r0::Float64, μ::Vector, σ_limite::Float64,
     vetor_vm = zeros(m)
 
     # Vetor com as restrições de tensão
-    # g = zeros(m)
+     g = zeros(m)
 
     # Loop pelos elementos
     contador = 1
