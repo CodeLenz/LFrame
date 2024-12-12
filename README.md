@@ -58,76 +58,19 @@ This will perform an initial FEM analysis and start the optimization process. Af
 
 ## Mathematical Formulation ⚙️
 
-In this section, we describe the mathematical framework used for topology optimization os 3D frame elements. The optimization problem is formulated to minimize the volume of the structure while satisfying constraints on stress, using the SIMP approach.
+We started with the classic minimization of the structure's compliance with volume constraint, using the Optimum Criteria approach, and then, to optimize the optimization (🙃), we used the Augmented Lagrangian method.
 
-### Equação (1)
-![Fórmula](https://latex.codecogs.com/png.latex?%5Cmathbf%7BK%7D_e%28%5Crho_e%29%20%3D%20%5Crho%5Ep_e%20%5Cmathbf%7BK%7D_e%5E0)
+With the sensitivity analysis being done with the derivatives of the Objective Function and the Augmented Lagrangian Function, the process is stopped when the Karush-Kuhn-Tucker conditions are achieved. The validation of the codes was done in parts. The derivatives were compared to results using the Finite Differences method. The numerical results of the static analysis (i.e., the displacement vector found using the equilibrium equation) were compared to benchmark problems.
+Three examples are shown in the next section.
 
-where $ \mathbf{K}_e^0 $ is the stiffness matrix evaluated using $ E^0 $.
-The Optimization Problem is defined as
+Therefore, we were encouraged to continue with the research by adding new objectives and constraints. The new objective function is the volume of the structure, and displacements became the constraints. Therefore, we were ready to include the most problematic constraint, the local stress. An adjustment was made to the Augmented Lagrangian function to include the adjoint problem, improving the computational time of the process, a necessary step due to the larger number of constraints.
 
-### Equação (2)
-```math
-P  \left\{
-    \begin{aligned}
-    & min\; V(\bm{\rho}) \\
-    & S.t \\
-    & \quad \quad \mathbf{K}(\mathbf{\rho})\mathbf{U}(\mathbf{\rho}) = \mathbf{F} \\
-    & \quad \quad \sigma_{eq,e} \leq \sigma_{limiting} \\
-    & \quad \quad \mathbf{0} < \mathbf{\rho} \leq \mathbf{1} \\
-    \end{aligned}
-    \right.
-```
-
-Where
-
-
-### Equação (3)
-```math
-   V(\bm{\rho}) = \sum_{e=1}^n \rho_e v^0_e
-```
-is the volume of the structure,
-### Equação (4)
-```math
-  \mathbf{K}(\bm{\rho})=\cup_{e=1}^{n} \rho_e^p \mathbf{K}^0_e
-```
-- \( \mathbf{K}(\bm{\rho}) \) is the global stiffness matrix, obtained by assembling the individual stiffness matrices \( \mathbf{K}_e^0 \) of the elements, scaled by the design variables \( \rho_e^p \).
-- \( \cup \) is the assembly operator that combines the elemental stiffness matrices to form the global matrix.
-- \( v_e^0 \) is the volume of element \( e \).
-- \( \mathbf{U} \) is the displacement vector, representing the displacements of the nodes of the structure.
-- \( \mathbf{F} \) is the force vector, representing the applied loads on the structure.
-- \( \sigma_{eq,e} \) is the **Von Mises equivalent stress** at element \( e \)
-- \( \sigma_{\text{limiting}} \) is the limiting stress, calculated considering the **yield stress** \( \sigma_{\text{yield}} \) of the material and a **safety factor** \( \text{FS} \). It is the maximum allowable stress in the system.
-  - Specifically: 
-    ```math
-    \sigma_{\text{limiting}} = \frac{\sigma_{\text{yield}}}{\text{n}}
-    ```
-
-Through the augmented Lagrangian approach, the optimization problem, in its streamlined form, as well as with the adjoint method, can be written as
-### Equação (5)
-```math
-   L_A = V  + \frac{c_{\sigma}}{2(4ne)} \sum_{e=1}^{ne} \sum_{no=1}^{2}\sum_{a=0}^{1}\left< \frac{\mu_i}{c}+g_{\sigma j} \right>^2 + \bm{\lambda}^T(\mathbb{K}\mathbf{U} - \mathbf{F})
-```
-Where:
-- \( L_A \) is the augmented Lagrangian function.
-- \( V \) is the volume.
-- \( c_{\sigma} \) is a constant related to the stress penalty term.
-- The double summation represents the contribution of each element, node, and degree of freedom to the total penalization term.
-- \( \mu_i \) is a parameter related to the perturbation of the design variables.
-- \( g_{\sigma j} \) is the stress constraint function.
-- \( \bm{\lambda} \) is the vector of Lagrange multipliers.
-- \( \mathbb{K} \) is the global stiffness matrix.
-- \( \mathbf{U} \) is the displacement vector.
-- \( \mathbf{F} \) is the force vector.
-
-We can observe the importance of the objective function and the constraints through sensitivity analysis, using the derivatives of these functions. In this way, we can analyze how perturbations in these functions affect the optimization problem.
-### TODO
-
+The current Optimization Problem is the minimization of the volume with local stress constraints.
 
 
 
 ## Examples: 🛠️
-![Em Construção]([https://url-da-imagem.com/imagem.png](https://pngimg.com/d/under_construction_PNG18.png))
+
 
 
 <p align="center">
