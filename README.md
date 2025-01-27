@@ -4,15 +4,23 @@
 <img src="./docs/spatttttttial.png">
 </p>
 
-Welcome to our repository :)
-This is my Undergraduate Research Project from the past one and a half years. It aims to perform a complete analysis of structures discretized into frame elements — including equilibrium analysis and topology optimization.
+Welcome to our repository 🫶
 
-### About Our Project
+This is my Undergraduate Research Project from the past one and a half years. Its goal is to perform a comprehensive analysis of structures discretized into frame elements, including equilibrium analysis and topology optimization.
+
+During the course of my research, I was able to understand the logic behind both unconstrained and constrained optimization, as well as topology optimization. Moreover, it allowed me to gain significant knowledge in programming—not only with the Julia language used here, but also with the core logic of programming itself.
+
+It was an honor to present part of the research showcased here at the XLV Ibero-Latin American Congress on Computational Methods in Engineering (CILAMCE 2024). You can check out my work, supervised by my research advisor, at the following link: https://publicacoes.softaliza.com.br/cilamce/article/view/10397.
+
+I am truly happy to present all of my work here. For more detailed information about the theoretical development, please check the "Documentation File" located in the "Docs" folder. Enjoy! 😸
+
+
+## About Our Project 💻
 
 Using the Finite Element Method, we implemented Topology Optimization techniques for elements with six degrees of freedom per node. During the project, our initial goal was to minimize the compliance of the structure, subject to a volume constraint, using the SIMP approach. Yes, the classic problem. After validating the studied problems (both the mathematical approaches and the results obtained), our new objective became minimizing the structure's volume while imposing constraints on stress and displacement.
 Currently, we're working on incorporating uncertainties in the applied loads — specifically, their magnitude and angle.
 
-### Key Points :sparkles:
+### Key Points 🔐
 
 - Modeling of frame elements
 - Objective function: currently, minimizing the total volume of the structure
@@ -66,11 +74,32 @@ Two examples are shown in the next section.
 
 Therefore, we were encouraged to continue with the research by adding new objectives and constraints. The new objective function is the volume of the structure, and displacements became the constraints. Therefore, we were ready to include the most problematic constraint, the local stress. An adjustment was made to the Augmented Lagrangian function to include the adjoint problem, improving the computational time of the process, a necessary step due to the larger number of constraints.
 
-The current Optimization Problem is the minimization of the volume with local stress constraints.
+The current optimization problem is the minimization of the volume with local stress constraints, and I am looking forward to adding uncertainties to the applied loads. This addition will make the problem more complex but also much more interesting.
+
+Since the equations developed are somewhat intricate, I will spare GitHub from interpreting them. You can check the main mathematical developments in the "Documentation File" located in the "Docs" folder.
 
 
 
 ## Examples: 🛠️
+
+### Example 1: Simply supported structure under vertical load. 
+The first example consists of a  simply support structure subjected to four point loads of $100$N in the negative vertical direction ($y$) at nodes $30$, $31$, $46$, and $47$. The Dirichlet boundary conditions are null displacements in the $x$, $y$, and $z$ directions at nodes $1$, $4$, $49$, and $52$ (bottom corner nodes). The minimum volume condition is $40\%$ of the original volume. The  initial penalization value, $c^0$, is set to $1.0$. The visualization of the problem and the final result can be seen in Fig. 1. Full elements are shown in black and removed elements in blue. Initial compliance is $0.0060648$Nm and final compliance is $0.00089169$Nm.
+
+<p align="center">
+  Image 1: Result of the first example
+<img src="./docs/result1.png"  width="300">
+</p>
+
+### Example 2: Simply supported structure subjected to torsion.
+The second example consists of a structure under point forces simulating torsion at the top of the structure. The applied load consist of two forces of $1500 N$ in the $x$ direction on nodes $16$ and $61$ and two forces of $2000 N$ in the $z$ direction on nodes $13$ and $64$. The essential boundary conditions were the same of the Example 1. The minimum volume constraint is $20\%$ of the original volume. The initial penalization value, $c^0$, is set to $10.0$ .
+The visualization of the problem and the final result can be seen in Fig. 2. 
+Initial compliance is $0.22646$ Nm and final compliance is $0.01940$ Nm.  
+Full elements are shown in black and removed elements in blue.
+
+<p align="center">
+   Image 2: Result of the second example
+<img src="./docs/result2.png"  width="300">
+</p>
 
 
 
