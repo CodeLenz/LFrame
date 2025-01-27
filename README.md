@@ -1,14 +1,16 @@
-# LFrame - Topology Optimization of Spatial Frames 📐
+# LFrame - Topology Optimization of Spatial Frames 
 
 <p align="center">
 <img src="./docs/spatttttttial.png">
 </p>
 
-This repository contains the codes developed for the undergraduate research project aimed at optimizing structures composed of 3D frame elements, without performance loss as material is removed.
+Welcome to our repository :)
+This is my Undergraduate Research Project from the past one and a half years. It aims to perform a complete analysis of structures discretized into frame elements — including equilibrium analysis and topology optimization.
 
-## About Our Project :rocket:
+### About Our Project
 
-Using the Finite Element Method, we implemented Topology Optimization techniques for elements with six degrees of freedom per node. Our goal is to minimize the structure's volume while imposing constraints on stress and displacement.
+Using the Finite Element Method, we implemented Topology Optimization techniques for elements with six degrees of freedom per node. During the project, our initial goal was to minimize the compliance of the structure, subject to a volume constraint, using the SIMP approach. Yes, the classic problem. After validating the studied problems (both the mathematical approaches and the results obtained), our new objective became minimizing the structure's volume while imposing constraints on stress and displacement.
+Currently, we're working on incorporating uncertainties in the applied loads — specifically, their magnitude and angle.
 
 ### Key Points :sparkles:
 
@@ -18,7 +20,7 @@ Using the Finite Element Method, we implemented Topology Optimization techniques
 - Utilization of visualization tools for mesh generation and results
 - Easy implementation of examples for validation
 
-### How it works :sunglasses:
+### How it works 
 
   - We define the problem in a `.yaml` file
   - We perform the initial analysis using FEM
@@ -26,14 +28,13 @@ Using the Finite Element Method, we implemented Topology Optimization techniques
   - We check for convergence
   - If the process is completed, a `.pos` file for visualization, compatible with the open-source software Gmsh, is generated.
 
-## How to use :computer:
+## How to use
 ### Requirements:
-- Julia Language
-- The module `Viga3D`
-- Other dependencies can be found in 'colocar aq'
+- Julia Language -- make sure it's up to date
+- Gmsh -- required for visualizing the results
 
 ### Installation:
-1. First, clone the repository:
+1. First, clone the repository, on Julia:
     ```bash
    git clone [https://github.com/CodeLenz/LFrame]
 2. Navigate to the repository directory:
@@ -61,7 +62,7 @@ This will perform an initial FEM analysis and start the optimization process. Af
 We started with the classic minimization of the structure's compliance with volume constraint, using the Optimum Criteria approach, and then, to optimize the optimization (🙃), we used the Augmented Lagrangian method.
 
 With the sensitivity analysis being done with the derivatives of the Objective Function and the Augmented Lagrangian Function, the process is stopped when the Karush-Kuhn-Tucker conditions are achieved. The validation of the codes was done in parts. The derivatives were compared to results using the Finite Differences method. The numerical results of the static analysis (i.e., the displacement vector found using the equilibrium equation) were compared to benchmark problems.
-Three examples are shown in the next section.
+Two examples are shown in the next section.
 
 Therefore, we were encouraged to continue with the research by adding new objectives and constraints. The new objective function is the volume of the structure, and displacements became the constraints. Therefore, we were ready to include the most problematic constraint, the local stress. An adjustment was made to the Augmented Lagrangian function to include the adjoint problem, improving the computational time of the process, a necessary step due to the larger number of constraints.
 
