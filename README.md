@@ -83,7 +83,7 @@ Since the equations developed are somewhat intricate, I will spare GitHub from i
 ## Examples: 🛠️
 
 ### Example 1: Simply supported structure under vertical load. 
-The first example consists of a  simply support structure subjected to four point loads of $100$N in the negative vertical direction ($y$) at nodes $30$, $31$, $46$, and $47$. The Dirichlet boundary conditions are null displacements in the $x$, $y$, and $z$ directions at nodes $1$, $4$, $49$, and $52$ (bottom corner nodes). The minimum volume condition is $40\%$ of the original volume. The  initial penalization value, $c^0$, is set to $1.0$. The visualization of the problem and the final result can be seen in Fig. 1. Full elements are shown in black and removed elements in blue. Initial compliance is $0.0060648$Nm and final compliance is $0.00089169$Nm.
+The first example consists of a  simply support structure subjected to four point loads of $100$ N in the negative vertical direction ($y$) at nodes $30$, $31$, $46$, and $47$. The Dirichlet boundary conditions are null displacements in the $x$, $y$, and $z$ directions at nodes $1$, $4$, $49$, and $52$ (bottom corner nodes). The minimum volume condition is $40\%$ of the original volume. The  initial penalization value, $c^0$, is set to $1.0$. The visualization of the problem and the final result can be seen in Fig. 1. Full elements are shown in black and removed elements in blue. Initial compliance is $0.0060648$ Nm and final compliance is $0.00089169$ Nm.
 
 
 <p align="center">
