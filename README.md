@@ -87,6 +87,7 @@ The first example consists of a  simply support structure subjected to four poin
 
 <p align="center">
   Image 1: Result of the first example
+  
 <img src="./docs/result1.png"  width="300">
 </p>
 
@@ -98,6 +99,7 @@ Full elements are shown in black and removed elements in blue.
 
 <p align="center">
    Image 2: Result of the second example
+  
 <img src="./docs/result2.png"  width="300">
 </p>
 
