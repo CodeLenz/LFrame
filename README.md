@@ -43,14 +43,14 @@ Currently, we're working on incorporating uncertainties in the applied loads —
 
 ### Installation:
 
-    ```bash
-   ]add https://github.com/CodeLenz/LFrame
-   ```
+```bash
+]add https://github.com/CodeLenz/LFrame
+```
 
 ### Running an Example:
 To run an exemple, simply use
-```
-  include("examples/example123.yaml")
+```bash
+include("examples/example123.yaml")
 ```
 
 This will perform an initial FEM analysis and start the optimization process. After the procedure is complete, a `.pos` file is generated for visualization in Gmsh. To view the results,
