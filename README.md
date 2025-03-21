@@ -42,15 +42,9 @@ Currently, we're working on incorporating uncertainties in the applied loads —
 - Gmsh -- required for visualizing the results
 
 ### Installation:
-1. First, clone the repository, on Julia:
-    ```bash
-   git clone [https://github.com/CodeLenz/LFrame]
-2. Navigate to the repository directory:
-   ```bash
-   cd("...\\LFrame")
-3. Install the required Julia packages
-   ```bash
-   ]instantiate()
+
+    ```julia
+   ]add https://github.com/CodeLenz/LFrame
    ```
 
 ### Running an Example:
