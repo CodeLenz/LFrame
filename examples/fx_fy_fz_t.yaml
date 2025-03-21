@@ -6,12 +6,12 @@ materiais:
   - nome: "aco"
     G: 8.0e10
     Ex: 2.1e11
-    sigma_esc: 350e6
+    S_esc: 350e6
     
-loads: "2 1 100
-        2 2 1000
-        2 4 300
-        2 3 -500"
+loads: 2 1 100
+       2 2 1000
+       2 4 300
+       2 3 -500
 
 geometrias:
   - Iz: 6.361725124e-7
@@ -21,13 +21,9 @@ geometrias:
     α: 0
     J0: 1.272345025e-6
 
-deslocamentos:
-
-
 coordenadas:
   0.0 0.0 0.0
   0.3 0.0 0.0
-
 
 conectividades: 
   1 2 

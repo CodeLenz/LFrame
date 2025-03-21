@@ -6,9 +6,9 @@ materiais:
   - nome: "aco"
     G: 8.0e10
     Ex: 2.1e11
-    sigma_esc: 350e6
+    S_esc: 350e6
     
-loads: "4 3 -3000"
+loads: 4 3 -3000
 
 geometrias:
   - Iz: 1.256637061e-7
@@ -18,15 +18,11 @@ geometrias:
     α: 0
     J0: 2.513274123e-7
 
-deslocamentos:
-
-
 coordenadas:
   0.0 -0.125 0.0
   0.0 0.0 0.0
   0.0 0.150 0.0
   0.20 0.150 0.0
-
 
 conectividades: 
   1 2 
@@ -40,7 +36,6 @@ apoios:
   1 4 0.0
   1 5 0.0
   1 6 0.0
-
 
 dados_elementos:
   aco tubo1

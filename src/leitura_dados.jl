@@ -1,7 +1,7 @@
 #
 # Le um arquivo de dados em YAML
 #
-function Le_YAML(arquivo,ver=1.0)
+function Le_YAML(arquivo,ver=1.0,verbose=false)
 
    # Primeiro lemos o arquivo de dados
    dados = YAML.load_file(arquivo)
@@ -9,6 +9,8 @@ function Le_YAML(arquivo,ver=1.0)
    # Verifica se temos informação sobre a versão do arquivo de dados
    versao = 0.0
    if haskey(dados,"versao")
+
+      # Le a versão do arquivo
       versao = dados["versao"]
 
       # Verifica se a versão é compatível
@@ -43,6 +45,9 @@ function Le_YAML(arquivo,ver=1.0)
 
    ########################################### Coordenadas ########################################
 
+   # Para debug
+   verbose && println("Coordenadas")  
+
    # Recupera as informações (como uma longa string)
    string_coordenadas = dados["coordenadas"]
 
@@ -56,7 +61,9 @@ function Le_YAML(arquivo,ver=1.0)
    nnos>=2 || throw("leitura_dados::ao menos 2 nós são necessários")
 
    ########################################### Materiais ########################################
-   # Aqui vamos fazer um pré-processamento 
+
+   # Para debug
+   verbose && println("Materiais")  
 
    # Vetor de dicionários dos materiais
    vetor_materiais = dados["materiais"]
@@ -82,7 +89,10 @@ function Le_YAML(arquivo,ver=1.0)
 
     # Eu vou criar um vetor só com os nomes para verificar a consistência em dados_elementos
     # mais abaixo
-    nomes_materiais=String[]
+    nomes_materiais = String[]
+
+    # Para debug
+    verbose && println("Loop pelos materiais")  
 
     #  Novo loop pelos 
     for mat in vetor_materiais
@@ -113,7 +123,9 @@ function Le_YAML(arquivo,ver=1.0)
     end
 
    ########################################### Geometrias ########################################
-   # Aqui vamos fazer um pré-processamento 
+   
+   # Para debug
+   verbose && println("Geometrias")  
 
    # Vetor de dicionários dos geometrias
    vetor_geometrias = dados["geometrias"]
@@ -137,10 +149,12 @@ function Le_YAML(arquivo,ver=1.0)
     # os dados ficam em um outro dicionário. Isso vai facilitar muito o acesso depois
     dicionario_geometrias = OrderedDict{String,Dict{String,Float64}}()
 
-
     # Eu vou criar um vetor só com os nomes para verificar a consistência em dados_elementos
     # mais abaixo
-    nomes_geometrias=String[]
+    nomes_geometrias = String[]
+
+    # Para debug
+    verbose && println("Loop pelas geometrias")  
 
     #  Novo loop pelo vetor de geometrias
     for geo in vetor_geometrias
@@ -166,11 +180,14 @@ function Le_YAML(arquivo,ver=1.0)
         end
 
         # Armazena o dicionário interno no dicionário de geometrias
-        dicionario_geometrias[nome]=interno
+        dicionario_geometrias[nome] = interno
 
     end
 
    ########################################### Apoios ########################################
+
+   # Para debug
+   verbose && println("Apoios")  
 
    # Recupera as informações (como uma longa string)
    string_apoios = dados["apoios"]
@@ -178,15 +195,10 @@ function Le_YAML(arquivo,ver=1.0)
    # Converte para uma matriz Float64
    apoios = Converte_array(string_apoios,3,Float64)
 
-   ######################################### Rest. Tensao ######################################
-
-   # Recupera as informações
-   #string_tensao_escoamento = dados["tensao_escoamento"]
-
-   # Converte para matriz
-   #tensoes_escoamento = Converte_array(string_tensao_escoamento,1,Float64)
-
    ########################################### Conectividades ########################################
+
+   # Para debug
+   verbose && println("Conectividades")  
 
    # Recupera as informações (como uma longa string)
    string_conect = dados["conectividades"]
@@ -201,6 +213,9 @@ function Le_YAML(arquivo,ver=1.0)
    ne>=1 || throw("leitura_dados:: ao menos um elemento é necessário")
 
    ########################################### Dados elementos ######################################
+   
+   # Para debug
+   verbose && println("Dados elementos")  
 
    # Recupera as informações (como uma longa string)
    string_dados_elementos = dados["dados_elementos"]
@@ -210,6 +225,9 @@ function Le_YAML(arquivo,ver=1.0)
 
    # Teste de consistência
    size(dados_elementos,1)==ne || throw("leitura_dados::dados_elementos deve ter $ne linhas")
+
+   # Para debug
+   verbose && println("Loop pelos elementos")  
 
    # Precisamos verificar se os dados informados são coerentes com as definições de mat e geo
    for linha=1:ne
@@ -230,6 +248,9 @@ function Le_YAML(arquivo,ver=1.0)
 
    ################################# Forças concentradas ######################################
 
+   # Para debug
+   verbose && println("Forças concentradas")  
+
    # Recupera as informações (como uma longa string)
    string_loads = dados["loads"]
 
@@ -237,6 +258,9 @@ function Le_YAML(arquivo,ver=1.0)
    loads = Converte_array(string_loads,3,Float64)
 
    ################################ MPC ######################################
+
+   # Para debug
+   verbose && println("MPC")  
 
    # Recupera as informações (como uma longa string)
    if haskey(dados,"mpc")
@@ -250,6 +274,9 @@ function Le_YAML(arquivo,ver=1.0)
 
    
    ######################### Forças distribuídas #################################
+
+   # Para debug
+   verbose && println("Forças distribuídas")  
 
    # Recupera as informações (como uma longa string)
    if haskey(dados,"floads")

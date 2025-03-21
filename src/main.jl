@@ -5,7 +5,7 @@
 function Analise3D(arquivo)
 
     # Le os dados do problema
-    ne,nnos,coord,elems,apoios,dicionario_materiais,dicionario_geometrias,dados_elementos,loads,mpc, floads, deslocamentos = Le_YAML(arquivo)
+    ne,nnos,coord,elems,apoios,dicionario_materiais,dicionario_geometrias,dados_elementos,loads,mpc, floads = Le_YAML(arquivo)
 
     # Pré processamento para calcular os comprimentos dos elementos da malha
     L = Pre_processamento(elems, coord)
