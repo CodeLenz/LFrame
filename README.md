@@ -49,7 +49,7 @@ Currently, we're working on incorporating uncertainties in the applied loads —
 
 ### Running an Example:
 To run an exemple, simply use
-```bash
+```
   include("examples/example123.yaml")
 ```
 
