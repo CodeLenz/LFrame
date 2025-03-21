@@ -43,7 +43,7 @@ Currently, we're working on incorporating uncertainties in the applied loads —
 
 ### Installation:
 
-    ```julia
+    ```bash
    ]add https://github.com/CodeLenz/LFrame
    ```
 
