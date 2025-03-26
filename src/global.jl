@@ -87,9 +87,16 @@ end
 #                      Montagem do vetor de forças distribuídas                     #
 #####################################################################################
 
-function Monta_FD(floads::Array{Float64}, elems::Matrix{Int64}, nnos::Int64, L, dicionario_geometrias, coord, dados_elementos::Matrix{String}, ne::Int64)
-
-
+function Monta_FD(malha::Malha, L::Vector{Float64})
+    
+    # Acessa os dados da estrutura de dados
+    floads = malha.floads
+    elems  = malha.conect 
+    nnos   = malha.nnos
+    dicionario_geometrias = malha.dicionario_geometrias
+    coord  = malha.coord
+    dados_elementos = malha.dados_elementos
+  
     # Vetor global
     FD = zeros(6*nnos)
 
@@ -118,10 +125,7 @@ function Monta_FD(floads::Array{Float64}, elems::Matrix{Int64}, nnos::Int64, L, 
 
         αe  = geometria["α"]
 
-        # Descobre o nó:
-        # (Precisamos incluir tanto o nó referente a q1 quanto o nó referente a q2)
-        no1, no2 = elems[e,:]
-
+        # Recupera o comprimento do elemento
         Le = L[e]
 
         # Descobre os graus de liberdade globais

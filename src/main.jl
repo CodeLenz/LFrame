@@ -27,9 +27,7 @@ function Analise3D(arquivo::AbstractString)
     FG = Monta_FG(malha)
 
     # Monta o vetor global de forças distribuídas - não muda
-    FD = Monta_FD(malha.floads, malha.conect, malha.nnos, L, 
-                  malha.dicionario_geometrias, malha.coord, 
-                  malha.dados_elementos, malha.ne)
+    FD = Monta_FD(malha, L)
 
     # Vetor de forças do problema - não muda
     F = FG .+ FD
