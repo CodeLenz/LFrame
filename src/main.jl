@@ -2,9 +2,16 @@
 #
 # Rotina para calcular o equilíbrio do pórtico 3D
 #
-function Analise3D(arquivo)
+"""
+Analise3D Rotina para análise estática de pórticos espaciais
 
-    # Le os dados do problema
+Entrada: arquivo::AbstractString:  nome de um arquivo .yaml com a definição do problema
+
+Saida: Vetor de deslocamentos do pórtico
+"""
+function Analise3D(arquivo::AbstractString)
+
+    # Le os dado::AbstractStrings do problema
     ne,nnos,coord,elems,apoios,dicionario_materiais,dicionario_geometrias,dados_elementos,loads,mpc, floads = Le_YAML(arquivo)
 
     # Pré processamento para calcular os comprimentos dos elementos da malha

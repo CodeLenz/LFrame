@@ -1,7 +1,7 @@
 #
 # Le um arquivo de dados em YAML
 #
-function Le_YAML(arquivo,ver=1.0,verbose=false)
+function Le_YAML(arquivo::AbstractString,ver=1.0,verbose=false)
 
    # Primeiro lemos o arquivo de dados
    dados = YAML.load_file(arquivo)
