@@ -5,8 +5,6 @@ module LFrame
 	using LinearSolve
 	using OrderedCollections
     using YAML
-	#using BMesh
-	using WallE
 	using Lgmsh
 	
 	# Carregando as outras rotinas:
@@ -18,26 +16,9 @@ module LFrame
 	include("Kg_portico.jl")
 	include("esforcos.jl")
 	include("apoios.jl")
-	#include("visualizacao.jl")
-	
-    # Otimização
-	#include("otm/criterio.jl")
-	include("otm/volume.jl")
-	#include("otm/flex.jl")
-	#include("otm/driver_volume_desloc.jl")
-	#include("otm/golden.jl")
-	#include("otm/steepest.jl")
-	include("otm/dlambda.jl")
-	include("otm/dtensao.jl")
-	include("otm/driver_V_sigma.jl")
-	include("otm/main_V_sigma.jl")
-	include("otm/df.jl")
-
-	#include("main_volume_desloc.jl")
-	#export Otimiza_Portico3D_volume_desloc
-
 	include("main.jl")
-	export Analise3D
-	export Otimiza_Portico3D_V_sigma
 
+	# Exporta a rotina principal de análise
+	export Analise3D
+	
 end
