@@ -33,7 +33,7 @@ function Analise3D(arquivo::AbstractString)
     F = FG .+ FD
 
     # Modifica o sistema para considerar as restrições de apoios - já vai ser influenciado por ρ
-    KA, FA = Aumenta_sistema(malha.apoios, malha.mpc, KG, F)
+    KA, FA = Aumenta_sistema(malha, KG, F)
 
     # Soluciona o sistema global de equações para obter U
 

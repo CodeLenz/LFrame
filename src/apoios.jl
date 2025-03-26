@@ -2,7 +2,11 @@
 #                   Rotina para aplicar as condições de contorno                    #
 #####################################################################################
 
-function Aumenta_sistema(apoios::Matrix{Float64},MPC::Array,KG::AbstractMatrix,F::Vector)
+function Aumenta_sistema(malha::Malha,KG::AbstractMatrix,F::Vector)
+
+    # Acessa os dados da estrutura Malha
+    apoios = malha.apoios
+    MPC    = malha.mpc
 
     # Numero de restrições no sistema
     m = size(apoios, 1)
@@ -20,7 +24,7 @@ function Aumenta_sistema(apoios::Matrix{Float64},MPC::Array,KG::AbstractMatrix,F
     b = zeros(m+s)
 
     # Loop pelas c.c
-    for i= 1:m
+    for i=1:m
 
          # Descobre o nó do apoio
          no = Int64(apoios[i,1])
@@ -53,7 +57,7 @@ function Aumenta_sistema(apoios::Matrix{Float64},MPC::Array,KG::AbstractMatrix,F
         gl2 = Int64(MPC[i,4])
         glg2 = 6*(no2-1)+gl2
 
-        A[m+i,glg1] = 1.0
+        A[m+i,glg1] =  1.0
         A[m+i,glg2] = -1.0
 
     end
