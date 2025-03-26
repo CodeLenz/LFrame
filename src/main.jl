@@ -21,9 +21,7 @@ function Analise3D(arquivo::AbstractString)
     ρ0 = ones(malha.ne) 
  
     # Monta a matriz de rigidez global
-    KG = Monta_Kg(malha.ne,malha.nnos,malha.conect,
-                  malha.dados_elementos,malha.dicionario_materiais, 
-                  malha.dicionario_geometrias,L,malha.coord, ρ0)
+    KG = Monta_Kg(malha,L,ρ0)
 
     # Monta o vetor global de forças concentradas - não muda
     FG = Monta_FG(malha.loads,malha.nnos)

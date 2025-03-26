@@ -2,9 +2,16 @@
 #                 Rotina para montagem da matriz de rigidez global                  #
 #####################################################################################
 
-function Monta_Kg(ne::Int64,nnos::Int64,elems::Matrix{Int64},dados_elementos::Matrix{String},
-                 dicionario_materiais, dicionario_geometrias, L::Vector{Float64}, coord::Matrix, ρ::Vector)
-
+function Monta_Kg(malha::Malha, L::Vector{Float64}, ρ::Vector)
+    
+    # Acessa as definições de malha
+    ne    = malha.ne 
+    nnos  = malha.nnos 
+    elems = malha.conect 
+    coord = malha.coord
+    dados_elementos = malha.dados_elementos
+    dicionario_materiais = malha.dicionario_materiais
+    dicionario_geometrias = malha.dicionario_geometrias
 
     # Aloca a matriz de rigidez global
     KG = spzeros(6*nnos, 6*nnos)
@@ -20,8 +27,7 @@ function Monta_Kg(ne::Int64,nnos::Int64,elems::Matrix{Int64},dados_elementos::Ma
                                                            dicionario_geometrias)
 
         # Parametrização SIMP da rigidez
-        ρe = ρ[e]
-        Ke = (ρe^3) *  Ke_portico3d(Ee, Ize, Iye, Ge, J0e, Le, Ae)
+        Ke = Ke_portico3d(Ee, Ize, Iye, Ge, J0e, Le, Ae)
 
         # Monta a matriz de rotação do elemento
         R = Rotacao3d(e, elems, coord, αe)
