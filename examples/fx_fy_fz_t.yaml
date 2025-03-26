@@ -7,17 +7,24 @@ materiais:
     G: 8.0e10
     Ex: 2.1e11
     S_esc: 350e6
-    
+  - nome: "aluminio"
+    G: 5.0e10
+    Ex: 70e9
+    S_esc: 100e6
+  
+#
+# Forças e momentos concentrados
+#    
 loads: 2 1 100
        2 2 1000
        2 4 300
        2 3 -500
 
 geometrias:
-  - Iz: 6.361725124e-7
+  - nome: "tubo1"
+    Iz: 6.361725124e-7
     A: 2.827e-3
     Iy: 6.361725124e-7
-    nome: "tubo1"
     α: 0
     J0: 1.272345025e-6
 

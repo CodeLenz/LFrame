@@ -38,7 +38,9 @@ function Le_YAML(arquivo::AbstractString,ver=1.0,verbose=false)
    end
 
    println("Lendo    ",arquivo)
-   println("Versão:  ", versao)
+   if versao>0 
+      println("Versão:  ", versao)
+   end
    println("Título:  ", titulo)
    println("Data:    ", data)
 
@@ -69,7 +71,7 @@ function Le_YAML(arquivo::AbstractString,ver=1.0,verbose=false)
    vetor_materiais = dados["materiais"]
 
    # Dados obrigatórios para cada um dos materiais
-   dados_obrigatorios_materiais = ["nome","Ex","G", "S_esc"]
+   dados_obrigatorios_materiais = ["nome","Ex","G"]
 
    # Precisamos ter ao menos uma informação
    length(vetor_materiais)>=1 || throw("leitura_dados:: ao menos um material é necessário")
@@ -292,6 +294,7 @@ function Le_YAML(arquivo::AbstractString,ver=1.0,verbose=false)
 
    # Retorna os dados do arquivo
    return ne, nnos, coord, conect, apoios, dicionario_materiais, dicionario_geometrias, dados_elementos, loads, mpc, floads
+   
 end
 
 
