@@ -8,6 +8,7 @@ module LFrame
 	using Lgmsh
 	
 	# Carregando as outras rotinas:
+	include("struct_malha.jl")
 	include("auxiliar.jl")
 	include("leitura_dados.jl")
 	include("pre_processamento.jl")
