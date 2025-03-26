@@ -15,7 +15,7 @@ function Analise3D(arquivo::AbstractString)
     malha = Le_YAML(arquivo)
 
     # Pré processamento para calcular os comprimentos dos elementos da malha
-    L = Pre_processamento(malha.conect, malha.coord)
+    L = Pre_processamento(malha)
  
     # Cria o vetor ρ
     ρ0 = ones(malha.ne) 
