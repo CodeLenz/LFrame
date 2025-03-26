@@ -24,7 +24,7 @@ function Analise3D(arquivo::AbstractString)
     KG = Monta_Kg(malha,L,ρ0)
 
     # Monta o vetor global de forças concentradas - não muda
-    FG = Monta_FG(malha.loads,malha.nnos)
+    FG = Monta_FG(malha)
 
     # Monta o vetor global de forças distribuídas - não muda
     FD = Monta_FD(malha.floads, malha.conect, malha.nnos, L, 

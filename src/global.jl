@@ -49,14 +49,18 @@ end
 #                      Montagem do vetor de forças concentradas                     #
 #####################################################################################
 
-function Monta_FG(loads::Array{Float64}, nnos::Int64)
+function Monta_FG(malha::Malha)
+    
+    # Acessa os valores da estrutura de dados
+
+    loads = malha.loads
+    nnos  = malha.nnos
 
     # Aloca o vetor global
     FG = zeros(6*nnos)
 
     # Loop pelas informações dos carregamentos concentrados
     for i=1:size(loads,1)
-
 
         # Descobre o nó
         no = Int(loads[i,1])
