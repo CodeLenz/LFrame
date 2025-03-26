@@ -17,7 +17,8 @@ function Aumenta_sistema(malha::Malha,KG::AbstractMatrix,F::Vector)
     # Dimensão do problema
     n = length(F)
 
-    # Alocando a matriz A
+    # Alocando a matriz A, que contém as relações
+    # entre os gls restritos
     A = spzeros(m+s, n)
 
     # Alocando o vetor de deslocamentos com restrição
