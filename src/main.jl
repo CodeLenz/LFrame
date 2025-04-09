@@ -9,10 +9,10 @@ Entrada: arquivo::AbstractString:  nome de um arquivo .yaml com a definição do
 
 Saida: Vetor de deslocamentos do pórtico
 """
-function Analise3D(arquivo::AbstractString)
+function Analise3D(arquivo::AbstractString, verbose=false)
 
     # Le os dado::AbstractStrings do problema
-    malha = Le_YAML(arquivo)
+    malha = Le_YAML(arquivo; verbose=verbose)
 
     # Pré processamento para calcular os comprimentos dos elementos da malha
     L = Pre_processamento(malha)

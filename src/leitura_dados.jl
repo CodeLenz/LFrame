@@ -1,7 +1,7 @@
 #
 # Le um arquivo de dados em YAML
 #
-function Le_YAML(arquivo::AbstractString,ver=1.0,verbose=false)
+function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
 
    # Primeiro lemos o arquivo de dados
    dados = YAML.load_file(arquivo)
@@ -223,31 +223,51 @@ function Le_YAML(arquivo::AbstractString,ver=1.0,verbose=false)
    string_dados_elementos = dados["dados_elementos"]
 
    # Converte para uma matriz de strings (chaves para os dicionários)
-   dados_elementos = Converte_array(string_dados_elementos,2,String)
+   dados_elementos_ = Converte_array(string_dados_elementos,2,String)
+
+   # Testa se temos somente uma linha - neste caso, assumimos que todos os elementos
+   # tem o mesmo material e a mesma geometria
+   if size(dados_elementos_,1)==1
+  
+      verbose && println("Caso particular de somente um linha em dados_elementos:") 
+
+      # Vamos ter que redimensionar o array e copiar a linha 1 para das demais
+      dados_elementos = ones(String,ne,2)
+
+      # Loop preenchendo todos com o valor da primeira linha de dados_elementos_
+      for ele=1:ne
+          dados_elementos[ele,:] .= dados_elementos_[1,:]
+      end
+
+    else
+        # Só copia dados_elementos_ para dados_elementos
+        dados_elementos = dados_elementos_
+   end
 
    # Teste de consistência
    size(dados_elementos,1)==ne || throw("leitura_dados::dados_elementos deve ter $ne linhas")
-
+   
    # Para debug
    verbose && println("Loop pelos elementos")  
 
    # Precisamos verificar se os dados informados são coerentes com as definições de mat e geo
+   # Verificação de consistência dos dados de cada elemento
    for linha=1:ne
 
-       # material do elemento
-       mat = dados_elementos[linha,1]
+        # material do elemento
+        mat = dados_elementos[linha,1]
 
-       # Verifica se está em nomes_materiais
-       mat in nomes_materiais || throw("leitura_dados::dados_elementos linha $linha:: material $mat não foi definido")
+        # Verifica se está em nomes_materiais
+        mat in nomes_materiais || throw("leitura_dados::dados_elementos linha $linha:: material $mat não foi definido")
 
-       # material do elemento
-       geo = dados_elementos[linha,2]
+        # material do elemento
+        geo = dados_elementos[linha,2]
 
-       # Verifica se está em nomes_materiais
-       geo in nomes_geometrias || throw("leitura_dados::dados_elementos linha $linha:: geometria $geo não foi definida")
- 
-   end
-
+        # Verifica se está em nomes_materiais
+        geo in nomes_geometrias || throw("leitura_dados::dados_elementos linha $linha:: geometria $geo não foi definida")
+        
+    end
+   
    ################################# Forças concentradas ######################################
 
    # Para debug
