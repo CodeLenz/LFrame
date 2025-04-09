@@ -14,7 +14,7 @@ module LFrame
 	include("pre_processamento.jl")
 	include("rotacao.jl")
 	include("global.jl")
-	include("Kg_portico.jl")
+	include("K_portico.jl")
 	include("esforcos.jl")
 	include("apoios.jl")
 	include("main.jl")
