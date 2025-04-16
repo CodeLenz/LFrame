@@ -39,9 +39,11 @@ To run an exemple, simply use
 ```bash
    Analise3D(file)
 ```
- 
+### Building the .yaml file
+ Building the .yaml file using Example 8.6 from the book Resistência dos Materiais by Russell Charles Hibbeler, 10th edition.
+
 ```bash
-materiais:
+materiais:               # 
   - nome: "aco"
     G: 8.0e10
     Ex: 2.1e11
