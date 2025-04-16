@@ -43,7 +43,7 @@ To run an exemple, simply use
  Creating the .yaml file using Example 8.6 from the book Resistência dos Materiais by Russell Charles Hibbeler, 10th edition.
 
 ```bash
-materiais:               # Here are the material properties used. You can define multiple materials within the same script.
+materiais:               # Material properties are listed here. Multiple materials can be defined in the same script.
   - nome: "aco"          # Material Name 
     G: 8.0e10            # Modulus of rigidity.
     Ex: 2.1e11           # Young's modulus.
