@@ -36,7 +36,7 @@ O arquivo de entrada deve ser informado no formato YAML, com campos opcionais e 
 
 ### Campos opcionais
 
-#### Título do arquivo
+### Título do arquivo
 
 ```bash
 
@@ -44,18 +44,18 @@ titulo = "Titulo"
 
 ```
 
-#### Data de criação do arquivo 
+### Data de criação do arquivo 
 ```bash
 data = "01/01/2000"
 ```
 
-#### Versão do arquivo 
+### Versão do arquivo 
 ```bash
 versao = 1.0
 ```
 
-##### Informação sobre os materiais 
- nome do material 
+### Informação sobre os materiais 
+ Nome do material 
 
  Ex    - Módulo de elasticidade longitudinal
 
@@ -69,11 +69,54 @@ materiais:
     G: 8.0e10            
     Ex: 2.1e11           
     S_esc: 350e6      
+
   - nome: "mat2"          
     G: 9.0e10            
     Ex: 1.1e11           
     S_esc: 250e6      
 ```
+
+### Informações sobre as forças concentradas
+loads: nó gdl intensidade
+
+```bash
+loads:  4 3 -3000
+        4 4 -5000
+        4 2 -1000
+```
+### Informações de geometria
+ Nome da geometria
+
+ Iz - Momento de inércia em torno do eixo z
+
+ A  - Área da seção transversal
+
+ Iy - Momento de inércia em torno do eixo y
+
+ α - Ângulo de rotação para o eixo principal de inércia
+
+ J0 - Momento polar de inércia
+
+```bash
+geometrias:
+  - nome: "tubo1"
+    Iz: 1.256637061e-7
+    A: 1.256637061e-3
+    Iy: 1.256637061e-7
+    α: 0
+    J0: 2.513274123e-7
+
+  - nome: "tubo2"
+    Iz: 2.25e-7
+    A: 1.50e-3
+    Iy: 2.25e-7
+    α: 0
+    J0: 3.00e-7
+
+
+```
+
+
 
    
 
