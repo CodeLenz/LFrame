@@ -30,16 +30,8 @@ This is my Undergraduate Research Project from the past one and a half years. It
 ]add https://github.com/CodeLenz/LFrame
 ```
 
-### Input Files
 
-Explicar como funciona o arquivo de entrada
-
-### Running an Example:
-To run an exemple, simply use
-```bash
-   Analise3D(file)
-```
-### Creating the .yaml file
+### Creating the .yaml file 
  Creating the .yaml file using Example 8.6 from the book Resistência dos Materiais by Russell Charles Hibbeler, 10th edition.
 
 ```bash
@@ -82,4 +74,10 @@ dados_elementos:
   aco tubo1
   aco tubo1
   aco tubo1
+```
+
+### Running an Example:
+To run an exemple, simply use
+```bash
+   Analise3D(file)
 ```
