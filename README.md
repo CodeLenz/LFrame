@@ -49,7 +49,7 @@ materiais:               # Material properties are listed here. Multiple materia
     Ex: 2.1e11           # Young's modulus.
     S_esc: 350e6         # Yield strength.
     
-loads: 4 3 -3000
+loads: 4 3 -3000        # Concentrated force at node 4 at DOF 3 with an intensity of -3000 N.
 
 geometrias:
   - Iz: 1.256637061e-7
