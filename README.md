@@ -116,7 +116,7 @@ geometrias:
 
 ```
 
-
+### Coordenadas
 
    
 
@@ -125,13 +125,12 @@ geometrias:
 Creating the .yaml file using Example 8.6 from the book Resistência dos Materiais by Russell Charles Hibbeler, 10th edition.
 
 ```bash
-materiais:               # Material properties are listed here. Multiple materials can be defined in the same script.
-  - nome: "aco"          # Material Name 
-    G: 8.0e10            # Modulus of rigidity.
-    Ex: 2.1e11           # Young's modulus.
-    S_esc: 350e6         # Yield strength.
-    
-loads: 4 3 -3000        # Concentrated force at node 4 at DOF 3 with an intensity of -3000 N.
+materiais:             .
+  - nome: "aco"        
+    G: 8.0e10          
+    Ex: 2.1e11        
+    S_esc: 350e6       
+loads: 4 3 -3000       
 
 geometrias:
   - nome: "tubo1"
