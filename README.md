@@ -117,7 +117,16 @@ geometrias:
 ```
 
 ### Coordenadas
+As coordenadas precisam ser descritas em x, y, z, cada linha trata-se de um nó
 
+
+```bash
+coordenadas:
+  0.0 -0.125 0.0
+  0.0  0.0   0.0
+  0.0  0.150 0.0
+  0.20 0.150 0.0
+```
    
 
 ### Exemplo de análise
@@ -125,7 +134,7 @@ geometrias:
 Creating the .yaml file using Example 8.6 from the book Resistência dos Materiais by Russell Charles Hibbeler, 10th edition.
 
 ```bash
-materiais:             .
+materiais:            
   - nome: "aco"        
     G: 8.0e10          
     Ex: 2.1e11        
