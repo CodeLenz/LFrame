@@ -137,8 +137,18 @@ A conectividade informa quais nós, estão ligados ou seja está se tornando um 
     3 4
 ```
 
-###
+### Apaios
+Para a definição dos apoios precisa definir: Nó, gdl e intencidade.
 
+```bash
+apoios: 
+  1 1 0.0
+  1 2 0.0
+  1 3 0.0
+  1 4 0.0
+  1 5 0.0
+  1 6 0.0
+```
 
 ### Exemplo de análise
 
