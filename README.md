@@ -127,7 +127,18 @@ coordenadas:
   0.0  0.150 0.0
   0.20 0.150 0.0
 ```
-   
+
+### Conectividades
+A conectividade informa quais nós, estão ligados ou seja está se tornando um elemento.
+```bash
+  conectividades: 
+    1 2 
+    2 3
+    3 4
+```
+
+###
+
 
 ### Exemplo de análise
 
