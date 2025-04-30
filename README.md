@@ -168,10 +168,13 @@ dados_elementos
 
 ```
 
+## Exemplos e validação
 
-### Exemplo de análise
+### Exemplo 8.6 Hibbler (Força Concentrada)
 
 Creating the .yaml file using Example 8.6 from the book Resistência dos Materiais by Russell Charles Hibbeler, 10th edition.
+
+###
 
 ```bash
 materiais:            
