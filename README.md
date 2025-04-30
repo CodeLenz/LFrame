@@ -65,15 +65,15 @@ versao = 1.0
 
 ```bash
 materiais:               
-  - nome: "mat1"          
+  - nome: "aco"          
     G: 8.0e10            
     Ex: 2.1e11           
     S_esc: 350e6      
 
-  - nome: "mat2"          
-    G: 9.0e10            
-    Ex: 1.1e11           
-    S_esc: 250e6      
+  - nome: "aluminio"          
+    G: 2.6e10            
+    Ex: 7.0e10           
+    S_esc: 276e6      
 ```
 
 ### Informações sobre as forças concentradas
@@ -149,6 +149,25 @@ apoios:
   1 5 0.0
   1 6 0.0
 ```
+
+### Dados dos Elementos
+Para os elementos criados, tem duas opções para informar os dados. 
+A primeira define-se que todos os elementos tem o mesmo material e a mesma geometria.
+```bash
+dados_elementos:
+  aco tubo1
+```
+Lebrar que define sempre o nome do material e depois o nome da geometria definidos anteriormente. 
+
+Para dois tipo de materiais e gometria:
+```bash
+dados_elementos
+  aco tubo1
+  aco tubo2
+  aluminio tubo2
+
+```
+
 
 ### Exemplo de análise
 
