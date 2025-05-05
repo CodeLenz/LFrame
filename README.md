@@ -185,7 +185,8 @@ materiais:
   - nome: "aco"        
     G: 8.0e10          
     Ex: 2.1e11        
-    S_esc: 350e6       
+    S_esc: 350e6
+           
 loads: 4 3 -3000       
 
 geometrias:
