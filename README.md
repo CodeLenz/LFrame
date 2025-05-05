@@ -172,12 +172,13 @@ dados_elementos
 
 ### Exemplo 8.6 Hibbler (Força Concentrada)
 
-Criando o arquivo .YAML do exemplo 8.6 do livro Resistência dos Materiais de Russell Charles Hibbeler, 10º edição
+Exemplo 8.6 do livro Resistência dos Materiais de Russell Charles Hibbeler, 10º edição
  
 <p align="center">
   <img src="Imagens/Força Concentrada.png" alt="Exemplo 8.6 Livro Hibbeler 10º edição" width="50%">
 </p>
 
+Criando o arquivo hibbeler86.yaml
 
 ```bash
 materiais:            
@@ -215,8 +216,6 @@ apoios:
   1 6 0.0
 
 dados_elementos:
-  aco tubo1
-  aco tubo1
   aco tubo1
 ```
 
