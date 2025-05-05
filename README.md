@@ -174,7 +174,9 @@ dados_elementos
 
 Criando o arquivo .YAML do exemplo 8.6 do livro Resistência dos Materiais de Russell Charles Hibbeler, 10º edição
  
-![Descrição da imagem](Imagens/Força%20Concentrada.png)
+<p align="center">
+  <img src="Imagens/Força Concentrada.png" alt="Descrição da imagem" width="50%">
+</p>
 
 
 ```bash
