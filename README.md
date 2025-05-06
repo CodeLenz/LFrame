@@ -186,7 +186,7 @@ materiais:
     G: 8.0e10          
     Ex: 2.1e11        
     S_esc: 350e6
-           
+
 loads: 4 3 -3000       
 
 geometrias:
@@ -218,10 +218,25 @@ apoios:
 
 dados_elementos:
   aco tubo1
+  aco tubo1
+  aco tubo1
 ```
 
 ### Running an Example:
-To run an exemple, simply use
+Para rodar o exemplo, abra o Prompt de Comando e inicie o Julia
 ```bash
-   Analise3D(file)
+julia
+```
+Após, localize o local do Arquivo LFrame
+
+```bash
+cd("Local do arquivo")
+```
+Com isso, utilize o LFrame
+```bash
+using LFrame: Analise3D
+```
+Assim é só rodar o arquivo escolhido, neste caso é o hibbeler86.yaml
+```bash
+   Analise3D("hibbeler86.yaml")
 ```
