@@ -4,6 +4,7 @@ authors = ["Eduardo Lenz <eduardobarplenz@gmail.com> and contributors"]
 version = "1.0.0-DEV"
 
 [deps]
+Lgmsh = "901517f6-ef86-4a80-bf35-2c5b8e720204"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 LinearSolve = "7ed4a6bd-45f5-4d41-b270-4a48e9bafcae"
 OrderedCollections = "bac558e1-5e72-5ebc-8fee-abe8a469f55d"
@@ -11,7 +12,9 @@ RecursiveArrayTools = "731186ca-8d62-57ce-b412-fbd966d074cd"
 SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
 YAML = "ddb6d928-2868-570f-bddf-ab3f9cf99eb6"
 
+
 [compat]
+Lgmsh = "1.0.0"
 LinearAlgebra = "1.11.0"
 LinearSolve = "2.36.2"
 OrderedCollections = "1.6.3"
