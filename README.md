@@ -238,5 +238,5 @@ using LFrame: Analise3D
 ```
 Assim é só rodar o arquivo escolhido, neste caso é o hibbeler86.yaml
 ```bash
-Analise3D("hibbeler86.yaml")
+Analise3D("examples/hibbeler86.yaml")
 ```
