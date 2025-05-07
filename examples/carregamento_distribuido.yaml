@@ -12,6 +12,7 @@ floads:
   2 -150.0   0.0    0.0  0.0
   
 loads:
+  1 2 2000
 
 
 geometrias:
