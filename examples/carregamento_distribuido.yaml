@@ -1,6 +1,11 @@
 #
 #Exercicio 12-49 do Hibbeler 7ºedição utilizando o material aço e seção transversal de um circulo de raio 20 mm
 #
+
+versao: 1.0
+
+
+
 materiais:
   - nome: "aco"
     G: 8.0e10

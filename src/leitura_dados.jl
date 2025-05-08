@@ -1,6 +1,112 @@
+###############################################################
 #
-# Le um arquivo de dados em YAML
+# Le um arquivo de dados em YAML e retorna estrutuas de dados 
+# para o programa principal na forma de uma estrutura de dados 
+# Malha -> ver struct_malha.jl
 #
+###############################################################
+#
+# Os dados que são lidos e processados atualmente são 
+#
+# versao: {numero}
+#
+# titulo: {String} 
+#
+# data: {string}
+#
+# coordenadas: 
+#              x_1  y_1  z_1
+#                 ....
+#              x_n  y_n  z_n 
+#
+# conectividades: 
+#                n1_1  n2_1  
+#                  ...
+#               n1_ne  n2_ne
+#
+# materiais:
+#         - nome: {String}
+#           G: {numero}
+#           Ex: {numero}
+#           S_esc: {numero}
+#               ....
+#         - nome: {String}
+#           G: {numero}
+#           Ex: {numero}
+#           S_esc: {numero}
+#
+# geometrias:
+#         - nome: {string}
+#            Iz: {numero}
+#            A:  {numero}
+#            Iy: {numero}
+#            α:  {numero}
+#            J0: {numero}
+#                ...
+#         - nome: {string}
+#            Iz: {numero}
+#            A:  {numero}
+#            Iy: {numero}
+#            α:  {numero}
+#            J0: {numero}
+#
+# floads: 
+#        ele q1y q2y q1z q2z
+#               ...
+#      
+# loads: 
+#         no  gl  valor
+#              ...
+#
+# apoios: 
+#         no  gl  valor 
+#             ...
+#
+# dados_elementos:
+#          material geometria
+#
+# mpc: 
+#      no1 gl1 no2 gl2
+#            ... 
+#
+##########################################################################
+#
+# Sendo que: 
+#
+# coordenadas
+# conectividades
+# materiais
+# geometrias 
+# apoios 
+#
+# são obrigatórios.
+#
+# Dentro de materiais, temos que 
+#
+# nome
+# Ex 
+# G
+#
+# são obrigatórios.
+#
+# Dentro de geometrias, temos que TODOS os dados são obrigatórios
+#
+#########################################################################
+#
+# Graus de liberdade locais podem ser informados por número 
+#
+# 1 a 6 
+# 
+# ou por simbolos. A rotina Converte_array é responsável pela convesão
+# e os símbolos são 
+# 
+# gls["ux"]=1; gls["uy"]=2; gls["uz"]=3
+# gls["θx"]=4; gls["θy"]=5; gls["θz"]=6
+# gls["fx"]=1; gls["fy"]=2; gls["fz"]=3
+# gls["mx"]=4; gls["my"]=5; gls["mz"]=6#
+#
+#
+########################################################################
 function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
 
    # Primeiro lemos o arquivo de dados
