@@ -46,6 +46,6 @@ function Analise3D(arquivo::AbstractString, verbose=false)
     U = U_.u[1:6*malha.nnos]
 
     # Retorna o vetor de deslocamentos da estrutura
-    return U, linsolve
+    return U
    
 end

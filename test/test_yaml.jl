@@ -12,9 +12,8 @@
     # Wrong version
     @test_throws ErrorException LFrame.Le_YAML("data/cantilever_point/cantilever_fx",1.1)
 
-
     # Dados obrigatórios
-    dados_obrigatorios=["coordenadas","conectividades","apoios","materiais","geometrias","dados_elementos"]
+    # dados_obrigatorios=["coordenadas","conectividades","apoios","materiais","geometrias","dados_elementos"]
 
     ##############################################
     # No material 
