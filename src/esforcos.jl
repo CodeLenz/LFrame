@@ -1,117 +1,150 @@
 #
 # Retorna o vetor 12x1 com os esforços nodais do elemento ele
 #
-function Esforcos_elemento(ele,malha::Malha,U::Vector)
-                                   
+function Forcas_elemento(ele,malha::Malha,U::Vector{Float64})
+    
+    # Recupera dados da estrutura malha
+    conect = malha.conect
+    coord = malha.coord
+    dados_elementos = malha.dados_elementos
+    dicionario_materiais = malha.dicionario_materiais
+    dicionario_geometrias = malha.dicionario_geometrias
+
     # Recupera os dados do elemento
     Ize, Iye, J0e, Ae, αe, Ee, Ge = Dados_fundamentais(ele, dados_elementos, dicionario_materiais, 
                                                        dicionario_geometrias)
     
     
     # Descobre os dados do Elemento
-    Le = L[ele]
+    Le = malha.L[ele]
                                                                                                                     
-    # Montra a matriz do elemento
-    # Essse cara aqui seria a Ke0
+    # Monta a matriz do elemento no sistema local
     Ke = Ke_portico3d(Ee, Ize, Iye, Ge, J0e, Le, Ae)
 
     # Monta a matriz de rotação do elemento
-    Re = Rotacao3d(ele, elems, coord, αe)
+    Re = Rotacao3d(ele, conect, coord, αe)
 
     # Descobre os gls globais do elemento 
-    gls = Gls(ele,elems)   
+    gls = Gls(ele,conect)   
  
-    # Primeira operação é H U
+    # Recupera os deslocamentos do elemento (ainda no sistema global)
     ug = U[gls]
 
     # Rotaciona para o sistema local
     ul = Re*ug
 
+    # Se tivermos carregamentos distribuídos, calculamos o valor
+    fde = zeros(12)
+
+    # Verifica se temos carregamentos distribuídos no elemento 
+    # e, se for o caso, calcula o fde associado
+    fload = malha.floads
+
+    # Determina se existe alguma linha cuja a coluna 1 é igual 
+    # a ele. Se for o caso, pega os valores de q..
+    for linha in eachrow(fload)
+
+        # Testa se é o elemento
+        if linha[1]==ele
+
+            # Recupera os valores dos q's
+            q1y,q2y,q1z,q2z = linha[2:5]
+
+            # Calcula o vetor fde
+            fde .= Fe_viga(Le, q1y, q2y, q1z, q2z)
+
+            # Pula fora do loop
+            break
+
+        end
+
+    end
+
     # Multiplica pela rigidez (também no sistema local)
-    fe = Ke*ul
+    # e compensa pelo carregamento distribuídos (reações de 
+    # engastamento perfeito)
+    fe = Ke*ul - fde
 
     # Devolve as forças generalizadas nos nós deste elemento
-    #@show fe
     return fe 
 
 end
 
 #
-# Calcula as tensões em um nó n do elemento ele na posição a (0/1)
+# Retorna as equações dos esforços internos no elemento, como um 
+# vetor de funções 6 × 1 e também o comprimento do elemento.
 #
-# fe é o vetor 12x1 de esforços do elemento ele
 #
-function Tensao_no_elemento(ele::Int,n::Int,a::Int,fe::Vector,dados_elementos::Matrix{String},
-                           dicionario_geometrias)
+# Exemplo de uso 
+#
+# Using LFrame, Plots
+#
+# Calcula os deslocamentos do problema  
+#
+# U,malha = Analise3D(arquivo)
+#
+# Obtém as equações dos esforços internos para o elemento 1
+#
+# E,L = Esforcos_internos_elemento(1,malha,U)
+#
+# Gera os pontos x para o gráfico 
+#
+# x = 0:L/100/L
+#
+# Gera o gráfico do Mz (por exemplo)
+#
+# plot(x,E[6].(x),title="Momento Mz")
+#
+#
+#
+function Esforcos_internos_elemento(ele,malha::Malha,U::Vector{Float64})
 
-    # Testa se as entradas são consistentes
-    n in [1,2] || error("Tensao_no_elemento::nó n deve ser 1 ou 2")
-    a in [0,1] || error("Tensao_no_elemento::posição a deve ser 0 ou 1")
+    # Primeiro obtemos as forças nodais do elemento
+    Fe = Forcas_elemento(ele,malha,U)
 
-    # Dependendo no nó, pegamos as componentes relativas aos 
-    # esforços N, T, My e Mz. Para o primeiro nó, invertemos
-    # os sinais (estamos trabalhando com esforços internos)
-    if n==1
-              # N     T     My    Mz
-        E = -[fe[1];fe[4];fe[5];fe[6]]
-    else
-        E = [fe[7];fe[10];fe[11];fe[12]]
+    # Comprimento do elemento 
+    L = malha.L[ele]
+
+    # Podemos começar assumindo que os carregamentos distribuídos 
+    # são nulos
+    q1y = q2y = q1z = q2z = 0.0 
+
+    # Agora precisamos determinar se o elemento tem carregamento distribuído
+    #
+    # ele q1y q2y q1z q2z
+    #
+    fload = malha.floads
+
+    # Determina se existe alguma linha cuja a coluna 1 é igual 
+    # a ele. Se for o caso, pega os valores de q..
+    for linha in eachrow(fload)
+
+        # Testa se é o elemento
+        if linha[1]==ele
+
+            # Recupera as informações
+            q1y,q2y,q1z,q2z = linha[2:5]
+
+            # Pula fora do loop
+            break
+
+        end
+
     end
+        
+    # Com isso, podemos montar as equações dos carregamentos distribuídos 
+    # usando os q´s
+    #
+    # TODO verificar os sinais destas expressões
+    #
+    N(x) = -Fe[1]
+    T(x) = -Fe[4]
+    Vy(x) = -Fe[2] -q1y*x - (x^2)*(q2y-q1y)/(2*L)
+    Vz(x) = -Fe[3] -q1z*x - (x^2)*(q2z-q1z)/(2*L)
+    Mz(x) = ((q2y-q1y)*x^3+3*L*q1y*x^2+6*Fe[2]*L*x-6*Fe[6]*L)/(6*L)
+    My(x) = -(((q2z-q1z)*x^3+3*L*q1z*x^2+6*Fe[3]*L*x+6*Fe[5]*L)/(6*L))
 
-    # Os esforços internos no nó
-    N = E[1]
-    T = E[2]
-    Mr = sqrt(E[3]^2 + E[4]^2)
-
-    # Descobre os dados da geometria do elemento 
-    geo = dados_elementos[ele,2]
-    geometria = dicionario_geometrias[geo]
-    Ize = geometria["Iz"]
-    Iye = geometria["Iy"]
-    J0e = geometria["J0"]
-    Ae  = geometria["A"]
-
-    # Teste de pânico
-    isapprox(Ize,Iye) || error("Tensao_no_elemento:: momentos de inércia são diferentes..")
-
-    # Super método avançado para obtermos o r_e
-    r_e = sqrt(J0e/Ae + Ae/(2*pi))
-
-    # Tensão normal (barra)
-    s_xx_N = N/Ae
-
-    # Tensão cisalhante devido ao torque
-    s_xy_T = T*r_e / J0e
-
-    # Tensão normal devido à flexão oblíqua
-    s_xx_Mr = ((-1)^a) * Mr*r_e / Ize 
-
-    # Retorna o vetor com as tensões do elemento
-    return [s_xx_N  ;  s_xy_T ; s_xx_Mr]
-
-end
-
-#
-# Matriz de von-Mises, assumindo que as tensões são
-# dadas por um vetor com xx_N xy_T e xx_M
-#
-function Matriz_VM()
-
-     [1.0 0.0 1.0 ;
-      0.0 3.0 0.0 ;
-      1.0 0.0 1.0 ]
-
-end
-
-#
-# Calcula a tensão equivalente
-#
-function Tensao_equivalente(tensao::Vector)
-
-    # Matriz de von-Mises
-    VM = Matriz_VM()
-
-    # Tensão equivalente de von-Mises
-    sqrt(dot(tensao,VM,tensao))
+    # Retorna um vetor com as funções e também o comprimento do elemento
+    return [N,Vy,Vz,T,My,Mz], L
 
 end

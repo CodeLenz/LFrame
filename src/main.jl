@@ -7,7 +7,7 @@ Analise3D Rotina para análise estática de pórticos espaciais
 
 Entrada: arquivo::AbstractString:  nome de um arquivo .yaml com a definição do problema
 
-Saida: Vetor de deslocamentos do pórtico
+Saida: Vetor de deslocamentos do pórtico e estrutura de malha
 
 """
 function Analise3D(arquivo::AbstractString, verbose=false)
@@ -43,6 +43,6 @@ function Analise3D(arquivo::AbstractString, verbose=false)
     U = U_.u[1:6*malha.nnos]
 
     # Retorna o vetor de deslocamentos da estrutura
-    return U
+    return U, malha
    
 end

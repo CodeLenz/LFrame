@@ -22,4 +22,8 @@ module LFrame
 	# Exporta a rotina principal de análise
 	export Analise3D
 	
+	# Rotinas para calcular as forças nodais e as 
+	# expressões dos esforços internos de cada elemento
+	export Forcas_elemento, Esforcos_internos_elemento	
+	
 end

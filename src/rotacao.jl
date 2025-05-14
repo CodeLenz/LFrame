@@ -5,12 +5,13 @@
 function Rotacao3d(e, elems, coord, α)
 
     # Descobre os nós de cada elemento
-    no1, no2 = elems[e, :] # Usa o nó inicial e final da matriz de conectividades
+    no1, no2 = elems[e, :] 
 
     # As coordenadas dos nós de cada elemento:
     x1, y1, z1 = coord[no1, :]
     x2, y2, z2 = coord[no2, :]
 
+    # Distâncias em cada direção 
     dx = x2 - x1
     dy = y2 - y1
     dz = z2 - z1
@@ -43,9 +44,9 @@ function Rotacao3d(e, elems, coord, α)
         mox = cos_yx
 
         # Caso particular em que x local do elemento está na direção Y
-        R = [0.0 mox 0.0
-            -mox*cosd(α) 0.0 mox*sind(α)
-            sind(α) 0.0 cosd(α)]
+        R = [     0.0    mox    0.0
+            -mox*cosd(α) 0.0  mox*sind(α)
+               sind(α)   0.0   cosd(α)]
 
     else
 
@@ -61,13 +62,13 @@ function Rotacao3d(e, elems, coord, α)
 
         # Matriz de rotação z' paralelo ao plano XZ
         T1 = [cos_xx cos_yx cos_zx
-            cos_xy cos_yy cos_zy
-            cos_xz cos_yz cos_zz]
+              cos_xy cos_yy cos_zy
+              cos_xz cos_yz cos_zz]
 
         # Rotaciona em torno de X
-        T2 = [1.0 0.0 0.0
-            0.0 cosd(α) sind(α)
-            0.0 -sind(α) cosd(α)]
+        T2 = [1.0    0.0    0.0
+              0.0  cosd(α) sind(α)
+              0.0 -sind(α) cosd(α)]
 
         # rotacionamos => Primeiro em X e depois em z'    
         R = T1 * T2
@@ -77,9 +78,10 @@ function Rotacao3d(e, elems, coord, α)
     # Posiciona R em T (aqui temos 4 blocos 3x3 pois temos 2 nós c 6 gdl cada)
     z = zeros(3, 3)
     T = [R z z z
-        z R z z
-        z z R z
-        z z z R]
+         z R z z
+         z z R z
+         z z z R]
 
+    # Retorna a matriz de transformação do elemento
     return T
 end
