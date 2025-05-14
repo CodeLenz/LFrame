@@ -2,13 +2,14 @@
 #                 Rotina para montagem da matriz de rigidez global                  #
 #####################################################################################
 
-function Monta_Kg(malha::Malha, L::Vector{Float64}, ρ::Vector)
+function Monta_Kg(malha::Malha, ρ::Vector)
     
     # Acessa as definições de malha
     ne    = malha.ne 
     nnos  = malha.nnos 
     elems = malha.conect 
     coord = malha.coord
+    L = malha.L
     dados_elementos = malha.dados_elementos
     dicionario_materiais = malha.dicionario_materiais
     dicionario_geometrias = malha.dicionario_geometrias
@@ -87,7 +88,7 @@ end
 #                      Montagem do vetor de forças distribuídas                     #
 #####################################################################################
 
-function Monta_FD(malha::Malha, L::Vector{Float64})
+function Monta_FD(malha::Malha)
     
     # Acessa os dados da estrutura de dados
     floads = malha.floads
@@ -95,6 +96,7 @@ function Monta_FD(malha::Malha, L::Vector{Float64})
     nnos   = malha.nnos
     dicionario_geometrias = malha.dicionario_geometrias
     coord  = malha.coord
+    L = malha.L
     dados_elementos = malha.dados_elementos
   
     # Vetor global

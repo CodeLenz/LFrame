@@ -49,4 +49,7 @@ struct Malha
     # elemento qy1 qy2 qz1 qz2
     floads::Array{Float64}
 
+    # Vetor de comprimentos da malha
+    L::Vector{Float64}
+
 end

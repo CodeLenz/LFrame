@@ -15,20 +15,17 @@ function Analise3D(arquivo::AbstractString, verbose=false)
     # Le os dado::AbstractStrings do problema
     malha = Le_YAML(arquivo; verbose=verbose)
 
-    # Pré processamento para calcular os comprimentos dos elementos da malha
-    L = Pre_processamento(malha)
- 
     # Cria o vetor ρ
     ρ0 = ones(malha.ne) 
  
     # Monta a matriz de rigidez global
-    KG = Monta_Kg(malha,L,ρ0)
+    KG = Monta_Kg(malha,ρ0)
 
     # Monta o vetor global de forças concentradas - não muda
     FG = Monta_FG(malha)
 
     # Monta o vetor global de forças distribuídas - não muda
-    FD = Monta_FD(malha, L)
+    FD = Monta_FD(malha)
 
     # Vetor de forças do problema - não muda
     F = FG .+ FD

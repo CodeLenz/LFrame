@@ -4,12 +4,7 @@
 # Retorna o numero de elementos, o numero de nós e o 
 # vetor com o comprimento dos elementos
 #
-function Pre_processamento(malha::Malha)
-
-    # Acessa as informações que precisamos da estrutura de dados
-    ne = malha.ne
-    conect = malha.conect
-    coord = malha.coord
+function Calcula_comprimentos(ne,conect::Array{Int64},coord::Array{Float64})
     
     # Podemos alocar o vetor de comprimento
     L = Array{Float64}(undef,ne)
@@ -42,7 +37,7 @@ function Pre_processamento(malha::Malha)
 
         # Evita comprimento nulo
         if (Le == 0.0)
-            throw("comprimento 0 no elemento $e")
+            error("comprimento 0 no elemento $e")
         end
         
         # Armazena o vetor

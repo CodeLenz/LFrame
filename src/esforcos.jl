@@ -1,10 +1,8 @@
 #
 # Retorna o vetor 12x1 com os esforços nodais do elemento ele
 #
-function Esforcos_elemento(ele,elems,dados_elementos::Matrix{String},
-                           dicionario_materiais, dicionario_geometrias,
-                           L::Vector{Float64}, coord::Matrix, U::Vector)
-
+function Esforcos_elemento(ele,malha::Malha,U::Vector)
+                                   
     # Recupera os dados do elemento
     Ize, Iye, J0e, Ae, αe, Ee, Ge = Dados_fundamentais(ele, dados_elementos, dicionario_materiais, 
                                                        dicionario_geometrias)
