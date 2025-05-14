@@ -109,6 +109,16 @@
 ########################################################################
 function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
 
+   # Primeiro verificamos se existe o arquivo
+   if !isfile(arquivo)
+       error("Le_YAML:: arquivo $arquivo não existe")
+   end
+
+   # Teste idiota, se tem alguma coisa no arquivo
+   if filesize(arquivo)==0
+       error("Le_YAML:: arquivo $arquivo está vazio")
+   end
+
    # Primeiro lemos o arquivo de dados
    dados = YAML.load_file(arquivo)
 
@@ -129,7 +139,7 @@ function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
 
    # Vamos verificar se os dados obrigatorios estão informados
    for dado in dados_obrigatorios
-       haskey(dados,dado) || throw("Dado obrigatório $dado não foi infomado no arquivo $arquivo")
+       haskey(dados,dado) || error("Dado obrigatório $dado não foi infomado no arquivo $arquivo")
    end
 
    # Vamos ver se o título e/ou a data estão definidos
@@ -168,7 +178,7 @@ function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
    nnos = size(coord,1)
 
    # Teste basicão
-   nnos>=2 || throw("leitura_dados::ao menos 2 nós são necessários")
+   nnos>=2 || error("leitura_dados::ao menos 2 nós são necessários")
 
    ########################################### Materiais ########################################
 
@@ -182,14 +192,14 @@ function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
    dados_obrigatorios_materiais = ["nome","Ex","G"]
 
    # Precisamos ter ao menos uma informação
-   length(vetor_materiais)>=1 || throw("leitura_dados:: ao menos um material é necessário")
+   length(vetor_materiais)>=1 || error("leitura_dados:: ao menos um material é necessário")
 
    # Podemos iterar em cada um dos materais para ver se o básico está sendo definido
    contador = 0
    for mat in vetor_materiais
        contador += 1
        for dat in dados_obrigatorios_materiais
-          haskey(mat,dat) || throw("Dado obrigatório $dat não foi informado para o material $contador")
+          haskey(mat,dat) || error("Dado obrigatório $dat não foi informado para o material $contador")
        end
     end
 
@@ -244,14 +254,14 @@ function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
    dados_obrigatorios_geometrias = ["nome","A","Iz","Iy","J0", "α"]
 
    # Precisamos ter ao menos uma informação
-   length(vetor_geometrias)>=1 || throw("leitura_dados:: ao menos uma geometria é necessária")
+   length(vetor_geometrias)>=1 || error("leitura_dados:: ao menos uma geometria é necessária")
 
    # Podemos iterar em cada uma das geometrias para ver se o básico está sendo definido
    contador = 0
    for geo in vetor_geometrias
        contador += 1
        for dat in dados_obrigatorios_geometrias
-          haskey(geo,dat) || throw("Dado obrigatório $dat não foi infomado para a geometria $contador")
+          haskey(geo,dat) || error("Dado obrigatório $dat não foi infomado para a geometria $contador")
        end
     end
 
@@ -353,7 +363,7 @@ function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
    end
 
    # Teste de consistência
-   size(dados_elementos,1)==ne || throw("leitura_dados::dados_elementos deve ter $ne linhas")
+   size(dados_elementos,1)==ne || error("leitura_dados::dados_elementos deve ter $ne linhas")
    
    # Para debug
    verbose && println("Loop pelos elementos")  
@@ -366,13 +376,13 @@ function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
         mat = dados_elementos[linha,1]
 
         # Verifica se está em nomes_materiais
-        mat in nomes_materiais || throw("leitura_dados::dados_elementos linha $linha:: material $mat não foi definido")
+        mat in nomes_materiais || error("leitura_dados::dados_elementos linha $linha:: material $mat não foi definido")
 
         # material do elemento
         geo = dados_elementos[linha,2]
 
         # Verifica se está em nomes_materiais
-        geo in nomes_geometrias || throw("leitura_dados::dados_elementos linha $linha:: geometria $geo não foi definida")
+        geo in nomes_geometrias || error("leitura_dados::dados_elementos linha $linha:: geometria $geo não foi definida")
         
     end
    
