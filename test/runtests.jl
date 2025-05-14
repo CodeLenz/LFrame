@@ -1,6 +1,5 @@
 using LFrame
 using Test
 
-@testset "LFrame.jl" begin
-    # Write your tests here.
-end
+# Testes com viga engastada e carregamentos concentrados
+include("test_cantilever_plane.jl")

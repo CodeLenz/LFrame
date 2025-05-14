@@ -143,12 +143,14 @@ function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
       data = dados["data"]
    end
 
-   println("Lendo    ",arquivo)
-   if versao>0 
-      println("Versão:  ", versao)
+   if verbose
+      println("Lendo    ",arquivo)
+      if versao>0 
+          println("Versão:  ", versao)
+      end
+      println("Título:  ", titulo)
+      println("Data:    ", data)
    end
-   println("Título:  ", titulo)
-   println("Data:    ", data)
 
 
    ########################################### Coordenadas ########################################
