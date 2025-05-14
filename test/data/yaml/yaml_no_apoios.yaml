@@ -1,0 +1,58 @@
+
+versao: 1.0
+
+#
+# One material 
+#
+materiais:
+  - nome: "material"
+    G: 1E6
+    Ex: 1E6
+    S_esc: 350e6
+
+#
+# No distribuited loads
+#
+floads:
+  
+#
+# No multi point constraints
+#
+mpc: 
+
+# Point loads
+loads: 2 1 100.0
+
+#
+# Square with a = 1cm
+#
+# Jeq = 2.25a^4
+#
+geometrias:
+  - nome: "section"
+    A: 1E-4
+    Iz: 8.333e-10
+    Iy: 8.333e-10
+    α: 0
+    J0: 2.25E-8
+
+#
+# Two nodes
+#
+coordenadas:
+  0.0 0.0 0.0
+  1.0 0.0 0.0
+
+# 
+# One element
+#
+conectividades: 
+  1 2 
+  
+
+# 
+# Material and section data for 
+# each element
+#
+dados_elementos:
+  material section
