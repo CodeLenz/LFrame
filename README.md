@@ -84,6 +84,14 @@ loads:  4 3 -3000
         4 4 -5000
         4 2 -1000
 ```
+
+### Informações sobre o carregamento distribuído
+floads: elemento q1y q2y q1z q2z
+```bash
+floads:
+  1 -150E3  -150E3  0.0  0.0                                                    
+  2 -150E3   0.0    0.0  0.0
+```
 ### Informações de geometria
  Nome da geometria
 
@@ -252,7 +260,8 @@ Criando o arquivo carregamento_distribuido.yaml
 
 ```bash
 #
-#Exercicio 12-49 do Hibbeler 7ºedição utilizando o material aço e seção transversal de um circulo de raio 20 mm
+#Exercicio 12-49 do Hibbeler 7ºedição utilizando o material aço e 
+#seção transversal de um circulo de raio 20 mm
 #
 
 versao: 1.0
