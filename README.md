@@ -240,6 +240,14 @@ Assim é só rodar o arquivo escolhido, neste caso é o hibbeler86.yaml
 ```bash
 Analise3D("examples/hibbeler86.yaml")
 ```
+### Exercício 12.49 Hibbler (Carregamento Distribuído)
+
+Exercício 12.49 do livro Resistência dos Materiais de Russell Charles Hibbeler, 10º edição
+ 
+<p align="center">
+  <img src="Imagens/Carregamento Distribuído.png" alt="Exercício 12.49 Livro Hibbeler 10º edição" width="50%">
+</p>
+
 ### Running test
 Para rodar o exemplo, abra o Prompt de Comando e inicie o Julia
 ```bash
