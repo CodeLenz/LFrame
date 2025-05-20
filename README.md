@@ -234,9 +234,27 @@ cd("Local do arquivo")
 ```
 Com isso, utilize o LFrame
 ```bash
-using LFrame: Analise3D
+using LFrame
 ```
 Assim é só rodar o arquivo escolhido, neste caso é o hibbeler86.yaml
 ```bash
 Analise3D("examples/hibbeler86.yaml")
+```
+### Running test
+Para rodar o exemplo, abra o Prompt de Comando e inicie o Julia
+```bash
+julia
+```
+Após, localize o local do Arquivo LFrame
+
+```bash
+cd("Local do arquivo")
+```
+Com isso, utilize o LFrame
+```bash
+using Test
+```
+Assim é só rodar o teste para validar os deslocamentos 
+```bash
+include("test/runtest.jl")
 ```
