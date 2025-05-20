@@ -230,24 +230,6 @@ dados_elementos:
   aco tubo1
 ```
 
-### Running an Example:
-Para rodar o exemplo, abra o Prompt de Comando e inicie o Julia
-```bash
-julia
-```
-Após, localize o local do Arquivo LFrame
-
-```bash
-cd("Local do arquivo")
-```
-Com isso, utilize o LFrame
-```bash
-using LFrame
-```
-Assim é só rodar o arquivo escolhido, neste caso é o hibbeler86.yaml
-```bash
-Analise3D("examples/hibbeler86.yaml")
-```
 ### Exercício 12.49 Hibbler (Carregamento Distribuído)
 
 Exercício 12.49 do livro Resistência dos Materiais de Russell Charles Hibbeler, 10º edição
@@ -325,6 +307,29 @@ dados_elementos:
 # teta_z no no 2 (gl 12) = 210E9 / (E*I) =  7.957747157355244
 #
 #
+```
+
+### Running an Example:
+Para rodar o exemplo, abra o Prompt de Comando e inicie o Julia
+```bash
+julia
+```
+Após, localize o local do Arquivo LFrame
+
+```bash
+cd("Local do arquivo")
+```
+Com isso, utilize o LFrame
+```bash
+using LFrame
+```
+Assim é só rodar o arquivo escolhido, neste caso é o hibbeler86.yaml
+```bash
+U,_ = Analise3D("examples/hibbeler86.yaml")
+```
+Para melhor visulização, pode-se printar somente o vetor deslocamento
+```bash
+U
 ```
 
 ### Running test
