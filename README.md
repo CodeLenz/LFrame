@@ -248,6 +248,76 @@ Exercício 12.49 do livro Resistência dos Materiais de Russell Charles Hibbeler
   <img src="Imagens/Carregamento Distribuído.png" alt="Exercício 12.49 Livro Hibbeler 10º edição" width="50%">
 </p>
 
+Criando o arquivo carregamento_distribuido.yaml
+
+```bash
+#
+#Exercicio 12-49 do Hibbeler 7ºedição utilizando o material aço e seção transversal de um circulo de raio 20 mm
+#
+
+versao: 1.0
+
+
+
+materiais:
+  - nome: "aco"
+    G: 8.0e10
+    Ex: 2.1e11
+    S_esc: 350e6
+
+floads:
+  1 -150E3  -150E3  0.0  0.0                                                    
+  2 -150E3   0.0    0.0  0.0
+  
+loads:
+
+
+geometrias:
+  - Iz: 1.256637061e-7
+    A: 1.256637061e-3
+    Iy: 1.256637061e-7
+    nome: "tubo1"
+    α: 0
+    J0: 2.513274123e-7
+
+
+coordenadas:
+  0.0 0.0 0.0
+  2.0 0.0 0.0
+  5.0 0.0 0.0
+
+conectividades: 
+  1 2 
+  2 3
+
+#
+# Lembrando que o exercício é 2D, mas o programa é 3D sempre
+# então devemos também restringir as translações em Z. O Ideal 
+# seria também restringir a rotação em X (gl 4) no nó 3, 
+# só para garantir
+#
+apoios: 
+  2 2 0.0
+  2 3 0.0
+  3 1 0.0
+  3 2 0.0
+  3 3 0.0
+  3 4 0.0
+
+
+dados_elementos:
+  aco tubo1
+
+#
+# Os resultados esperados são 
+#
+# Uy no nó 1 (gl 2) = -720E3/(E*I) =   -27.283704539503688
+#
+# teta_z no no 2 (gl 12) = 210E9 / (E*I) =  7.957747157355244
+#
+#
+```
+
 ### Running test
 Para rodar o exemplo, abra o Prompt de Comando e inicie o Julia
 ```bash
