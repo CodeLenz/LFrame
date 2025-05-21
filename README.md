@@ -320,6 +320,7 @@ dados_elementos:
 ```
 
 ### Running an Example:
+
 Para rodar o exemplo, abra o Prompt de Comando e inicie o Julia
 ```bash
 julia
@@ -341,8 +342,14 @@ Para melhor visulização, pode-se printar somente o vetor deslocamento
 ```bash
 U
 ```
+# Testes 
+
+
+No Julia, o módulo Test é utilizado para escrever testes automatizados, que ajudam a garantir que seu código funciona corretamente agora e continue funcionando no futuro, mesmo após modificações. Ele faz parte da biblioteca padrão do Julia, então você não precisa instalar nada extra para usá-lo.
+
 
 ### Running test
+
 Para rodar o exemplo, abra o Prompt de Comando e inicie o Julia
 ```bash
 julia
