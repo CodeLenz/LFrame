@@ -16,8 +16,8 @@ floads:
   1 -150E3  -150E3  0.0  0.0                                                    
   2 -150E3   0.0    0.0  0.0
   
-loads:
-
+loads: # loads precisa estar definida, mesmo se não tem
+#forças concentradas.
 
 geometrias:
   - Iz: 1.256637061e-7
@@ -26,7 +26,6 @@ geometrias:
     nome: "tubo1"
     α: 0
     J0: 2.513274123e-7
-
 
 coordenadas:
   0.0 0.0 0.0
@@ -50,7 +49,6 @@ apoios:
   3 2 0.0
   3 3 0.0
   3 4 0.0
-
 
 dados_elementos:
   aco tubo1

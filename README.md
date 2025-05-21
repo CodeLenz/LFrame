@@ -20,7 +20,10 @@ This is my Undergraduate Research Project from the past one and a half years. It
   - We perform the  analysis using FEM
   
 ## How to use
+
+
 ### Requirements:
+
 - Julia Language -- make sure it's up to date
 - Gmsh -- required for visualizing the results
 
@@ -30,11 +33,12 @@ This is my Undergraduate Research Project from the past one and a half years. It
 ]add https://github.com/CodeLenz/LFrame
 ```
 
-## Input file
+# Input file
+
 
 O arquivo de entrada deve ser informado no formato YAML, com campos opcionais e campos obrigatórios...
 
-### Campos opcionais
+## Campos opcionais
 
 ### Título do arquivo
 
@@ -53,6 +57,8 @@ data = "01/01/2000"
 ```bash
 versao = 1.0
 ```
+## Campos Obrigatórios 
+
 
 ### Informação sobre os materiais 
  Nome do material 
@@ -77,6 +83,7 @@ materiais:
 ```
 
 ### Informações sobre as forças concentradas
+
 loads: nó gdl intensidade
 
 ```bash
@@ -86,6 +93,7 @@ loads:  4 3 -3000
 ```
 
 ### Informações sobre o carregamento distribuído
+
 floads: elemento q1y q2y q1z q2z
 ```bash
 floads:
@@ -93,6 +101,7 @@ floads:
   2 -150E3   0.0    0.0  0.0
 ```
 ### Informações de geometria
+
  Nome da geometria
 
  Iz - Momento de inércia em torno do eixo z
@@ -125,6 +134,7 @@ geometrias:
 ```
 
 ### Coordenadas
+
 As coordenadas precisam ser descritas em x, y, z, cada linha trata-se de um nó
 
 
@@ -137,6 +147,7 @@ coordenadas:
 ```
 
 ### Conectividades
+
 A conectividade informa quais nós, estão ligados ou seja está se tornando um elemento.
 ```bash
   conectividades: 
@@ -146,6 +157,7 @@ A conectividade informa quais nós, estão ligados ou seja está se tornando um 
 ```
 
 ### Apoios
+
 Para a definição dos apoios precisa definir: Nó, gdl e intencidade.
 
 ```bash
@@ -159,6 +171,7 @@ apoios:
 ```
 
 ### Dados dos Elementos
+
 Para os elementos criados, tem duas opções para informar os dados. 
 A primeira define-se que todos os elementos tem o mesmo material e a mesma geometria.
 ```bash
@@ -176,9 +189,9 @@ dados_elementos
 
 ```
 
-## Exemplos e validação
+# Exemplos:
 
-### Exemplo 8.6 Hibbler (Força Concentrada)
+### Exemplo resolvido 8.6 Hibbler (Força Concentrada)
 
 Exemplo 8.6 do livro Resistência dos Materiais de Russell Charles Hibbeler, 10º edição
  
@@ -186,7 +199,7 @@ Exemplo 8.6 do livro Resistência dos Materiais de Russell Charles Hibbeler, 10�
   <img src="Imagens/Força Concentrada.png" alt="Exemplo 8.6 Livro Hibbeler 10º edição" width="50%">
 </p>
 
-Criando o arquivo hibbeler86.yaml
+#### Criando o arquivo hibbeler86.yaml
 
 ```bash
 materiais:            
@@ -238,7 +251,7 @@ Exercício 12.49 do livro Resistência dos Materiais de Russell Charles Hibbeler
   <img src="Imagens/Carregamento Distribuído.png" alt="Exercício 12.49 Livro Hibbeler 10º edição" width="50%">
 </p>
 
-Criando o arquivo carregamento_distribuido.yaml
+#### Criando o arquivo carregamento_distribuido.yaml
 
 ```bash
 #
@@ -247,8 +260,6 @@ Criando o arquivo carregamento_distribuido.yaml
 #
 
 versao: 1.0
-
-
 
 materiais:
   - nome: "aco"
@@ -260,8 +271,8 @@ floads:
   1 -150E3  -150E3  0.0  0.0                                                    
   2 -150E3   0.0    0.0  0.0
   
-loads:
-
+loads: # loads precisa estar definida, mesmo se não ter 
+#forças concentradas
 
 geometrias:
   - Iz: 1.256637061e-7
@@ -270,7 +281,6 @@ geometrias:
     nome: "tubo1"
     α: 0
     J0: 2.513274123e-7
-
 
 coordenadas:
   0.0 0.0 0.0
