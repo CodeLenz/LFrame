@@ -181,6 +181,8 @@ mpc:
  2 6 3 6
 ```
 
+Lembrar que nestes casos não existe elemento entre o nó 2 e nó 3, então eles não podem ser definidos na conectividade.
+
 ### Apoios
 
 Para a definição dos apoios precisa definir: Nó, gdl e intencidade.
