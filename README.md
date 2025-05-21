@@ -83,8 +83,9 @@ materiais:
 ```
 
 ### Informações sobre as forças concentradas
-
+```bash
 loads: nó gdl intensidade
+```
 
 ```bash
 loads:  4 3 -3000
@@ -94,7 +95,12 @@ loads:  4 3 -3000
 
 ### Informações sobre o carregamento distribuído
 
+A seção floads deve ser utilizada apenas quando há carregamentos distribuídos atuando sobre os elementos do modelo. Ou seja, não é um campo obrigatório para todos os arquivos de entrada, mas deve ser incluído quando aplicável.
+
+```bash
 floads: elemento q1y q2y q1z q2z
+```
+
 ```bash
 floads:
   1 -150E3  -150E3  0.0  0.0                                                    
@@ -154,6 +160,25 @@ A conectividade informa quais nós, estão ligados ou seja está se tornando um 
     1 2 
     2 3
     3 4
+```
+### MPCs
+Multipoint Constraints (MPCs) são restrições que relacionam diretamente os graus de liberdade (GDLs) de dois ou mais nós em uma estrutura. Elas são úteis para impor vínculos entre deslocamentos ou rotações de diferentes nós, como em conexões rígidas ou movimentos dependentes.
+
+A seção mpc deve ser utilizada apenas quando houver necessidade de criar uma relação entre GDLs. Caso contrário, essa seção pode ser omitida do arquivo .yaml.
+
+```bash
+mpc:
+  nó gdl nó gdl
+```
+
+```bash
+mpc:
+ 2 1 3 1
+ 2 2 3 2
+ 2 3 3 3
+ 2 4 3 4
+ 2 5 3 5
+ 2 6 3 6
 ```
 
 ### Apoios
@@ -342,6 +367,7 @@ Para melhor visulização, pode-se printar somente o vetor deslocamento
 ```bash
 U
 ```
+
 # Testes 
 
 
