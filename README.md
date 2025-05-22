@@ -424,7 +424,7 @@ Por fim, decida qual esforço você quer visualizar:
 6 - Momento em z [ Mz(x) ]
 
 ```bash
-plot(x,esforcos[5].(x),title="Momento em y")
+plot(x,esforcos[5].(x),title="Momento em y", xlabel = "Comprimento [m]", ylabel = "My [Nm]")
 ```
 # Testes 
 
