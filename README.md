@@ -428,7 +428,7 @@ plot(x,esforcos[5].(x),title="Momento em y", xlabel = "Comprimento [m]", ylabel 
 ```
 
 <p align="center">
-  <img src="Imagens/Momento em y" alt="Gráfico de momento fletor em y" width="50%">
+  <img src="Imagens/Momento em y.png" alt="Gráfico de momento fletor em y" width="50%">
 </p>
 
 # Testes 
