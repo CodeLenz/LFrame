@@ -409,7 +409,7 @@ x = inicial : posição final/numero de pontos: posição final
 x = 0:L/100:L
 ```
 
-Por fim, decida qual esforço você quer visualizar:
+Por fim, decida qual esforço você quer visualizar e colque em esforcos[número]:
 
 1 - Normal [ N(x) ]
 
@@ -426,6 +426,11 @@ Por fim, decida qual esforço você quer visualizar:
 ```bash
 plot(x,esforcos[5].(x),title="Momento em y", xlabel = "Comprimento [m]", ylabel = "My [Nm]")
 ```
+
+<p align="center">
+  <img src="Imagens/Momento em y" alt="Gráfico de momento fletor em y" width="50%">
+</p>
+
 # Testes 
 
 No Julia, o módulo Test é utilizado para escrever testes automatizados, que ajudam a garantir que seu código funciona corretamente agora e continue funcionando no futuro, mesmo após modificações. Ele faz parte da biblioteca padrão do Julia, então você não precisa instalar nada extra para usá-lo.
