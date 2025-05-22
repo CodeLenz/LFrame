@@ -370,8 +370,63 @@ Para melhor visulização, pode-se printar somente o vetor deslocamento
 U
 ```
 
-# Testes 
+# Esforços internos
 
+Para a visualização dos esforços interno do exemplo 8.6, abra o Prompt de Comando e inicie o Julia
+```bash
+julia
+```
+
+Lembrando que você precisa ter a biblioteca Plots para a visualização dos esforços internos. Caso você não tenha faça:
+
+```bash
+]add Plots
+```
+
+Utilize as bibliotecas: LFrame e Plots.
+
+```bash
+Using LFrame, Plots
+```
+
+Calcule o deslocamentos do problema, neste caso é o hibbeler86.yaml.
+
+```bash
+U,malha = Analise3D("examples/hibbeler86.yaml")
+```
+
+Obtenha as equações dos esforços internos para o elemento escolhido, neste caso é o elemento "1".
+
+```bash
+esforcos,L = Esforcos_internos_elemento(1,malha,U)
+```
+
+Gerar os pontos x para o gráfico 
+
+x = inicial : posição final/numero de pontos: posição final
+
+```bash
+x = 0:L/100:L
+```
+
+Por fim, decida qual esforço você quer visualizar:
+
+1 - Normal [ N(x) ]
+
+2 - Cortante em y [ Vy(x) ]
+
+3 - Cortante em z [ Vz(x) ]
+
+4 - Torque [ T(x) ]
+
+5 - Momento em y [ My(x) ]
+
+6 - Momento em z [ Mz(x) ]
+
+```bash
+plot(x,esforcos[5].(x),title="Momento em y")
+```
+# Testes 
 
 No Julia, o módulo Test é utilizado para escrever testes automatizados, que ajudam a garantir que seu código funciona corretamente agora e continue funcionando no futuro, mesmo após modificações. Ele faz parte da biblioteca padrão do Julia, então você não precisa instalar nada extra para usá-lo.
 
