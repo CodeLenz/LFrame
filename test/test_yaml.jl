@@ -1,12 +1,17 @@
 @testset "YAML" begin
-    
+
+    # Path para o pacote LFrame
+    novo = pathof(LFrame)[1:end-14]*"\\test"
+
     ##############################################
     # File not exists
-    @test_throws ErrorException LFrame.Le_YAML("test/data/no_exist.yaml")
+    arquivo = joinpath([novo,"data","no_exist.yaml"])
+    @test_throws ErrorException LFrame.Le_YAML(arquivo)
 
     ##############################################
     # Empty file
-    @test_throws ErrorException LFrame.Le_YAML("test/data/yaml/empty.yaml")
+    arquivo = joinpath([novo,"data","empty.yaml"])
+    @test_throws ErrorException LFrame.Le_YAML(arquivo)
 
     ##############################################
     # Wrong version
