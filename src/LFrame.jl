@@ -19,6 +19,9 @@ module LFrame
 	include("apoios.jl")
 	include("main.jl")
 
+    # Proprieades da seção Seção transversal
+	include("secao_transversal.jl")
+
 	# Exporta a rotina principal de análise
 	export Analise3D
 	
