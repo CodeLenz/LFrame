@@ -110,9 +110,9 @@
 function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
 
    # Primeiro verificamos se existe o arquivo
-   if !isfile(arquivo)
-       error("Le_YAML:: arquivo $arquivo não existe")
-   end
+   #if !isfile(arquivo)
+   #    error("Le_YAML:: arquivo $arquivo não existe")
+   #end
 
    # Teste idiota, se tem alguma coisa no arquivo
    if filesize(arquivo)==0
