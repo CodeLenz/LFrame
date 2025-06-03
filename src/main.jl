@@ -10,13 +10,20 @@ Entrada: arquivo::AbstractString:  nome de um arquivo .yaml com a definição do
 Saida: Vetor de deslocamentos do pórtico e estrutura de malha
 
 """
-function Analise3D(arquivo::AbstractString, verbose=false)
+function Analise3D(arquivo::AbstractString, verbose=false; ρ0=Float64[])
 
     # Le os dado::AbstractStrings do problema
     malha = Le_YAML(arquivo; verbose=verbose)
 
-    # Cria o vetor ρ
-    ρ0 = ones(malha.ne) 
+    # Se ρ não foi informado, inicializamos com 1.0
+    if isempty(ρ0)
+       ρ0 = ones(malha.ne) 
+    else
+       # Testa para ver se a dimensão está correta
+       if length(ρ0)!=malha.ne
+          error("Analise3D:: vetor de variáveis de projeto tem a dimensão errada") 
+       end
+    end
  
     # Monta a matriz de rigidez global
     KG = Monta_Kg(malha,ρ0)
