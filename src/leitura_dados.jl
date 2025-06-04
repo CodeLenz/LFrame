@@ -130,7 +130,7 @@ function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
       versao = dados["versao"]
 
       # Verifica se a versão é compatível
-      versao==ver || throw("Le_YAML::versão do arquivo não é compatível com a versão atual") 
+      versao==ver || error("Le_YAML::versão do arquivo não é compatível com a versão atual") 
         
    end
 

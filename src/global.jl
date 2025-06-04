@@ -37,7 +37,7 @@ function Monta_Kg(malha::Malha, ρ::Vector)
         gls = Gls(e,elems)
 
         # Sobreposição na matriz global
-        KG[gls,gls] .= KG[gls,gls] .+ R'*Ke*R
+        KG[gls,gls] .= KG[gls,gls] .+ ρ[e]*(R'*Ke*R)
 
     end
 
