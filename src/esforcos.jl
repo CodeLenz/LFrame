@@ -89,7 +89,7 @@ end
 #
 # Gera os pontos x para o gráfico 
 #
-# x = 0:L/100/L
+# x = 0:L/100:L
 #
 # Gera o gráfico do Mz (por exemplo)
 #
