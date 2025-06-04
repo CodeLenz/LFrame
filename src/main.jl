@@ -48,6 +48,13 @@ function Analise3D(malha::Malha; ρ0=Float64[])
     U_ = solve!(linsolve)
     U = U_.u[1:6*malha.nnos]
 
+    # Inicializa um arquivo do Gmsh para visualização
+    etype = ones(Int64,malha.ne)
+    Lgmsh_export_init("saida.pos",malha.nnos,malha.ne,malha.coord,etype,malha.conect)
+
+    # Grava os deslocamentos para visualização 
+    Lgmsh_export_nodal_vector("saida.pos",U,3,"Deslocamentos")
+
     # Retorna o vetor de deslocamentos da estrutura
     return U, malha
    
