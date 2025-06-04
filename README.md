@@ -365,7 +365,7 @@ Assim é só rodar o arquivo escolhido, neste caso é o hibbeler86.yaml
 ```bash
 U,_ = Analise3D("examples/hibbeler86.yaml")
 ```
-Para melhor visulização, pode-se printar somente o vetor deslocamento
+Para melhor visulização, pode-se mostrar somente o vetor deslocamento
 ```bash
 U
 ```
@@ -442,16 +442,8 @@ Para rodar o exemplo, abra o Prompt de Comando e inicie o Julia
 ```bash
 julia
 ```
-Após, localize o local do Arquivo LFrame
+Após, entre em modo Pkg e execute os testes
 
 ```bash
-cd("Local do arquivo")
-```
-Com isso, utilize o LFrame
-```bash
-using Test
-```
-Assim é só rodar o teste para validar os deslocamentos 
-```bash
-include("test/runtest.jl")
+] test LFrame
 ```
