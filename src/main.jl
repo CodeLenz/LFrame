@@ -70,6 +70,6 @@ function Analise3D(arquivo::AbstractString; verbose=false, ρ0=Float64[])
    malha = Le_YAML(arquivo; verbose=verbose)
 
    # Roda a rotina principal
-   Analise3D(malha, verbose=verbose; ρ0=ρ0)
+   Analise3D(malha; ρ0=ρ0)
 
 end
