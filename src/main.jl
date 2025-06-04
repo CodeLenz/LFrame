@@ -5,17 +5,16 @@
 """
 Analise3D Rotina para análise estática de pórticos espaciais
 
-Entrada: arquivo::AbstractString:  nome de um arquivo .yaml com a definição do problema
+Entrada: malha:   estrutuda de dados com as informações da malha do problema
+         ρ0   :   vetor com variáveis de projeto (deve ter dimensão ne × 1)
 
-Saida: Vetor de deslocamentos do pórtico e estrutura de malha
+Saidas: Vetor de deslocamentos do pórtico e estrutura de malha
+        estrutura com os dados da malha 
 
 """
-function Analise3D(arquivo::AbstractString, verbose=false; ρ0=Float64[])
+function Analise3D(malha::Malha; ρ0=Float64[])
 
-    # Le os dado::AbstractStrings do problema
-    malha = Le_YAML(arquivo; verbose=verbose)
-
-    # Se ρ não foi informado, inicializamos com 1.0
+   # Se ρ não foi informado, inicializamos com 1.0
     if isempty(ρ0)
        ρ0 = ones(malha.ne) 
     else
@@ -52,4 +51,25 @@ function Analise3D(arquivo::AbstractString, verbose=false; ρ0=Float64[])
     # Retorna o vetor de deslocamentos da estrutura
     return U, malha
    
+end
+
+"""
+Analise3D Rotina para análise estática de pórticos espaciais
+
+Entrada: arquivo:  nome de um arquivo .yaml com a definição do problema
+         verbose:  indica (true) se a leitura do arquivo deve mostrar informações na tela
+         ρ0     :   vetor com variáveis de projeto (deve ter dimensão ne × 1)
+
+Saidas: Vetor de deslocamentos do pórtico e estrutura de malha
+        estrutura com os dados da malha 
+"""
+
+function Analise3D(arquivo::AbstractString; verbose=false, ρ0=Float64[])
+
+   # Le os dado::AbstractStrings do problema
+   malha = Le_YAML(arquivo; verbose=verbose)
+
+   # Roda a rotina principal
+   Analise3D(malha::Malha, verbose=verbose; ρ0=ρ0)
+
 end
