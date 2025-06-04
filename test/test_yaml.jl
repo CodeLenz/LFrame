@@ -1,30 +1,34 @@
 @testset "YAML" begin
 
     # Path para o pacote LFrame
-    novo = pathof(LFrame)[1:end-14]*"\\test"
+    caminho = pathof(LFrame)[1:end-14]*"\\test"
 
     ##############################################
     # File not exists
-    arquivo = joinpath([novo,"data","no_exist.yaml"])
+    arquivo = joinpath([caminho,"data","yaml","no_exist.yaml"])
     @test_throws ErrorException LFrame.Le_YAML(arquivo)
 
     ##############################################
     # Empty file
-    arquivo = joinpath([novo,"data","empty.yaml"])
+    arquivo = joinpath([caminho,"data","yaml","empty.yaml"])
     @test_throws ErrorException LFrame.Le_YAML(arquivo)
 
     ##############################################
     # Wrong version
-    #=
-    @test_throws ErrorException LFrame.Le_YAML("test/data/cantilever_point/cantilever_fx",1.1)
+    arquivo = joinpath([caminho,"data","cantilever_point","cantilever_fx.yaml"])
+    @test_throws ErrorException LFrame.Le_YAML(arquivo,1.1)
 
     # Dados obrigatórios
-    # dados_obrigatorios=["coordenadas","conectividades","apoios","materiais","geometrias","dados_elementos"]
+    dados_obrigatorios=["coordenadas","conectividades","apoios","materiais","geometrias","dados_elementos"]
 
     ##############################################
     # No material 
-    @test_throws ErrorException LFrame.Le_YAML("test/data/yaml/yaml_no_materiais.yaml")
+    arquivo = joinpath([caminho,"data","yaml","yaml_no_materiais.yaml"])
+    @test_throws ErrorException LFrame.Le_YAML(arquivo)
 
+    
+    #=
+    
     ##############################################
     # No coordenadas
     @test_throws ErrorException LFrame.Le_YAML("test/data/yaml/yaml_no_coordenadas.yaml")

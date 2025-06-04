@@ -5,12 +5,11 @@
 @testset "Cantilever point loads - Plane XY" begin
     
     # Path para o pacote LFrame
-    novo = pathof(LFrame)[1:end-14]*"\\test"
-
+    caminho = pathof(LFrame)[1:end-14]*"\\test"
 
     ##############################################
     # FX (axial - bar)
-    arquivo = joinpath([novo,"data","cantilever_point","cantilever_fx.yaml"])
+    arquivo = joinpath([caminho,"data","cantilever_point","cantilever_fx.yaml"])
     U,_ = Analise3D(arquivo)
 
     # Verifica a resposta
