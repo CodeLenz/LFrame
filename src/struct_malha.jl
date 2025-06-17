@@ -1,7 +1,7 @@
 #
 # Estrutura que contém as informações sobre o problema
 #
-struct Malha
+mutable struct Malha
 
     # Número de elementos
     ne::Int64
