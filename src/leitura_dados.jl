@@ -260,9 +260,12 @@ function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
    contador = 0
    for geo in vetor_geometrias
        contador += 1
-       for dat in dados_obrigatorios_geometrias
-          haskey(geo,dat) || error("Dado obrigatório $dat não foi infomado para a geometria $contador")
-       end
+       # Primeiro verificamos se a entrada aponta para um arquivo .dat
+       if !haskey(geo,"File")
+           for dat in dados_obrigatorios_geometrias
+               haskey(geo,dat) || error("Dado obrigatório $dat não foi infomado para a geometria $contador")
+           end
+        end
     end
 
     # Beleza. Só vou fazer o seguinte agora. Vou fazer um dicionário onde o nome é a chave e 
@@ -279,25 +282,80 @@ function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
     #  Novo loop pelo vetor de geometrias
     for geo in vetor_geometrias
 
-        # Nome da geometria
-        nome = geo["nome"]
-
-        # Guarda o nome em nomes_geometrias
-        push!(nomes_geometrias,nome)
-
         # Cria um dicionário interno. 
         interno = Dict{String,Float64}()
 
-        # Itera pelas chaves de geo, pulando o campo nome
-        for (key,value) in geo
-            if key!="nome"
-               try
-                    interno[key]= value 
-               catch
-                    interno[key]=parse(Float64,value)
-               end 
+        # Caso seja um arquivo
+        if haskey(geo,"File")
+
+           # Pega o nome do arquivo
+           arq = geo["File"] 
+
+           # Testa para ver se o arquivo existe
+           isfile(arq) || error("Arquivo $arq com definições de geometria não existe")
+
+           # Abre para leitura
+           fd = open(arq,"r")
+
+           # Lê cada uma das linhas e copia para o dicionário 
+           nome = readline(fd)
+
+           # Guarda o nome em nomes_geometrias
+           push!(nomes_geometrias,nome)
+
+           # Le as linhas na sequência esperada e grava no dicionário interno
+
+           # Area
+           la = readline(fd)
+           area = parse(Float64,la)
+           interno["A"] = area
+
+           # Iz
+           la = readline(fd)
+           Iz = parse(Float64,la)
+           interno["Iz"] = Iz
+
+           # Iy
+           la = readline(fd)
+           Iy = parse(Float64,la)
+           interno["Iy"] = Iy
+
+           # J0
+           la = readline(fd)
+           J0 = parse(Float64,la)
+           interno["J0"] = J0
+
+           # α
+           la = readline(fd)
+           α = parse(Float64,la)
+           interno["α"] = α
+
+           # Fecha o arquivo 
+           close(fd)
+
+        else
+
+            # Le direto do YAML
+
+            # Nome da geometria
+            nome = geo["nome"]
+
+            # Guarda o nome em nomes_geometrias
+            push!(nomes_geometrias,nome)
+
+            # Itera pelas chaves de geo, pulando o campo nome
+            for (key,value) in geo
+                if key!="nome"
+                    try
+                        interno[key] = value 
+                    catch
+                        interno[key] = parse(Float64,value)
+                    end 
+                end
             end
+
         end
+
 
         # Armazena o dicionário interno no dicionário de geometrias
         dicionario_geometrias[nome] = interno
