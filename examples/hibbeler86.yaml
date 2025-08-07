@@ -10,7 +10,19 @@ materiais:
     
 loads: 4 3 -3000
 
+#
+#
+# *.data 
+# nome
+# A
+# Iz 
+# Iy
+# J0
+# α
+#
+#
 geometrias:
+  - File: circular.data
   - Iz: 1.256637061e-7
     A: 1.256637061e-3
     Iy: 1.256637061e-7

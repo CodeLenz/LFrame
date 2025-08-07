@@ -76,7 +76,7 @@ function Analise3D(arquivo::AbstractString; verbose=false, ρ0=Float64[])
    # Le os dado::AbstractStrings do problema
    malha = Le_YAML(arquivo; verbose=verbose)
 
-   # Roda a rotina principal
+   # Roda a rotina principal, devolvendo U e a estrutura de malha
    Analise3D(malha; ρ0=ρ0)
 
 end
