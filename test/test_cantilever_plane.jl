@@ -15,11 +15,12 @@
     # Verifica a resposta
     @test U[7] ≈  1.0
 
-    #=
+ 
 
     ##############################################
     # FY (beam)
-    U,_ = Analise3D("test/data/cantilever_point/cantilever_fy.yaml")
+    arquivo = joinpath([caminho,"data","cantilever_point","cantilever_fy.yaml"])
+    U,_ = Analise3D(arquivo)
 
     # Verifica as respostas
     @test U[8]  ≈ 0.4
@@ -28,36 +29,42 @@
 
     ##############################################
     # FZ (beam)
-    U,_ = Analise3D("test/data/cantilever_point/cantilever_fz.yaml")
+    arquivo = joinpath([caminho,"data","cantilever_point","cantilever_fz.yaml"])
+    U,_ = Analise3D(arquivo)
 
     # Verifica as respostas
     @test U[9]  ≈   1.6
     @test U[11] ≈  -1.2
 
-    
+  
     ##############################################
     # MX (torsion)
-    U,_ = Analise3D("test/data/cantilever_point/cantilever_mx.yaml")
+    arquivo = joinpath([caminho,"data","cantilever_point","cantilever_mx.yaml"])
+    U,_ = Analise3D(arquivo)
 
     # Verifica as respostas
     @test U[10]  ≈   8.888888888888
-  
+
+
     ##############################################
     # MY 
-    U,_ = Analise3D("test/data/cantilever_point/cantilever_my.yaml")
+    arquivo = joinpath([caminho,"data","cantilever_point","cantilever_my.yaml"])
+    U,_ = Analise3D(arquivo)
 
     # Verifica as respostas
     @test U[9]   ≈   -12.0
     @test U[11]  ≈    12.0
+ 
 
     ##############################################
     # MZ 
-    U,_ = Analise3D("test/data/cantilever_point/cantilever_mz.yaml")
+    arquivo = joinpath([caminho,"data","cantilever_point","cantilever_mz.yaml"])
+    U,_ = Analise3D(arquivo)
 
     # Verifica as respostas
     @test U[8]   ≈    3.0
     @test U[12]  ≈    3.0
 
-    =#
+    
 
 end
