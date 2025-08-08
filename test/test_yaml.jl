@@ -26,28 +26,30 @@
     arquivo = joinpath([caminho,"data","yaml","yaml_no_materiais.yaml"])
     @test_throws ErrorException LFrame.Le_YAML(arquivo)
 
-    
-    #=
-    
     ##############################################
     # No coordenadas
-    @test_throws ErrorException LFrame.Le_YAML("test/data/yaml/yaml_no_coordenadas.yaml")
+    arquivo = joinpath([caminho,"data","yaml","yaml_no_coordenadas.yaml"])
+    @test_throws ErrorException LFrame.Le_YAML(arquivo)
 
     ##############################################
     # No apoios
-    @test_throws ErrorException LFrame.Le_YAML("test/data/yaml/yaml_no_apoios.yaml")
-
+    arquivo = joinpath([caminho,"data","yaml","yaml_no_apoios.yaml"])
+    @test_throws ErrorException LFrame.Le_YAML(arquivo)
+ 
     ##############################################
     # No geometrias
-    @test_throws ErrorException LFrame.Le_YAML("test/data/yaml/yaml_no_geometrias.yaml")
+    arquivo = joinpath([caminho,"data","yaml","yaml_no_geometrias.yaml"])
+    @test_throws ErrorException LFrame.Le_YAML(arquivo)
 
     ##############################################
     # No dados_elementos
-    @test_throws ErrorException LFrame.Le_YAML("test/data/yaml/yaml_no_dados_elementos.yaml")
+    arquivo = joinpath([caminho,"data","yaml","yaml_no_dados_elementos.yaml"])
+    @test_throws ErrorException LFrame.Le_YAML(arquivo)
 
     ##############################################
     # Informa material que não existe em dados_elementos
+    arquivo = joinpath([caminho,"data","yaml","yaml_consist_dados_elementos.yaml"])
     @test_throws ErrorException LFrame.Le_YAML("test/data/yaml/yaml_consist_dados_elementos.yaml")
-    =#
+
 
 end
