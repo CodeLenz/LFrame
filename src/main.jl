@@ -55,6 +55,26 @@ function Analise3D(malha::Malha; ρ0=Float64[])
     # Grava os deslocamentos para visualização 
     Lgmsh_export_nodal_vector("saida.pos",U,3,"Deslocamentos")
 
+    # Exporta os esforços externos (12 × 1) para cada elemento da malha
+    fd = open("esforcos.dat","w")
+    for ele = 1:malha.ne
+
+      # Calcula as forças nodais no elemento 
+      Fe =  Forcas_elemento(ele,malha,U)
+
+      # Grava na linha do arquivo
+      for v in Fe
+         print(fd," ", v)
+      end
+
+      # Pula uma linha 
+      println(fd)
+
+    end
+    # Fecha o arquivo 
+    close(fd)
+
+
     # Retorna o vetor de deslocamentos da estrutura
     return U, malha
    
