@@ -136,8 +136,35 @@ geometrias:
     α: 0
     J0: 3.00e-7
 
+```
+
+Também é possível ler os dados de um arquivo 
+
+```bash
+geometrias:
+  - File: circular.dat
+  - nome: "tubo2"
+    Iz: 2.25e-7
+    A: 1.50e-3
+    Iy: 2.25e-7
+    α: 0
+    J0: 3.00e-7
 
 ```
+
+em que os dados do arquivo .dat devem *obrigatóriamente* na sequência 
+
+```bash
+nome:: String
+area:: Float
+Iz  :: Float
+Iyl :: Float
+Jeq :: Float
+α   :: Float
+
+```
+
+Esse arquivo pode ser gerado automaticamente pelo pacote https://github.com/CodeLenz/Torcao
 
 ### Coordenadas
 
