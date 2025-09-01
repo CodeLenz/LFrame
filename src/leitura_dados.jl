@@ -331,7 +331,7 @@ function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
            interno["α"] = α
 
            # Guarda o nome do arquivo .dat para utilizar depois 
-           interno["file"] = arq
+           #interno["file"] = arq
 
            # Fecha o arquivo 
            close(fd)
@@ -358,7 +358,7 @@ function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
             end
 
             # Guarda um nome vazio para file
-            interno["file"]=""
+           #interno["file"]=""
 
         end
 
