@@ -331,7 +331,8 @@ function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
            interno["α"] = α
 
            # Guarda o nome do arquivo .dat para utilizar depois 
-           #interno["file"] = arq
+           #interno["file"] = nome
+           #@show interno["file"]
 
            # Fecha o arquivo 
            close(fd)
@@ -359,6 +360,7 @@ function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
 
             # Guarda um nome vazio para file
            #interno["file"]=""
+           #@show interno["file"]
 
         end
 
@@ -449,6 +451,9 @@ function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
         geo in nomes_geometrias || error("leitura_dados::dados_elementos linha $linha:: geometria $geo não foi definida")
         
     end
+
+
+   
    
    ################################# Forças concentradas ######################################
 
