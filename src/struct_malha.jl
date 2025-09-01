@@ -52,4 +52,7 @@ mutable struct Malha
     # Vetor de comprimentos da malha
     L::Vector{Float64}
 
+    # Nome do arquivo yaml
+    nome_arquivo::String
+
 end

@@ -23,6 +23,9 @@ function Analise3D(malha::Malha; ρ0=Float64[])
           error("Analise3D:: vetor de variáveis de projeto tem a dimensão errada") 
        end
     end
+
+    # Recupera o nome do arquivo na malha 
+    nome = malha.nome_arquivo
  
     # Monta a matriz de rigidez global
     KG = Monta_Kg(malha,ρ0)
@@ -48,20 +51,25 @@ function Analise3D(malha::Malha; ρ0=Float64[])
     U_ = solve!(linsolve)
     U = U_.u[1:6*malha.nnos]
 
+    # Nome do arquivo.pos
+    nome_pos = nome * ".pos"
+
     # Inicializa um arquivo do Gmsh para visualização
     etype = ones(Int64,malha.ne)
-    Lgmsh_export_init("saida.pos",malha.nnos,malha.ne,malha.coord,etype,malha.conect)
+    Lgmsh_export_init(nome_pos,malha.nnos,malha.ne,malha.coord,etype,malha.conect)
 
     # Grava os deslocamentos para visualização 
-    Lgmsh_export_nodal_vector("saida.pos",U,3,"Deslocamentos")
+    Lgmsh_export_nodal_vector(nome_pos,U,3,"Deslocamentos")
+
+   # Nome do arquivo_esforcos.dat
+    nome_dat = nome * "_esforcos.dat"
 
     # Exporta os esforços externos (12 × 1) para cada elemento da malha
-    fd = open("esforcos.dat","w")
+    fd = open(nome_dat,"w")
     for ele = 1:malha.ne
 
       # Calcula as forças nodais no elemento e recupera a geometria do elemento 
       geo,Fe =  Forcas_elemento(ele,malha,U)
-      @show geo
 
       print(fd,geo," ")
       # Grava na linha do arquivo
