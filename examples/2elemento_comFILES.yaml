@@ -8,7 +8,7 @@ materiais:
     Ex: 2.1e11
     S_esc: 350e6
     
-loads: 2 2 -3000
+loads: 3 2 -3000
 
 #
 #
@@ -23,14 +23,17 @@ loads: 2 2 -3000
 #
 geometrias:
   - File: circular.dat
+  - File: quadrado.dat
 
 
 coordenadas:
   0.0 0.0 0.0
   1.0 0.0 0.0
+  1.0 1.0 0.0
 
 conectividades: 
-  1 2 
+  1 2
+  2 3 
 
 apoios: 
   1 1 0.0
@@ -42,5 +45,6 @@ apoios:
 
 dados_elementos: 
   aco circular
+  aco quadrado
   
 

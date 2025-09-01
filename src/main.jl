@@ -61,8 +61,9 @@ function Analise3D(malha::Malha; ρ0=Float64[])
 
       # Calcula as forças nodais no elemento e recupera a geometria do elemento 
       geo,Fe =  Forcas_elemento(ele,malha,U)
+      @show geo
 
-      print(geo,"")
+      print(fd,geo," ")
       # Grava na linha do arquivo
       for v in Fe
          print(fd," ", v)
