@@ -300,9 +300,6 @@ function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
            # Lê cada uma das linhas e copia para o dicionário 
            nome = readline(fd)
 
-           # Guarda o nome em nomes_geometrias
-           push!(nomes_geometrias,nome)
-
            # Le as linhas na sequência esperada e grava no dicionário interno
 
            # Area
@@ -344,9 +341,6 @@ function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
             # Nome da geometria
             nome = geo["nome"]
 
-            # Guarda o nome em nomes_geometrias
-            push!(nomes_geometrias,nome)
-
             # Itera pelas chaves de geo, pulando o campo nome
             for (key,value) in geo
                 if key!="nome"
@@ -364,6 +358,8 @@ function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
 
         end
 
+        # Guarda o nome em nomes_geometrias
+        push!(nomes_geometrias,nome)
 
         # Armazena o dicionário interno no dicionário de geometrias
         dicionario_geometrias[nome] = interno
