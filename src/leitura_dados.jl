@@ -444,7 +444,7 @@ function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
         # Verifica se está em nomes_materiais
         mat in nomes_materiais || error("leitura_dados::dados_elementos linha $linha:: material $mat não foi definido")
 
-        # material do elemento
+        # Geometria do elemento
         geo = dados_elementos[linha,2]
 
         # Verifica se está em nomes_materiais
