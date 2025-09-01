@@ -11,7 +11,7 @@ function Forcas_elemento(ele,malha::Malha,U::Vector{Float64})
     dicionario_geometrias = malha.dicionario_geometrias
 
     # Recupera os dados do elemento
-    Ize, Iye, J0e, Ae, αe, Ee, Ge = Dados_fundamentais(ele, dados_elementos, dicionario_materiais, 
+    Ize, Iye, J0e, Ae, αe, Ee, Ge, geo = Dados_fundamentais(ele, dados_elementos, dicionario_materiais, 
                                                        dicionario_geometrias)
     
     
@@ -66,7 +66,7 @@ function Forcas_elemento(ele,malha::Malha,U::Vector{Float64})
     fe = Ke*ul - fde
 
     # Devolve as forças generalizadas nos nós deste elemento
-    return fe 
+    return geo,fe 
 
 end
 
@@ -100,7 +100,7 @@ end
 function Esforcos_internos_elemento(ele,malha::Malha,U::Vector{Float64})
 
     # Primeiro obtemos as forças nodais do elemento
-    Fe = Forcas_elemento(ele,malha,U)
+    geo,Fe = Forcas_elemento(ele,malha,U)
 
     # Comprimento do elemento 
     L = malha.L[ele]

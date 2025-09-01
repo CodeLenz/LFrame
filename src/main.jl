@@ -59,9 +59,10 @@ function Analise3D(malha::Malha; ρ0=Float64[])
     fd = open("esforcos.dat","w")
     for ele = 1:malha.ne
 
-      # Calcula as forças nodais no elemento 
-      Fe =  Forcas_elemento(ele,malha,U)
+      # Calcula as forças nodais no elemento e recupera a geometria do elemento 
+      geo,Fe =  Forcas_elemento(ele,malha,U)
 
+      print(geo,"")
       # Grava na linha do arquivo
       for v in Fe
          print(fd," ", v)

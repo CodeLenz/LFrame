@@ -42,6 +42,6 @@ function Dados_fundamentais(ele, dados_elementos, dicionario_materiais, dicionar
     Ae  = geometria["A"]
     αe  = geometria["α"]
 
-    return  Ize, Iye, J0e, Ae, αe, Ee, Ge
+    return  Ize, Iye, J0e, Ae, αe, Ee, Ge, geo
     
 end
