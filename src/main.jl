@@ -81,6 +81,7 @@ function Analise3D(malha::Malha; ρ0=Float64[])
       println(fd)
 
     end
+    
     # Fecha o arquivo 
     close(fd)
 

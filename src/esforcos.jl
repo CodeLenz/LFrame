@@ -12,7 +12,7 @@ function Forcas_elemento(ele,malha::Malha,U::Vector{Float64})
 
     # Recupera os dados do elemento
     Ize, Iye, J0e, Ae, αe, Ee, Ge, geo = Dados_fundamentais(ele, dados_elementos, dicionario_materiais, 
-                                                       dicionario_geometrias)
+                                                           dicionario_geometrias)
     
     
     # Descobre os dados do Elemento
