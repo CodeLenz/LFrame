@@ -12,7 +12,7 @@ Saidas: Vetor de deslocamentos do pórtico e estrutura de malha
         estrutura com os dados da malha 
 
 """
-function Analise3D(malha::Malha; ρ0=Float64[])
+function Analise3D(malha::Malha, posfile=true; ρ0=Float64[])
 
    # Se ρ não foi informado, inicializamos com 1.0
     if isempty(ρ0)
@@ -51,40 +51,45 @@ function Analise3D(malha::Malha; ρ0=Float64[])
     U_ = solve!(linsolve)
     U = U_.u[1:6*malha.nnos]
 
-    # Nome do arquivo.pos
-    nome_pos = nome * ".pos"
 
-    # Inicializa um arquivo do Gmsh para visualização
-    etype = ones(Int64,malha.ne)
-    Lgmsh_export_init(nome_pos,malha.nnos,malha.ne,malha.coord,etype,malha.conect)
-
-    # Grava os deslocamentos para visualização 
-    Lgmsh_export_nodal_vector(nome_pos,U,3,"Deslocamentos")
-
-   # Nome do arquivo_esforcos.dat
-    nome_dat = nome * "_esforcos.dat"
-
-    # Exporta os esforços externos (12 × 1) para cada elemento da malha
-    fd = open(nome_dat,"w")
-    for ele = 1:malha.ne
-
-      # Calcula as forças nodais no elemento e recupera a geometria do elemento 
-      geo,Fe =  Forcas_elemento(ele,malha,U)
-
-      print(fd,geo," ")
-      # Grava na linha do arquivo
-      for v in Fe
-         print(fd," ", v)
-      end
-
-      # Pula uma linha 
-      println(fd)
-
-    end
+    # Se posfile=true, grava os arquivos de saída (padrão)
+    if posfile 
     
-    # Fecha o arquivo 
-    close(fd)
+      # Nome do arquivo.pos
+      nome_pos = nome * ".pos"
 
+      # Inicializa um arquivo do Gmsh para visualização
+      etype = ones(Int64,malha.ne)
+      Lgmsh_export_init(nome_pos,malha.nnos,malha.ne,malha.coord,etype,malha.conect)
+
+      # Grava os deslocamentos para visualização 
+      Lgmsh_export_nodal_vector(nome_pos,U,3,"Deslocamentos")
+
+      # Nome do arquivo_esforcos.dat
+      nome_dat = nome * "_esforcos.dat"
+
+      # Exporta os esforços externos (12 × 1) para cada elemento da malha
+      fd = open(nome_dat,"w")
+      for ele = 1:malha.ne
+
+         # Calcula as forças nodais no elemento e recupera a geometria do elemento 
+         geo,Fe =  Forcas_elemento(ele,malha,U)
+
+         print(fd,geo," ")
+         # Grava na linha do arquivo
+         for v in Fe
+            print(fd," ", v)
+         end
+
+         # Pula uma linha 
+         println(fd)
+
+      end
+      
+      # Fecha o arquivo 
+      close(fd)
+
+   end #posfile
 
     # Retorna o vetor de deslocamentos da estrutura
     return U, malha
@@ -102,12 +107,12 @@ Saidas: Vetor de deslocamentos do pórtico e estrutura de malha
         estrutura com os dados da malha 
 """
 
-function Analise3D(arquivo::AbstractString; verbose=false, ρ0=Float64[])
+function Analise3D(arquivo::AbstractString, posfile=true; verbose=false, ρ0=Float64[])
 
    # Le os dado::AbstractStrings do problema
    malha = Le_YAML(arquivo; verbose=verbose)
 
    # Roda a rotina principal, devolvendo U e a estrutura de malha
-   Analise3D(malha; ρ0=ρ0)
+   Analise3D(malha, posfile; ρ0=ρ0)
 
 end
