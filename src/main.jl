@@ -66,7 +66,7 @@ function Analise3D(malha::Malha, posfile=true; ρ0=Float64[])
       Lgmsh_export_nodal_vector(nome_pos,U,3,"Deslocamentos")
 
       # Nome do arquivo_esforcos.dat
-      nome_dat = nome * "_esforcos.dat"
+      nome_dat = nome * ".esf"
 
       # Exporta os esforços externos (12 × 1) para cada elemento da malha
       fd = open(nome_dat,"w")

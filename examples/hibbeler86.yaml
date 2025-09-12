@@ -22,7 +22,7 @@ loads: 4 3 -3000
 #
 #
 geometrias:
-  - File: circular.dat
+  - File: geometrias/circular.geo
   - Iz: 1.256637061e-7
     A: 1.256637061e-3
     Iy: 1.256637061e-7

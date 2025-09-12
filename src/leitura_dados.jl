@@ -271,7 +271,7 @@ function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
        # Primeiro verificamos se a entrada aponta para um arquivo .dat
        if !haskey(geo,"File")
            for dat in dados_obrigatorios_geometrias
-               haskey(geo,dat) || error("Dado obrigatório $dat não foi infomado para a geometria $contador")
+               haskey(geo,dat) || error("Dado obrigatório $geo não foi infomado para a geometria $contador")
            end
         end
     end

@@ -22,8 +22,8 @@ loads: 3 2 -3000
 #
 #
 geometrias:
-  - File: circular.dat
-  - File: quadrado.dat
+  - File: geometrias/circular.geo
+  - File: geometrias/quadrado.geo
 
 
 coordenadas:
