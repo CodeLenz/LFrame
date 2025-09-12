@@ -54,6 +54,7 @@ function Analise3D(malha::Malha, posfile=true; ρ0=Float64[])
 
     # Se posfile=true, grava os arquivos de saída (padrão)
     if posfile 
+
       # Path para o pacote LFrame
       caminho = pathof(LFrame)[1:end-14]
       
@@ -62,8 +63,6 @@ function Analise3D(malha::Malha, posfile=true; ρ0=Float64[])
 
       # Cria o arquivo .esf na pasta Esforcos para pos processamento
       esf(malha,caminho,U)
-
-      
 
    end #posfile
 
