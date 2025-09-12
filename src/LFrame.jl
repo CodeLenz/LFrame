@@ -18,6 +18,7 @@ module LFrame
 	include("esforcos.jl")
 	include("apoios.jl")
 	include("main.jl")
+	include("exporta.jl")
 
     
 	# Exporta a rotina principal de análise
