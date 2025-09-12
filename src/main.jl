@@ -65,17 +65,27 @@ function Analise3D(malha::Malha, posfile=true; ρ0=Float64[])
       # Grava os deslocamentos para visualização 
       Lgmsh_export_nodal_vector(nome_pos,U,3,"Deslocamentos")
 
-      # Nome do arquivo_esforcos.dat
-      nome_dat = nome * ".esf"
+      # Path para o pacote LFrame
+      caminho = pathof(LFrame)[1:end-14]*"\\Esforcos"
+
+      # Cria o arquivo completo do .esf com o nome do yaml
+      nome_esf = joinpath(caminho, basename(malha.nome_arquivo) * ".esf")
 
       # Exporta os esforços externos (12 × 1) para cada elemento da malha
-      fd = open(nome_dat,"w")
+      fd = open(nome_esf,"w")
+
+      # Primeira linha é uma string Esforcos para o P2Poffo
+      print(fd,"Esforcos")
+      println(fd)
+
+      # Loop pelo elementos
       for ele = 1:malha.ne
 
          # Calcula as forças nodais no elemento e recupera a geometria do elemento 
          geo,Fe =  Forcas_elemento(ele,malha,U)
 
          print(fd,geo," ")
+
          # Grava na linha do arquivo
          for v in Fe
             print(fd," ", v)
