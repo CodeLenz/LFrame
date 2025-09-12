@@ -54,9 +54,16 @@ function Analise3D(malha::Malha, posfile=true; ρ0=Float64[])
 
     # Se posfile=true, grava os arquivos de saída (padrão)
     if posfile 
-    
-      # Nome do arquivo.pos
-      nome_pos = nome * ".pos"
+      # Path para o pacote LFrame
+      caminho = pathof(LFrame)[1:end-14]
+      
+      # caminho para a pasta pos
+      Pos = caminho *"\\Pos"
+
+      # Cria o arquivo completo do .pos com o nome do yaml
+      nome_pos = joinpath(Pos, basename(malha.nome_arquivo) * ".pos")
+
+      #fd = open(nome_pos,"w")
 
       # Inicializa um arquivo do Gmsh para visualização
       etype = ones(Int64,malha.ne)
@@ -65,11 +72,14 @@ function Analise3D(malha::Malha, posfile=true; ρ0=Float64[])
       # Grava os deslocamentos para visualização 
       Lgmsh_export_nodal_vector(nome_pos,U,3,"Deslocamentos")
 
-      # Path para o pacote LFrame
-      caminho = pathof(LFrame)[1:end-14]*"\\Esforcos"
+      # Fecha o arquivo 
+      #close(fd)
+
+      # caminho para a pasta esforços
+      esf = caminho *"\\Esforcos"
 
       # Cria o arquivo completo do .esf com o nome do yaml
-      nome_esf = joinpath(caminho, basename(malha.nome_arquivo) * ".esf")
+      nome_esf = joinpath(esf, basename(malha.nome_arquivo) * ".esf")
 
       # Exporta os esforços externos (12 × 1) para cada elemento da malha
       fd = open(nome_esf,"w")
