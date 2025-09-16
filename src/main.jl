@@ -12,7 +12,7 @@ Saidas: Vetor de deslocamentos do pórtico e estrutura de malha
         estrutura com os dados da malha 
 
 """
-function Analise3D(malha::Malha, posfile=true; ρ0=T[]) where T
+function Analise3D(malha::Malha, posfile=true; ρ0=[])
 
    # Se ρ não foi informado, inicializamos com 1.0
     if isempty(ρ0)
@@ -82,7 +82,7 @@ Saidas: Vetor de deslocamentos do pórtico e estrutura de malha
         estrutura com os dados da malha 
 """
 
-function Analise3D(arquivo::AbstractString, posfile=true; verbose=false, ρ0=T[]) where T
+function Analise3D(arquivo::AbstractString, posfile=true; verbose=false, ρ0=[])
 
    # Le os dado::AbstractStrings do problema
    malha = Le_YAML(arquivo; verbose=verbose)
