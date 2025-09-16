@@ -47,7 +47,7 @@ function Analise3D(malha::Malha, posfile=true; ρ0=Float64[])
     # Cria um problema linear para ser solucionado pelo LinearSolve
     # U = KA\FA - também já está influenciado por ρ
     prob = LinearProblem(KA,FA)
-    linsolve = init(prob)
+    linsolve = init(prob,KLUFactorization())
     U_ = solve!(linsolve)
     U = U_.u[1:6*malha.nnos]
 
