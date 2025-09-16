@@ -97,7 +97,7 @@ end
 #
 #
 #
-function Esforcos_internos_elemento(ele,malha::Malha,U::Vector{T}) where T
+function Esforcos_internos_elemento(ele,malha::Malha,U::Vector{TF}) where TF
 
     # Primeiro obtemos as forças nodais do elemento
     geo,Fe = Forcas_elemento(ele,malha,U)
