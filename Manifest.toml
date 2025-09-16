@@ -1,13 +1,13 @@
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.11.6"
+julia_version = "1.11.7"
 manifest_format = "2.0"
 project_hash = "6f91312fe7f50c9b7739feaa6427c97ffe157a7f"
 
 [[deps.ADTypes]]
-git-tree-sha1 = "60665b326b75db6517939d0e1875850bc4a54368"
+git-tree-sha1 = "27cecae79e5cc9935255f90c53bb831cc3c870d7"
 uuid = "47edcb42-4c32-4615-8424-f2b9edc5f35b"
-version = "1.17.0"
+version = "1.18.0"
 
     [deps.ADTypes.extensions]
     ADTypesChainRulesCoreExt = "ChainRulesCore"
@@ -772,9 +772,9 @@ version = "0.7.0"
 
 [[deps.SciMLBase]]
 deps = ["ADTypes", "Accessors", "Adapt", "ArrayInterface", "CommonSolve", "ConstructionBase", "Distributed", "DocStringExtensions", "EnumX", "FunctionWrappersWrappers", "IteratorInterfaceExtensions", "LinearAlgebra", "Logging", "Markdown", "Moshi", "PreallocationTools", "PrecompileTools", "Preferences", "Printf", "RecipesBase", "RecursiveArrayTools", "Reexport", "RuntimeGeneratedFunctions", "SciMLOperators", "SciMLStructures", "StaticArraysCore", "Statistics", "SymbolicIndexingInterface"]
-git-tree-sha1 = "5982c08327b320f913404dc06161ac6c055093c4"
+git-tree-sha1 = "dfec1fce27c829814348266486b4cb8fdcb263fb"
 uuid = "0bca4576-84f4-4d90-8ffe-ffa030f20462"
-version = "2.117.1"
+version = "2.119.0"
 
     [deps.SciMLBase.extensions]
     SciMLBaseChainRulesCoreExt = "ChainRulesCore"
@@ -815,9 +815,9 @@ version = "2.117.1"
 
 [[deps.SciMLOperators]]
 deps = ["Accessors", "ArrayInterface", "DocStringExtensions", "LinearAlgebra", "MacroTools"]
-git-tree-sha1 = "753026a73e1bee963239016a162db8dc1935a153"
+git-tree-sha1 = "024d829102878141aaee5cf8f8288bcabd2f57a0"
 uuid = "c0aeaf25-5076-4817-a8d5-81caf7dfa961"
-version = "1.7.1"
+version = "1.7.2"
 weakdeps = ["SparseArrays", "StaticArraysCore"]
 
     [deps.SciMLOperators.extensions]
