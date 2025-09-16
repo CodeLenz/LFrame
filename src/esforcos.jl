@@ -1,7 +1,7 @@
 #
 # Retorna o vetor 12x1 com os esforços nodais do elemento ele
 #
-function Forcas_elemento(ele,malha::Malha,U::Vector{Float64})
+function Forcas_elemento(ele,malha::Malha,U::Vector{T}) where T
     
     # Recupera dados da estrutura malha
     conect = malha.conect
@@ -97,7 +97,7 @@ end
 #
 #
 #
-function Esforcos_internos_elemento(ele,malha::Malha,U::Vector{Float64})
+function Esforcos_internos_elemento(ele,malha::Malha,U::Vector{T}) where T
 
     # Primeiro obtemos as forças nodais do elemento
     geo,Fe = Forcas_elemento(ele,malha,U)

@@ -2,7 +2,7 @@
 #                 Contém a matriz de rigidez do elemento de viga 3d                 #
 #####################################################################################
 
-function Ke_portico3d(Ee::Float64, Ize::Float64, Iye::Float64, Ge::Float64, J0e::Float64, Le::Float64, Ae::Float64)
+function Ke_portico3d(Ee::T, Ize::T, Iye::T, Ge::T, J0e::T, Le::T, Ae::T) where T
 
 
 
@@ -32,7 +32,7 @@ function Ke_portico3d(Ee::Float64, Ize::Float64, Iye::Float64, Ge::Float64, J0e:
     gls_xz = [3;5;9;11]
 
     # Monta a matriz do elemento de pórtico 3D
-    K = zeros(12,12)
+    K = zeros(T,12,12)
 
     K[gls_barra, gls_barra] .= K_barra
     K[gls_eixo, gls_eixo] .= K_eixo

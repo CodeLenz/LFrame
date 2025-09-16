@@ -1,5 +1,7 @@
 # Função Heaviside
-Heaviside(a) = max(a,0.0)
+function Heaviside(a::T) where T
+      max(a,zero(T))
+end
 
 #
 # Devolve os gls de um elemento

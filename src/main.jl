@@ -12,7 +12,7 @@ Saidas: Vetor de deslocamentos do pórtico e estrutura de malha
         estrutura com os dados da malha 
 
 """
-function Analise3D(malha::Malha, posfile=true; ρ0=Float64[])
+function Analise3D(malha::Malha, posfile=true; ρ0=T[]) where T
 
    # Se ρ não foi informado, inicializamos com 1.0
     if isempty(ρ0)

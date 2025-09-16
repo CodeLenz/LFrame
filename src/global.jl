@@ -2,7 +2,7 @@
 #                 Rotina para montagem da matriz de rigidez global                  #
 #####################################################################################
 
-function Monta_Kg(malha::Malha, ρ::Vector)
+function Monta_Kg(malha::Malha, ρ::Vector{T}) where T
     
     # Acessa as definições de malha
     ne    = malha.ne 
@@ -15,7 +15,7 @@ function Monta_Kg(malha::Malha, ρ::Vector)
     dicionario_geometrias = malha.dicionario_geometrias
 
     # Aloca a matriz de rigidez global
-    KG = spzeros(6*nnos, 6*nnos)
+    KG = spzeros(T,6*nnos, 6*nnos)
 
     # Passando pelos elementos da malha
     for e=1:ne
