@@ -1,7 +1,7 @@
 #
 # Estrutura que contém as informações sobre o problema
 #
-mutable struct Malha{TI,TF,TL}
+struct Malha{TI,TF,TL}
 
     # Número de elementos
     ne::TI
