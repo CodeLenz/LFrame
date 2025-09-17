@@ -5,7 +5,7 @@
 @testset "Cantilever point loads - Plane XY" begin
     
     # Path para o pacote LFrame
-    caminho = pathof(LFrame)[1:end-14]*"\\test"
+    caminho = joinpath(pathof(LFrame)[1:end-14], "test")
 
     ##############################################
     # FX (axial - bar)
