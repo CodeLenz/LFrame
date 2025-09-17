@@ -54,15 +54,12 @@ function Analise3D(malha::Malha, posfile=true; ρ0=[])
 
     # Se posfile=true, grava os arquivos de saída (padrão)
     if posfile 
-
-      # Path para o pacote LFrame
-      caminho = pathof(LFrame)[1:end-14]
       
       # Cria arquivo .pos na pasta Pos para a visualização no Gmsh
-      pos(malha,caminho,U)
+      pos(malha,U)
 
       # Cria o arquivo .esf na pasta Esforcos para pos processamento
-      esf(malha,caminho,U)
+      esf(malha,U)
 
    end #posfile
 
