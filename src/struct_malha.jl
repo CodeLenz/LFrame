@@ -24,10 +24,10 @@ mutable struct Malha{TI,TF,TL}
     apoios::Array{TF}
 
     # Dicionário com os dados dos materiais
-    dicionario_materiais
+    dicionario_materiais::OrderedDict{String,Dict{String,Float64}}
 
     # Dicionário com os dados das geometrias
-    dicionario_geometrias
+    dicionario_geometrias::OrderedDict{String,Dict{String,Float64}}
 
     # Dados sobre os elementos 
     # Matriz ne × 2 onde a primeira coluna tem o nome 
