@@ -119,11 +119,11 @@ function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
        error("Le_YAML:: arquivo $arquivo está vazio")
    end
 
-    # Salva o nome do arquivo
-    nome_yaml = basename(arquivo)
+   # Salva o nome do arquivo
+   nome_yaml = basename(arquivo)
 
-    # tira a extensão .yaml
-    nome_arquivo = nome_yaml[1:end-5]  
+   # tira a extensão .yaml
+   nome_arquivo = nome_yaml[1:end-5]  
 
    # Primeiro lemos o arquivo de dados
    dados = YAML.load_file(arquivo)
