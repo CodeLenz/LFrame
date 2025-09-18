@@ -414,7 +414,7 @@ Para a visualização dos esforços interno do exemplo 8.6
 
 Carregue o pacote Plots
 ```bash
-Using Plots
+using Plots
 ```
 
 
@@ -423,7 +423,7 @@ Obtenha as equações dos esforços internos para o elemento escolhido, neste ca
 ```bash
 esforcos,L = Esforcos_internos_elemento(1,malha,U)
 ```
-em que malha e U foram obtidos com Analise3D.
+em que malha e U foram obtidos com Analise3D. L é o comprimento do elemento, que será utilizado para gerarmos os pontos x para os gráficos.
 
 Gerar os pontos x para o gráfico 
 
