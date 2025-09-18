@@ -4,8 +4,11 @@
 #
 @testset "Cantilever point loads - Plane XY" begin
     
+    # Path do LFrame 
+    path_LFrame = dirname(dirname(pathof(LFrame)))
+
     # Path para o pacote LFrame
-    caminho = joinpath(pathof(LFrame)[1:end-14], "test")
+    caminho = joinpath(path_LFrame, "test")
 
     ##############################################
     # FX (axial - bar)
@@ -14,7 +17,6 @@
 
     # Verifica a resposta
     @test U[7] ≈  1.0
-
  
 
     ##############################################

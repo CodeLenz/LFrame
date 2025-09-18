@@ -1,8 +1,12 @@
 @testset "YAML" begin
 
-    # Path para o pacote LFrame
-    caminho = pathof(LFrame)[1:end-14]*"\\test"
+    # Path do LFrame 
+    path_LFrame = dirname(dirname(pathof(LFrame)))
 
+    # Path para o pacote LFrame
+    caminho = joinpath(path_LFrame, "test")
+
+    
     ##############################################
     # File not exists
     arquivo = joinpath([caminho,"data","yaml","no_exist.yaml"])
