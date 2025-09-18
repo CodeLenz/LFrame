@@ -9,10 +9,15 @@ function Gera_pos(malha::Malha,U::AbstractVector)
    dir_base = dirname(malha.nome_arquivo)
 
    # Constroi o caminho para os arquivos de saída
-   Pos = joinpath(dir_base, "Pos")
+   pos = joinpath(dir_base, "Pos")
+
+   # Se o diretório não existir, devemos criar 
+   if !isdir(pos)
+      mkpath(pos)
+   end
 
    # Cria o arquivo completo do .pos com o nome do yaml
-   nome_pos = joinpath(Pos, basename(malha.nome_arquivo) * ".pos")
+   nome_pos = joinpath(pos, basename(malha.nome_arquivo) * ".pos")
 
    # Todos os elementos são do tipo 1
    etype = ones(Int64,malha.ne)
@@ -36,6 +41,11 @@ function Gera_esforcos(malha::Malha,U::AbstractVector)
 
    # Caminho para a pasta esforços
    esf = joinpath(dir_base, "Esforcos")
+
+   # Se o diretório não existir, devemos criar 
+   if !isdir(esf)
+      mkpath(esf)
+   end
 
    # Cria o arquivo completo do .esf com o nome do yaml
    nome_esf = joinpath(esf, basename(malha.nome_arquivo) * ".esf")
