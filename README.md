@@ -110,11 +110,11 @@ floads:
 
  Nome da geometria
 
- Iz - Momento de inércia em torno do eixo z
+ Iz - Momento de inércia em torno do eixo z (deve ser central principal de inércia)
+
+ Iy - Momento de inércia em torno do eixo y (deve ser central principal de inércia)
 
  A  - Área da seção transversal
-
- Iy - Momento de inércia em torno do eixo y
 
  α - Ângulo de rotação para o eixo principal de inércia
 
@@ -124,15 +124,15 @@ floads:
 geometrias:
   - nome: "tubo1"
     Iz: 1.256637061e-7
-    A: 1.256637061e-3
     Iy: 1.256637061e-7
+    A: 1.256637061e-3
     α: 0
     J0: 2.513274123e-7
 
   - nome: "tubo2"
     Iz: 2.25e-7
-    A: 1.50e-3
     Iy: 2.25e-7
+    A: 1.50e-3
     α: 0
     J0: 3.00e-7
 
@@ -181,7 +181,7 @@ coordenadas:
 
 ### Conectividades
 
-A conectividade informa quais nós, estão ligados ou seja está se tornando um elemento.
+Cada linha é relativa a um elemento. A primeira coluna indica o primeiro nó e a segunda coluna indica o segundo nó.
 ```bash
   conectividades: 
     1 2 
@@ -198,6 +198,8 @@ mpc:
   nó gdl nó gdl
 ```
 
+Por exemplo, podemos relacionar os graus de liberdade UX, UY e UZ entre os nós 2 e 3 e também as rotações $\theta_X$, $\theta_Y$ e $\theta_Z$ entre estes mesmos nós
+
 ```bash
 mpc:
  2 1 3 1
@@ -208,11 +210,10 @@ mpc:
  2 6 3 6
 ```
 
-Lembrar que nestes casos não existe elemento entre o nó 2 e nó 3, então eles não podem ser definidos na conectividade.
 
 ### Apoios
 
-Para a definição dos apoios precisa definir: Nó, gdl e intencidade.
+Para a definição dos apoios precisamos definir: Nó, gdl local e intensidade. Por exemplo, para engastar o nó 1
 
 ```bash
 apoios: 
@@ -226,21 +227,19 @@ apoios:
 
 ### Dados dos Elementos
 
-Para os elementos criados, tem duas opções para informar os dados. 
-A primeira define-se que todos os elementos tem o mesmo material e a mesma geometria.
+Esta seção do arquivo tem como objetivo relacionar, com cada elemento da malha, um material e uma seção transversal.
+Quanto todos os elementos tem exatamente o mesmo material e a mesma seção, podemos informar apenas uma linha
 ```bash
 dados_elementos:
   aco tubo1
 ```
-Lebrar que define sempre o nome do material e depois o nome da geometria definidos anteriormente. 
 
-Para dois tipo de materiais e gometria:
+Quanto temos mais materiais e seções transversais, devemos informar uma linha para cada elemento (mesmo que isso implique em repetição)
 ```bash
 dados_elementos
   aco tubo1
   aco tubo2
   aluminio tubo2
-
 ```
 
 # Exemplos:
@@ -309,10 +308,8 @@ Exercício 12.49 do livro Resistência dos Materiais de Russell Charles Hibbeler
 
 ```bash
 #
-#Exercicio 12-49 do Hibbeler 7ºedição utilizando o material aço e 
-#seção transversal de um circulo de raio 20 mm
+#Exercicio 12-49 do Hibbeler 7ºedição utilizando o material aço e seção transversal de um circulo de raio 20 mm
 #
-
 versao: 1.0
 
 materiais:
@@ -325,8 +322,8 @@ floads:
   1 -150E3  -150E3  0.0  0.0                                                    
   2 -150E3   0.0    0.0  0.0
   
-loads: # loads precisa estar definida, mesmo se não ter 
-#forças concentradas
+# loads precisa estar definida, mesmo se não ter forças concentradas
+loads: 
 
 geometrias:
   - Iz: 1.256637061e-7
@@ -373,60 +370,60 @@ dados_elementos:
 #
 ```
 
-### Running an Example:
+### Using the package
 
 Para rodar o exemplo, abra o Prompt de Comando e inicie o Julia
 ```bash
 julia
 ```
-Após, localize o local do Arquivo LFrame
-
-```bash
-cd("Local do arquivo")
-```
-Com isso, utilize o LFrame
+e carregue o pacote LFrame
 ```bash
 using LFrame
 ```
-Assim é só rodar o arquivo escolhido, neste caso é o hibbeler86.yaml
+
+Após, localize o local do arquivo .yaml de entrada
 ```bash
-U,_ = Analise3D("examples/hibbeler86.yaml")
+cd("Local do arquivo")
 ```
-Para melhor visulização, pode-se mostrar somente o vetor deslocamento
+Assim é só rodar o arquivo escolhido
 ```bash
-U
+U, malha = Analise3D("arquivo.yaml")
 ```
+em que U é o vetor de deslocamentos generalizados da estrutura e malha é uma struct com os dados da malha do problema.
+
+Para rodar os arquivos de exemplo que estão disponíveis no pacote LFrame, pode-se localizar a pasta de instalação com 
+```bash
+  # Path do LFrame 
+  path_LFrame = dirname(dirname(pathof(LFrame)))
+
+  # Path para o diretorio de exemplos
+  caminho = joinpath(path_LFrame, "examples")
+
+  # Muda para o diretório 
+  cd(caminho)
+```
+e selecionar um dos exemplos disponíveis no diretório
+```bash
+U,malha = Analise3D("hibbeler86.yaml")
+```
+
 
 # Esforços internos
 
-Para a visualização dos esforços interno do exemplo 8.6, abra o Prompt de Comando e inicie o Julia
+Para a visualização dos esforços interno do exemplo 8.6
+
+Carregue o pacote Plots
 ```bash
-julia
+Using Plots
 ```
 
-Lembrando que você precisa ter a biblioteca Plots para a visualização dos esforços internos. Caso você não tenha faça:
-
-```bash
-]add Plots
-```
-
-Utilize as bibliotecas: LFrame e Plots.
-
-```bash
-Using LFrame, Plots
-```
-
-Calcule o deslocamentos do problema, neste caso é o hibbeler86.yaml.
-
-```bash
-U,malha = Analise3D("examples/hibbeler86.yaml")
-```
 
 Obtenha as equações dos esforços internos para o elemento escolhido, neste caso é o elemento "1".
 
 ```bash
 esforcos,L = Esforcos_internos_elemento(1,malha,U)
 ```
+em que malha e U foram obtidos com Analise3D.
 
 Gerar os pontos x para o gráfico 
 
