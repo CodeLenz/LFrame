@@ -15,56 +15,51 @@ Saidas: Vetor de deslocamentos do pórtico e estrutura de malha
 function Analise3D(malha::Malha, posfile=true; ρ0=[])
 
    # Se ρ não foi informado, inicializamos com 1.0
-    if isempty(ρ0)
-       ρ0 = ones(malha.ne) 
-    else
-       # Testa para ver se a dimensão está correta
-       if length(ρ0)!=malha.ne
-          error("Analise3D:: vetor de variáveis de projeto tem a dimensão errada") 
-       end
-    end
+   if isempty(ρ0)
+      ρ0 = ones(malha.ne) 
+   else
+      # Testa para ver se a dimensão está correta
+      if length(ρ0)!=malha.ne
+         error("Analise3D:: vetor de variáveis de projeto tem a dimensão errada") 
+      end
+   end
 
-    # Recupera o nome do arquivo na malha 
-    nome = malha.nome_arquivo
- 
-    # Monta a matriz de rigidez global
-    KG = Monta_Kg(malha,ρ0)
+   # Monta a matriz de rigidez global
+   KG = Monta_Kg(malha,ρ0)
 
-    # Monta o vetor global de forças concentradas - não muda
-    FG = Monta_FG(malha)
+   # Monta o vetor global de forças concentradas - não muda
+   FG = Monta_FG(malha)
 
-    # Monta o vetor global de forças distribuídas - não muda
-    FD = Monta_FD(malha)
+   # Monta o vetor global de forças distribuídas - não muda
+   FD = Monta_FD(malha)
 
-    # Vetor de forças do problema - não muda
-    F = FG .+ FD
+   # Vetor de forças do problema - não muda
+   F = FG .+ FD
 
-    # Modifica o sistema para considerar as restrições de apoios - já vai ser influenciado por ρ
-    KA, FA = Aumenta_sistema(malha, KG, F)
+   # Modifica o sistema para considerar as restrições de apoios - já vai ser influenciado por ρ
+   KA, FA = Aumenta_sistema(malha, KG, F)
 
-    # Soluciona o sistema global de equações para obter U
-
-    # Cria um problema linear para ser solucionado pelo LinearSolve
-    # U = KA\FA - também já está influenciado por ρ
-    prob = LinearProblem(KA,FA)
-    linsolve = init(prob,KLUFactorization())
-    U_ = solve!(linsolve)
-    U = U_.u[1:6*malha.nnos]
+   # Cria um problema linear para ser solucionado pelo LinearSolve
+   # U = KA\FA - também já está influenciado por ρ
+   prob = LinearProblem(KA,FA)
+   linsolve = init(prob)
+   U_ = solve!(linsolve)
+   U = U_.u[1:6*malha.nnos]
 
 
-    # Se posfile=true, grava os arquivos de saída (padrão)
-    if posfile 
+   # Se posfile=true, grava os arquivos de saída (padrão)
+   if posfile 
       
       # Cria arquivo .pos na pasta Pos para a visualização no Gmsh
-      pos(malha,U)
+      Gera_pos(malha,U)
 
       # Cria o arquivo .esf na pasta Esforcos para pos processamento
-      esf(malha,U)
+      Gera_esforcos(malha,U)
 
    end #posfile
 
-    # Retorna o vetor de deslocamentos da estrutura
-    return U, malha
+   # Retorna o vetor de deslocamentos da estrutura
+   return U, malha
    
 end
 
@@ -78,7 +73,6 @@ Entrada: arquivo:  nome de um arquivo .yaml com a definição do problema
 Saidas: Vetor de deslocamentos do pórtico e estrutura de malha
         estrutura com os dados da malha 
 """
-
 function Analise3D(arquivo::AbstractString, posfile=true; verbose=false, ρ0=[])
 
    # Le os dado::AbstractStrings do problema
