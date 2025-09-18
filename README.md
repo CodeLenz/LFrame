@@ -33,6 +33,93 @@ This is my Undergraduate Research Project from the past one and a half years. It
 ]add https://github.com/CodeLenz/LFrame
 ```
 
+
+### Using the package
+
+Para rodar o exemplo, abra o Prompt de Comando e inicie o Julia
+```bash
+julia
+```
+e carregue o pacote LFrame
+```bash
+using LFrame
+```
+
+Após, localize o local do arquivo .yaml de entrada
+```bash
+cd("Local do arquivo")
+```
+Assim é só rodar o arquivo escolhido
+```bash
+U, malha = Analise3D("arquivo.yaml")
+```
+em que U é o vetor de deslocamentos generalizados da estrutura e malha é uma struct com os dados da malha do problema.
+
+Para rodar os arquivos de exemplo que estão disponíveis no pacote LFrame, pode-se localizar a pasta de instalação com 
+```bash
+  # Path do LFrame 
+  path_LFrame = dirname(dirname(pathof(LFrame)))
+
+  # Path para o diretorio de exemplos
+  caminho = joinpath(path_LFrame, "examples")
+
+  # Muda para o diretório 
+  cd(caminho)
+```
+e selecionar um dos exemplos disponíveis no diretório
+```bash
+U,malha = Analise3D("hibbeler86.yaml")
+```
+
+
+# Esforços internos
+
+Para a visualização dos esforços interno do exemplo 8.6
+
+Carregue o pacote Plots
+```bash
+using Plots
+```
+
+
+Obtenha as equações dos esforços internos para o elemento escolhido, neste caso é o elemento "1".
+
+```bash
+esforcos,L = Esforcos_internos_elemento(1,malha,U)
+```
+em que malha e U foram obtidos com Analise3D. L é o comprimento do elemento, que será utilizado para gerarmos os pontos x para os gráficos.
+
+Gerar os pontos x para o gráfico 
+
+x = inicial : posição final/numero de pontos: posição final
+
+```bash
+x = 0:L/100:L
+```
+
+Por fim, decida qual esforço você quer visualizar e colque em esforcos[número]:
+
+1 - Normal [ N(x) ]
+
+2 - Cortante em y [ Vy(x) ]
+
+3 - Cortante em z [ Vz(x) ]
+
+4 - Torque [ T(x) ]
+
+5 - Momento em y [ My(x) ]
+
+6 - Momento em z [ Mz(x) ]
+
+```bash
+plot(x,esforcos[5].(x),title="Momento em y", xlabel = "Comprimento [m]", ylabel = "My [Nm]")
+```
+
+<p align="center">
+  <img src="Imagens/Momento em y.png" alt="Gráfico de momento fletor em y" width="50%">
+</p>
+
+
 # Input file
 
 
@@ -370,90 +457,6 @@ dados_elementos:
 #
 ```
 
-### Using the package
-
-Para rodar o exemplo, abra o Prompt de Comando e inicie o Julia
-```bash
-julia
-```
-e carregue o pacote LFrame
-```bash
-using LFrame
-```
-
-Após, localize o local do arquivo .yaml de entrada
-```bash
-cd("Local do arquivo")
-```
-Assim é só rodar o arquivo escolhido
-```bash
-U, malha = Analise3D("arquivo.yaml")
-```
-em que U é o vetor de deslocamentos generalizados da estrutura e malha é uma struct com os dados da malha do problema.
-
-Para rodar os arquivos de exemplo que estão disponíveis no pacote LFrame, pode-se localizar a pasta de instalação com 
-```bash
-  # Path do LFrame 
-  path_LFrame = dirname(dirname(pathof(LFrame)))
-
-  # Path para o diretorio de exemplos
-  caminho = joinpath(path_LFrame, "examples")
-
-  # Muda para o diretório 
-  cd(caminho)
-```
-e selecionar um dos exemplos disponíveis no diretório
-```bash
-U,malha = Analise3D("hibbeler86.yaml")
-```
-
-
-# Esforços internos
-
-Para a visualização dos esforços interno do exemplo 8.6
-
-Carregue o pacote Plots
-```bash
-using Plots
-```
-
-
-Obtenha as equações dos esforços internos para o elemento escolhido, neste caso é o elemento "1".
-
-```bash
-esforcos,L = Esforcos_internos_elemento(1,malha,U)
-```
-em que malha e U foram obtidos com Analise3D. L é o comprimento do elemento, que será utilizado para gerarmos os pontos x para os gráficos.
-
-Gerar os pontos x para o gráfico 
-
-x = inicial : posição final/numero de pontos: posição final
-
-```bash
-x = 0:L/100:L
-```
-
-Por fim, decida qual esforço você quer visualizar e colque em esforcos[número]:
-
-1 - Normal [ N(x) ]
-
-2 - Cortante em y [ Vy(x) ]
-
-3 - Cortante em z [ Vz(x) ]
-
-4 - Torque [ T(x) ]
-
-5 - Momento em y [ My(x) ]
-
-6 - Momento em z [ Mz(x) ]
-
-```bash
-plot(x,esforcos[5].(x),title="Momento em y", xlabel = "Comprimento [m]", ylabel = "My [Nm]")
-```
-
-<p align="center">
-  <img src="Imagens/Momento em y.png" alt="Gráfico de momento fletor em y" width="50%">
-</p>
 
 # Testes 
 
