@@ -3,7 +3,7 @@
 #
 # Atualmente está gravando somente os deslocamentos 
 #
-function Gera_pos(malha::Malha,U::AbstractVector)
+function Gera_pos_U(malha::Malha,U::AbstractVector)
 
    # Cria o arquivo completo do .pos com o nome do yaml
    #nome_pos = joinpath(pos, basename(malha.nome_arquivo) * ".pos")
@@ -15,8 +15,24 @@ function Gera_pos(malha::Malha,U::AbstractVector)
    # Inicializa o arquivo para o gmsh 
    Lgmsh_export_init(nome_pos,malha.nnos,malha.ne,malha.coord,etype,malha.conect)
 
+   # Como estamos trabalhando com vigas, temos que cuidar que existem informações 
+   # sobre rotação que o gmsh não processa. Por isso, vamos filtrar para 
+   # exportar somente as translações (os 3 primeiros gls de cada nó)
+   U_trans = zeros(3*malha.nnos)
+   
+   cont = 1
+   for i=1:malha.nnos
+       for j=1:3
+           U_trans[cont] = U[6*(i-1)+j]
+           cont += 1
+       end
+   end
+   
+   @show U
+   @show U_trans
+
    # Grava os deslocamentos para visualização 
-   Lgmsh_export_nodal_vector(nome_pos,U,3,"Deslocamentos")
+   Lgmsh_export_nodal_vector(nome_pos,U_trans,3,"Deslocamentos")
     
 end
 

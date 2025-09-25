@@ -51,7 +51,7 @@ function Analise3D(malha::Malha, posfile=true; ρ0=[])
    if posfile 
       
       # Cria arquivo .pos na pasta Pos para a visualização no Gmsh
-      Gera_pos(malha,U)
+      Gera_pos_U(malha,U)
 
       # Cria o arquivo .esf na pasta Esforcos para pos processamento
       Gera_esforcos(malha,U)
