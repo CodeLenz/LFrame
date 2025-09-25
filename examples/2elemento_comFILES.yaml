@@ -22,8 +22,8 @@ loads: 3 2 -3000
 #
 #
 geometrias:
-  - File: circular.sec
-  - File: quadrado.sec
+  - File: examples/circular.sec
+  - File: examples/quadrado.sec
 
 
 coordenadas:
