@@ -18,10 +18,17 @@ function Analise3D(malha::Malha, posfile=true; ρ0=[])
    if isempty(ρ0)
       ρ0 = ones(malha.ne) 
    else
+      
       # Testa para ver se a dimensão está correta
       if length(ρ0)!=malha.ne
          error("Analise3D:: vetor de variáveis de projeto tem a dimensão errada") 
       end
+
+      # Testa por consistência de valores
+      if !all(0.0 .<ρ0 .<= 1)
+         error("Analise3D:: vetor de variáveis de projeto tem valores inconsistentes") 
+      end
+
    end
 
    # Monta a matriz de rigidez global
