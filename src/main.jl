@@ -5,18 +5,20 @@
 """
 Analise3D Rotina para análise estática de pórticos espaciais
 
-Entrada: malha:   estrutuda de dados com as informações da malha do problema
-         ρ0   :   vetor com variáveis de projeto (deve ter dimensão ne × 1)
+Entrada: malha :   estrutuda de dados com as informações da malha do problema
+         ρ0    :   vetor com variáveis de projeto (deve ter dimensão ne × 1)
+         kparam:   vetor com função 
 
 Saidas: Vetor de deslocamentos do pórtico e estrutura de malha
         estrutura com os dados da malha 
 
 """
-function Analise3D(malha::Malha, posfile=true; ρ0=[])
+function Analise3D(malha::Malha, posfile=true; ρ0=[], kparam=Function[])
 
    # Se ρ não foi informado, inicializamos com 1.0
    if isempty(ρ0)
       ρ0 = ones(malha.ne) 
+
    else
       
       # Testa para ver se a dimensão está correta
@@ -31,8 +33,16 @@ function Analise3D(malha::Malha, posfile=true; ρ0=[])
 
    end
 
+   # Verifica se kparam tem alguma definição de função 
+   # caso não tenhamos, definimos o mapeamento direto
+   if isempty(kparam)
+
+      push!(kparam,ρ->ρ)
+
+   end
+
    # Monta a matriz de rigidez global
-   KG = Monta_Kg(malha,ρ0)
+   KG = Monta_Kg(malha,ρ0, kparam[1])
 
    # Monta o vetor global de forças concentradas - não muda
    FG = Monta_FG(malha)
@@ -80,12 +90,12 @@ Entrada: arquivo:  nome de um arquivo .yaml com a definição do problema
 Saidas: Vetor de deslocamentos do pórtico e estrutura de malha
         estrutura com os dados da malha 
 """
-function Analise3D(arquivo::AbstractString, posfile=true; verbose=false, ρ0=[])
+function Analise3D(arquivo::AbstractString, posfile=true; verbose=false , ρ0=[], kparam=Function[])
 
    # Le os dado::AbstractStrings do problema
    malha = Le_YAML(arquivo; verbose=verbose)
 
    # Roda a rotina principal, devolvendo U e a estrutura de malha
-   Analise3D(malha, posfile; ρ0=ρ0)
+   Analise3D(malha, posfile; ρ0=ρ0, kparam=kparam)
 
 end
