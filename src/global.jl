@@ -2,7 +2,7 @@
 #                 Rotina para montagem da matriz de rigidez global                  #
 #####################################################################################
 
-function Monta_Kg(malha::Malha, ρ::Vector{T}, fkparam::Function) where T
+function Monta_Kg(malha::Malha, x::Vector{T}, fkparam::Function) where T
     
     # Acessa as definições de malha
     ne    = malha.ne 
@@ -37,7 +37,7 @@ function Monta_Kg(malha::Malha, ρ::Vector{T}, fkparam::Function) where T
         gls = Gls(e,elems)
 
         # Sobreposição na matriz global
-        KG[gls,gls] .= KG[gls,gls] .+ fkparam(ρ[e])*(R'*Ke*R)
+        KG[gls,gls] .= KG[gls,gls] .+ fkparam(x[e])*(R'*Ke*R)
 
     end
 

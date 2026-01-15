@@ -39,7 +39,7 @@ function Ke_portico3d(Ee::T, Ize::T, Iye::T, Ge::T, J0e::T, Le::T, Ae::T) where 
     K[gls_xy, gls_xy] .= K_xy
     K[gls_xz, gls_xz] .= K_xz
 
-    # Utilizando ρ na matriz do elemento
+    # Utilizando x na matriz do elemento
 
 
     #=
