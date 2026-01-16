@@ -17,6 +17,7 @@ materiais:
     G: 1E9
     Ex: 1E6
     S_esc: 350e6
+    ρ: 7800.0
 
 #
 # No distribuited loads
@@ -75,3 +76,5 @@ apoios:
 #
 dados_elementos:
   material section
+
+mass:

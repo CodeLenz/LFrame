@@ -13,6 +13,8 @@ floads:
 #
 mpc: 
 
+mass:
+
 # Point loads
 loads: 2 1 100.0
 
