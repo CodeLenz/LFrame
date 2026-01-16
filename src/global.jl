@@ -198,10 +198,9 @@ end
 #                      Montagem do vetor massa concentradas                     #
 #####################################################################################
 
-function Monta_MC(malha::Malha)
+function Monta_Mc(malha::Malha)
     
     # Acessa os valores da estrutura de dados
-
     mass = malha.mass
     nnos  = malha.nnos
 

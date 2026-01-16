@@ -39,6 +39,12 @@ struct Malha{TI,TF,TL}
     # nó gl valor
     loads::Array{TL}
 
+    # Array com as informações de massas concentradas
+    # cada linha é uma informação e as colunas são 
+    # nó gl valor
+    mass::Array{TL}
+
+
     # Array com as informações de MPC (multi point constraint)
     # cada linha é uma informação e as colunas são 
     # nó1 gl1 nó2 gl2

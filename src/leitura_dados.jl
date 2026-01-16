@@ -460,6 +460,16 @@ function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
    # Converte para uma matriz de strings (chaves para os dicionários)
    loads = Converte_array(string_loads,3,Float64)
 
+   ################################# Massa concentradas ######################################
+
+   # Para debug
+   verbose && println("Massa concentradas")  
+
+   # Recupera as informações (como uma longa string)
+   string_mass = dados["mass"]
+
+   # Converte para uma matriz de strings (chaves para os dicionários)
+   mass = Converte_array(string_mass,3,Float64)
    ################################ MPC ######################################
 
    # Para debug
@@ -497,7 +507,7 @@ function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
 
    # Cria a estrutura com os dados da malha e retorna para o programa
    # principal
-   return Malha(ne, nnos, coord, conect, apoios, dicionario_materiais, dicionario_geometrias, dados_elementos, loads, mpc, floads, L,nome_arquivo)
+   return Malha(ne, nnos, coord, conect, apoios, dicionario_materiais, dicionario_geometrias, dados_elementos, loads, mass, mpc, floads, L,nome_arquivo)
    
 end
 
