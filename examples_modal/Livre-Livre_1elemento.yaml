@@ -1,0 +1,37 @@
+#
+# Exemplo Hibbeler 8.6, 10° ed.
+#
+
+materiais:
+  - nome: "aco"
+    G: 8.0e10
+    Ex: 2.1e11
+    S_esc: 350e6
+    ρ : 7800.0
+    
+# Mesmo que não temos forças precisa definir  
+loads: 
+
+geometrias:
+  - Iz: 1.256637061e-7
+    A: 1.256637061e-3
+    Iy: 1.256637061e-7
+    nome: "tubo1"
+    α: 0
+    J0: 2.513274123e-7
+
+coordenadas:
+  0.0 0.0 0.0
+  1.0 0.0 0.0
+
+conectividades: 
+  1 2
+
+# Mesmo que não temos apoio precisa definir
+apoios: 
+
+dados_elementos: 
+  aco tubo1
+
+  
+

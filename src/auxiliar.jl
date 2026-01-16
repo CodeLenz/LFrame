@@ -31,6 +31,7 @@ function Dados_fundamentais(ele, dados_elementos, dicionario_materiais, dicionar
     # E podemos recuperar os dados usando os nomes como chaves
     Ee = material["Ex"]
     Ge = material["G"]
+    ρe = material["ρ"]
 
     # O nome da geometria do elemento pode ser acessado diretamente da matriz de dados_elementos
     geo = dados_elementos[ele,2]
@@ -44,6 +45,6 @@ function Dados_fundamentais(ele, dados_elementos, dicionario_materiais, dicionar
     Ae  = geometria["A"]
     αe  = geometria["α"]
 
-    return  Ize, Iye, J0e, Ae, αe, Ee, Ge, geo
+    return  Ize, Iye, J0e, Ae, αe, Ee, Ge, geo,ρe
     
 end

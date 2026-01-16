@@ -147,3 +147,49 @@ function Monta_FD(malha::Malha)
 
     return FD
 end
+
+#####################################################################################
+#                 Rotina para montagem da matriz mássica global                  #
+#####################################################################################
+
+function Monta_Mg(malha::Malha, x::Vector{T}, fkparam::Function) where T
+    
+    # Acessa as definições de malha
+    ne    = malha.ne 
+    nnos  = malha.nnos 
+    elems = malha.conect 
+    coord = malha.coord
+    L = malha.L
+    dados_elementos = malha.dados_elementos
+    dicionario_materiais = malha.dicionario_materiais
+    dicionario_geometrias = malha.dicionario_geometrias
+
+    # Aloca a matriz de rigidez global
+    MG = spzeros(T,6*nnos, 6*nnos)
+
+    # Passando pelos elementos da malha
+    for e=1:ne
+
+        # Descobre os dados do Elemento
+        Le = L[e]
+
+        # Recupera os dados do elemento (geometria e material)
+        Ize, Iye, J0e, Ae, αe, Ee, Ge,nome, ρe = Dados_fundamentais(e, dados_elementos, dicionario_materiais,
+                                                           dicionario_geometrias)
+
+        # Parametrização SIMP da rigidez
+        Me = Me_portico3d(Ae,ρe,Le)
+
+        # Monta a matriz de rotação do elemento
+        R = Rotacao3d(e, elems, coord, αe)
+
+        # Descobre os Gls do elemento
+        gls = Gls(e,elems)
+
+        # Sobreposição na matriz global
+        MG[gls,gls] .= MG[gls,gls] .+ fkparam(x[e])*(R'*Me*R)
+
+    end
+
+    return MG
+end
