@@ -20,7 +20,7 @@ module LFrame
 	include("apoios.jl")
 	include("main.jl")
 	include("exporta.jl")
-
+	include("M_portico.jl")
     
 	# Exporta a rotina principal de análise
 	export Analise3D
