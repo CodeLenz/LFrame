@@ -145,11 +145,32 @@ function Modal3D(malha::Malha, posfile=true; x0=[], kparam=Function[])
    # Monta a matriz de rigidez global
    KG = Monta_Kg(malha,x0, kparam[1])
 
+   # Monta o vetor global de forças concentradas - não muda
+   FG = Monta_FG(malha)
+
+   # Monta o vetor global de forças distribuídas - não muda
+   FD = Monta_FD(malha)
+
+   # Vetor de forças do problema - não muda
+   F = FG .+ FD
+
+   # Modifica o sistema para considerar as restrições de apoios - já vai ser influenciado por ρ
+   KA, FA = Aumenta_sistema(malha, KG, F)
+
    # Monta a matriz mássica global
    MG = Monta_Mg(malha,x0, kparam[1])
 
+   # Monta o vetor global de massa concentradas - não muda
+   MC = Monta_Mc(malha)
+
+   # Monta matriz total de massa 
+   M = MG + MC
+
+   # Matriz massica com as condições de contorno
+   MA = Aumenta_sistema(malha,M,F) 
+
    # Resolução do problema de autovalor generalizado
-   λ, U0 = eigen(Matrix(KG), Matrix(MG))
+   λ, U0 = eigen(Matrix(KA), Matrix(MG))
 
    # Loop pelo autovalores
    for i in eachindex(λ)

@@ -193,3 +193,40 @@ function Monta_Mg(malha::Malha, x::Vector{T}, fkparam::Function) where T
 
     return MG
 end
+
+#####################################################################################
+#                      Montagem do vetor massa concentradas                     #
+#####################################################################################
+
+function Monta_MC(malha::Malha)
+    
+    # Acessa os valores da estrutura de dados
+
+    mass = malha.mass
+    nnos  = malha.nnos
+
+    # Aloca o vetor global
+    MC = zeros(6*nnos)
+
+    # Loop pelas informações dos carregamentos concentrados
+    for i=1:size(mass,1)
+
+        # Descobre o nó
+        no = Int(mass[i,1])
+
+        # Descobre o gl(local)
+        gl = Int(mass[i,2])
+
+        #Descobre o valor
+        valor = mass[i,3]
+
+        # O grau de liberdade global
+        glg = 6*(no-1)+gl
+
+        # Sobrepoe no gl
+        MC[glg] = MC[glg] + valor
+    end
+
+    # Retorna o vetor
+    return MC
+end
