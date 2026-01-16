@@ -7,10 +7,12 @@ materiais:
     G: 8.0e10
     Ex: 2.1e11
     S_esc: 350e6
+    ρ: 7800.0
   - nome: "aluminio"
     G: 5.0e10
     Ex: 70e9
     S_esc: 100e6
+    ρ: 2700.0
   
 #
 # Forças e momentos concentrados
@@ -43,6 +45,8 @@ apoios:
   1 5 0.0
   1 6 0.0
 
+# massa concentrada mesmo se não existe precisa add
+mass: 
 
 dados_elementos:
   aco tubo1

@@ -7,6 +7,7 @@ materiais:
     G: 8.0e10
     Ex: 2.1e11
     S_esc: 350e6
+    ρ: 7800.0
     
 loads: 4 3 -3000
 
@@ -47,4 +48,5 @@ apoios:
 dados_elementos:
   aco tubo1
   
-
+# massa concentrada mesmo se não existe precisa add
+mass: 

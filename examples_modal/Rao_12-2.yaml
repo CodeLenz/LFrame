@@ -2,9 +2,10 @@
 # Exemplo 12.2 do livro do Rao - Vibrações mecanicas 5º edição
 #
 
-#
-#  ωn1 = ((97.41EI)/(ρAL^4))^(1/2)
-#  ωn2 = ((1558.56EI)/(ρAL^4))^(1/2)
+# 
+#   RESPOSTA ANALITICAS RAO
+#  ωn1 = ((120EI)/(ρAL^4))^(1/2) = 568.3985600588051
+#  ωn2 = ((2520EI)/(ρAL^4))^(1/2) = 2604.7294263733775
 #
 
 

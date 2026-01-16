@@ -72,3 +72,63 @@ function Aumenta_sistema(malha::Malha,KG::AbstractMatrix,F::Vector)
     return KA, FA
 
 end
+
+#
+# Rotina para aplicar as condições de contorno para modal
+#
+function Condition(malha::Malha, KG::AbstractMatrix, MG::AbstractMatrix)
+    
+    # Recupera os dados da malha
+    apoios = malha.apoios
+
+    # numero de apoios
+    m = size(apoios, 1)
+
+    # numero total de GDLs
+    ngdl = size(KG, 1)
+
+    # Vetor de GDLs fixos
+    fixos = Int[]
+
+    # Loop pelos apoios
+    for i in 1:m 
+
+        # Recupera o nó
+        no    = Int(apoios[i,1])  
+        
+        # Recupera o GDL
+        gdl   = Int(apoios[i,2])   
+
+        # Recupera o valor
+        valor = apoios[i,3]        
+
+        # Aloca o gdl local no global 
+        glg = 6*(no-1) + gdl
+
+        # Verifica se o deslocamento prescrito é zero 
+        if valor == 0
+            push!(fixos, glg)
+        end
+        
+    end
+
+    # GDLs livres
+    livres = Int[]
+    
+    # Loop por todos os GDLs globais
+    for i in 1:ngdl
+
+        # Verifica se i não é um gdl fixo
+        if !(i in fixos)
+
+            # Armazena no vetor livres
+            push!(livres, i)
+        end
+    end
+
+    # Matrizes reduzidas
+    Kr = KG[livres, livres]
+    Mr = MG[livres, livres]
+
+    return Kr, Mr
+end

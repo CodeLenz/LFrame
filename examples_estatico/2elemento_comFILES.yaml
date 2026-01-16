@@ -7,7 +7,7 @@ materiais:
     G: 8.0e10
     Ex: 2.1e11
     S_esc: 350e6
-    
+    ρ: 7800.0
 loads: 3 2 -3000
 
 #
@@ -22,8 +22,8 @@ loads: 3 2 -3000
 #
 #
 geometrias:
-  - File: examples/circular.sec
-  - File: examples/quadrado.sec
+  - File: examples_estatico/circular.sec
+  - File: examples_estatico/quadrado.sec
 
 
 coordenadas:
@@ -47,4 +47,5 @@ dados_elementos:
   aco circular
   aco quadrado
   
-
+# massa concentrada mesmo se não existe precisa add
+mass: 

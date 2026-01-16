@@ -3,6 +3,7 @@ materiais:
     G: 8.0e8
     Ex: 9.0e9
     S_esc: 2e6
+    ρ: 7800.0
 
 geometrias:
   - Iz: 8.291e-5
@@ -14,6 +15,9 @@ geometrias:
 
 loads:  82 2 -1000.0
         83 2 -1000.0
+
+# massa concentrada mesmo se não existe precisa add
+mass: 
 
 coordenadas: |-
   0.0 0.0 0.0 

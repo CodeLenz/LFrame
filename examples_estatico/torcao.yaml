@@ -3,6 +3,7 @@ materiais:
     G: 8.0e10
     Ex: 2.1e11
     S_esc: 350e6
+    ρ: 7800.0
     
 loads:  16 1 -1500.0
         61 1 1500.0
@@ -16,6 +17,9 @@ geometrias:
     nome: "tubo1"
     α: 0
     J0: 1.658e-4
+
+# massa concentrada mesmo se não existe precisa add
+mass: 
 
 coordenadas: |-
   0.0 0.0 0.0 
