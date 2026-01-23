@@ -108,6 +108,8 @@ function Condition(malha::Malha, KG::AbstractMatrix, MG::AbstractMatrix)
         # Verifica se o deslocamento prescrito é zero 
         if valor == 0
             push!(fixos, glg)
+        else
+            error("O nó $no está com o GDL $gdl livre")
         end
         
     end
