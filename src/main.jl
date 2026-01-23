@@ -110,7 +110,7 @@ Entrada: malha :   estrutuda de dados com as informações da malha do problema
          x0    :   vetor com variáveis de projeto (deve ter dimensão ne × 1)
          kparam:   vetor com função 
 
-Saidas: Vetor das frequencia naturais do pórtico e estrutura de malha
+Saidas: Vetor das frequencia naturais e modos do pórtico e estrutura de malha
         estrutura com os dados da malha 
 
 """
@@ -178,7 +178,7 @@ Entrada: malha :   estrutuda de dados com as informações da malha do problema
          x0    :   vetor com variáveis de projeto (deve ter dimensão ne × 1)
          kparam:   vetor com função 
 
-Saidas: Vetor das frequencia naturais do pórtico e estrutura de malha
+Saidas: Vetor das frequencia naturais e modos do pórtico e estrutura de malha
         estrutura com os dados da malha 
 
 """
