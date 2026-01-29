@@ -80,18 +80,28 @@ function Condition(malha::Malha, KG::AbstractMatrix, MG::AbstractMatrix)
     
     # Recupera os dados da malha
     apoios = malha.apoios
+    nos = malha.nnos
 
-    # numero de apoios
-    m = size(apoios, 1)
+    # Descobre o gdls livres
+    livres = dofs_livres(nos,apoios)
+
+    # Matrizes reduzidas
+    Kr = KG[livres, livres]
+    Mr = MG[livres, livres]
+
+    return Kr, Mr
+end
+
+function dofs_livres(nos,apoios)
 
     # numero total de GDLs
-    ngdl = malha.nnos * 6
-
+    ngdl = nos * 6
+    
     # Vetor de GDLs fixos
     fixos = Int[]
 
     # Loop pelos apoios
-    for i in 1:m 
+    for i in axes(apoios,1) 
 
         # Recupera o nó
         no    = Int(apoios[i,1])  
@@ -108,10 +118,10 @@ function Condition(malha::Malha, KG::AbstractMatrix, MG::AbstractMatrix)
         # Verifica se o deslocamento prescrito é zero 
         if valor == 0
             push!(fixos, glg)
+            #print("O nó $no está com o GDL $gdl fixo \n")
         else
             error("O nó $no está com o GDL $gdl livre")
         end
-        
     end
 
     # GDLs livres
@@ -127,10 +137,6 @@ function Condition(malha::Malha, KG::AbstractMatrix, MG::AbstractMatrix)
             push!(livres, i)
         end
     end
-
-    # Matrizes reduzidas
-    Kr = KG[livres, livres]
-    Mr = MG[livres, livres]
-
-    return Kr, Mr, livres
+    
+    return livres
 end
