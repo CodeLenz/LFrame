@@ -85,7 +85,7 @@ function Condition(malha::Malha, KG::AbstractMatrix, MG::AbstractMatrix)
     m = size(apoios, 1)
 
     # numero total de GDLs
-    ngdl = size(KG, 1)
+    ngdl = malha.nnos * 6
 
     # Vetor de GDLs fixos
     fixos = Int[]
