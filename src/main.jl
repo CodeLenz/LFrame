@@ -167,7 +167,7 @@ function Modal3D(malha::Malha, posfile=true; x0=[], kparam=Function[])
    # frequencia natural
    ωn = sqrt.(λ)
 
-   return ωn,U0,malha,Kr,Mr
+   return ωn,U0,malha
    
 end
 
