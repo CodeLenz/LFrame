@@ -114,7 +114,7 @@ Saidas: Vetor das frequencia naturais e modos do pórtico e estrutura de malha
         estrutura com os dados da malha 
 
 """
-function Modal3D(malha::Malha, posfile=true; x0=[], kparam=Function[])
+function Modal3D(malha::Malha, posfile=true; x0=[], kparam=Function[],mparam=Function[])
 
    # Se ρ não foi informado, inicializamos com 1.0
    if isempty(x0)
@@ -142,11 +142,19 @@ function Modal3D(malha::Malha, posfile=true; x0=[], kparam=Function[])
 
    end
 
+   # Verifica se mparam tem alguma definição de função 
+   # caso não tenhamos, definimos o mapeamento direto
+   if isempty(mparam)
+
+      push!(mparam,x->x)
+
+   end
+
    # Monta a matriz de rigidez global
    KG = Monta_Kg(malha,x0, kparam[1])
 
    # Monta a matriz mássica global
-   MG = Monta_Mg(malha,x0, kparam[1])
+   MG = Monta_Mg(malha,x0, mparam[1])
 
    # Aplica as CC
    Kr,Mr = Condition(malha,KG,MG)
@@ -182,7 +190,7 @@ Saidas: Vetor das frequencia naturais e modos do pórtico e estrutura de malha
         estrutura com os dados da malha 
 
 """
-function Modal3D(arquivo::AbstractString, posfile=true; verbose=false , x0=[], kparam=Function[])
+function Modal3D(arquivo::AbstractString, posfile=true; verbose=false , x0=[], kparam=Function[],mparam=Function[])
 
    # Le os dado::AbstractStrings do problema
    malha = Le_YAML(arquivo; verbose=verbose)

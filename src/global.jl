@@ -152,7 +152,7 @@ end
 #                 Rotina para montagem da matriz mássica global                  #
 #####################################################################################
 
-function Monta_Mg(malha::Malha, x::Vector{T}, fkparam::Function) where T
+function Monta_Mg(malha::Malha, x::Vector{T}, fmparam::Function) where T
     
     # Acessa as definições de malha
     ne    = malha.ne 
@@ -187,7 +187,7 @@ function Monta_Mg(malha::Malha, x::Vector{T}, fkparam::Function) where T
         gls = Gls(e,elems)
 
         # Sobreposição na matriz global
-        MG[gls,gls] .= MG[gls,gls] .+ fkparam(x[e])*(R'*Me*R)
+        MG[gls,gls] .= MG[gls,gls] .+ fmparam(x[e])*(R'*Me*R)
 
     end
 
