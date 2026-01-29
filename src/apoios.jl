@@ -132,5 +132,5 @@ function Condition(malha::Malha, KG::AbstractMatrix, MG::AbstractMatrix)
     Kr = KG[livres, livres]
     Mr = MG[livres, livres]
 
-    return Kr, Mr
+    return Kr, Mr, livres
 end
