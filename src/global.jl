@@ -191,7 +191,14 @@ function Monta_Mg(malha::Malha, x::Vector{T}, fkparam::Function) where T
 
     end
 
-    return MG
+    # Monta a matriz de massa concentradas
+    MC = Monta_Mc(malha)
+
+    # Soma as duas matrizes
+    M = MG + MC
+
+    # Retorna a matriz de massas
+    return M
 end
 
 #####################################################################################
@@ -205,7 +212,10 @@ function Monta_Mc(malha::Malha)
     nnos  = malha.nnos
 
     # Aloca o vetor global
-    MC = zeros(6*nnos)
+    MC = spzeros(6*nnos, 6*nnos)
+
+    # gdls locais
+    gdl = [1;2;3]
 
     # Loop pelas informações dos carregamentos concentrados
     for i=1:size(mass,1)
@@ -213,17 +223,20 @@ function Monta_Mc(malha::Malha)
         # Descobre o nó
         no = Int(mass[i,1])
 
-        # Descobre o gl(local)
-        gl = Int(mass[i,2])
-
         #Descobre o valor
-        valor = mass[i,3]
+        valor = mass[i,2]
 
-        # O grau de liberdade global
-        glg = 6*(no-1)+gl
+        # loop pelos gdl de translação 
+        for j = 1:length(gdl)
 
-        # Sobrepoe no gl
-        MC[glg] = MC[glg] + valor
+            gl = gdl[j]
+
+            # O grau de liberdade global
+            glg = 6*(no-1)+gl
+
+            # Sobrepoe no gl
+            MC[glg,glg] += valor/3
+        end
     end
 
     # Retorna o vetor

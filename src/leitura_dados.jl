@@ -469,7 +469,7 @@ function Le_YAML(arquivo::AbstractString,ver=1.0;verbose=false)
    string_mass = dados["mass"]
 
    # Converte para uma matriz de strings (chaves para os dicionários)
-   mass = Converte_array(string_mass,3,Float64)
+   mass = Converte_array(string_mass,2,Float64)
    ################################ MPC ######################################
 
    # Para debug
