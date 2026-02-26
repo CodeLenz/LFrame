@@ -235,7 +235,7 @@ function Monta_Mc(malha::Malha)
             glg = 6*(no-1)+gl
 
             # Sobrepoe no gl
-            MC[glg,glg] += valor/3
+            MC[glg,glg] += valor
         end
     end
 
