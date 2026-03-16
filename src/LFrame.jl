@@ -23,7 +23,7 @@ module LFrame
 	include("M_portico.jl")
     
 	# Exporta a rotina principal de análise
-	export Analise3D
+	export Analise3D, Modal3D
 	
 	# Rotinas para calcular as forças nodais e as 
 	# expressões dos esforços internos de cada elemento
