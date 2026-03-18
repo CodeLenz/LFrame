@@ -18,6 +18,9 @@ loads:  82 2 -1000.0
 
 # massa concentrada mesmo se não existe precisa add
 mass: 
+  1 1.0
+  2 1.0
+  3 1.0
 
 coordenadas: |-
   0.0 0.0 0.0 
