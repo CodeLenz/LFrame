@@ -153,9 +153,8 @@ function Modal3D(malha::Malha, posfile=true; x0=[], kparam=Function[],mparam=Fun
    # Monta a matriz mássica global
    MG = Monta_Mg(malha,x0, mparam[1])
    
-
    # Aplica as CC
-   Kr,Mr = LFrame.Condition(malha,KG,MG)
+   Kr,Mr = Condition(malha,KG,MG)
 
    # Resolução do problema de autovalor generalizado
    λ, U0 = eigen(Matrix(Kr), Matrix(Mr))

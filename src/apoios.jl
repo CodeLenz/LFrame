@@ -83,7 +83,7 @@ function Condition(malha::Malha, KG::AbstractMatrix, MG::AbstractMatrix)
     nos = malha.nnos
 
     # Descobre o gdls livres
-    livres = LFrame.dofs_livres(nos,apoios)
+    livres = dofs_livres(nos,apoios)
 
     # Matrizes reduzidas
     Kr = KG[livres, livres]
