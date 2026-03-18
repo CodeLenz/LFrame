@@ -152,6 +152,7 @@ function Modal3D(malha::Malha, posfile=true; x0=[], kparam=Function[],mparam=Fun
 
    # Monta a matriz mássica global
    MG = Monta_Mg(malha,x0, mparam[1])
+   @show MG
 
    # Aplica as CC
    Kr,Mr = Condition(malha,KG,MG)
