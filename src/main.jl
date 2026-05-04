@@ -90,7 +90,7 @@ Entrada: arquivo:  nome de um arquivo .yaml com a definição do problema
 Saidas: Vetor de deslocamentos do pórtico e estrutura de malha
         estrutura com os dados da malha 
 """
-function Analise3D(arquivo::AbstractString, posfile=true; verbose=false , x0=[], kparam=Function[])
+function Analise3D(arquivo::AbstractString, posfile=false; verbose=false , x0=[], kparam=Function[])
 
    # Le os dado::AbstractStrings do problema
    malha = Le_YAML(arquivo; verbose=verbose)
