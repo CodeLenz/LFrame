@@ -3,11 +3,15 @@
 #
 # Atualmente está gravando somente os deslocamentos 
 #
-function Gera_pos_U(malha::Malha,U::AbstractVector)
+function Gera_pos_U(malha::Malha,U::AbstractVector,iter::Int)
 
    # Cria o arquivo completo do .pos com o nome do yaml
    #nome_pos = joinpath(pos, basename(malha.nome_arquivo) * ".pos")
-   nome_pos = malha.nome_arquivo*".pos"
+   nome_pos = malha.nome_arquivo *"_iter$(iter).pos"
+
+   if isfile(nome_pos)
+    rm(nome_pos)
+   end
 
    # Todos os elementos são do tipo 1
    etype = ones(Int64,malha.ne)
