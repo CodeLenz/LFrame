@@ -154,7 +154,7 @@ function Modal3D(malha::Malha, posfile=true; x0=[], kparam=Function[],mparam=Fun
    MG = Monta_Mg(malha,x0, mparam[1])
    
    # Aplica as CC
-   Kr,Mr = Condition(malha,KG,MG)
+   Kr,Mr = CondicoesContorno(malha,KG,MG)
 
    # Resolução do problema de autovalor generalizado
    λ, U0 = eigen(Matrix(Kr), Matrix(Mr))

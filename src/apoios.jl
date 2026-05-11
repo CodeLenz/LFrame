@@ -76,7 +76,7 @@ end
 #
 # Rotina para aplicar as condições de contorno para modal
 #
-function Condition(malha::Malha, KG::AbstractMatrix, MG::AbstractMatrix)
+function CondicoesContorno(malha::Malha, KG::AbstractMatrix, MG::AbstractMatrix)
     
     # Recupera os dados da malha
     apoios = malha.apoios
