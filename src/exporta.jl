@@ -40,11 +40,16 @@ end
 #
 # Grava os esforços internos em uma pasta específica
 #
-function Gera_esforcos(malha::Malha,U::AbstractVector)
+function Gera_esforcos(malha::Malha,U::AbstractVector,iter::Int)
    
    # Cria o arquivo completo do .esf com o nome do yaml
    #nome_esf = joinpath(esf, basename(malha.nome_arquivo) * ".esf")
-   nome_esf = malha.nome_arquivo*".esf"
+   nome_esf = malha.nome_arquivo *  "_iter$(iter).esf"
+
+   # apaga o arquivo que ja existe com nome igual
+   if isfile(nome_esf)
+    rm(nome_esf)
+   end
 
    # Exporta os esforços externos (12 × 1) para cada elemento da malha
    fd = open(nome_esf,"w")

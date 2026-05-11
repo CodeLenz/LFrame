@@ -13,7 +13,7 @@ Saidas: Vetor de deslocamentos do pórtico e estrutura de malha
         estrutura com os dados da malha 
 
 """
-function Analise3D(malha::Malha, posfile=false; x0=[], kparam=Function[])
+function Analise3D(malha::Malha, posfile=false; x0=[], kparam=Function[],iter=1)
 
    # Se ρ não foi informado, inicializamos com 1.0
    if isempty(x0)
@@ -69,9 +69,9 @@ function Analise3D(malha::Malha, posfile=false; x0=[], kparam=Function[])
       
       # Cria arquivo .pos na pasta Pos para a visualização no Gmsh
       Gera_pos_U(malha,U)
-
+      
       # Cria o arquivo .esf na pasta Esforcos para pos processamento
-      Gera_esforcos(malha,U)
+      Gera_esforcos(malha,U,iter)
 
    end #posfile
 
