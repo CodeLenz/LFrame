@@ -32,9 +32,6 @@ function Gera_pos_U(malha::Malha,U::AbstractVector,iter::Int)
        end
    end
    
-   @show U
-   @show U_trans
-
    # Grava os deslocamentos para visualização 
    Lgmsh_export_nodal_vector(nome_pos,U_trans,3,"Deslocamentos")
     
