@@ -18,7 +18,7 @@ function Monta_Kg(malha::Malha, x::Vector{T}, fkparam::Function) where T
     KG = spzeros(T,6*nnos, 6*nnos)
 
     # Passando pelos elementos da malha
-    for e=1:ne
+    for e in LinearIndices(L)
 
         # Descobre os dados do Elemento
         Le = L[e]
@@ -168,7 +168,7 @@ function Monta_Mg(malha::Malha, x::Vector{T}, fmparam::Function) where T
     MG = spzeros(T,6*nnos, 6*nnos)
 
     # Passando pelos elementos da malha
-    for e=1:ne
+    for e in LinearIndices(L)
 
         # Descobre os dados do Elemento
         Le = L[e]
@@ -227,7 +227,7 @@ function Monta_Mc(malha::Malha)
         valor = mass[i,2]
 
         # loop pelos gdl de translação 
-        for j = 1:length(gdl)
+        for j in LinearIndices(gdl)
 
             gl = gdl[j]
 
@@ -236,6 +236,7 @@ function Monta_Mc(malha::Malha)
 
             # Sobrepoe no gl
             MC[glg,glg] += valor
+
         end
     end
 

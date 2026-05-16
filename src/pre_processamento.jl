@@ -10,7 +10,7 @@ function Calcula_comprimentos(ne,conect::Array{Int64},coord::Array{Float64})
     L = Array{Float64}(undef,ne)
 
     # Loop pelos elementos da malha
-    for e = 1:ne
+    for e in LinearIndices(L)
 
         # Descobre os nós de cada elemento
         no1, no2 = conect[e,:] # Usa o nó inicial e final da matriz de conectividades
