@@ -11,9 +11,7 @@ function Forcas_elemento(ele,malha::Malha,U::Vector{T}) where T
     dicionario_geometrias = malha.dicionario_geometrias
 
     # Recupera os dados do elemento
-    Ize, Iye, J0e, Ae, αe, Ee, Ge, geo = Dados_fundamentais(ele, dados_elementos, dicionario_materiais, 
-                                                           dicionario_geometrias)
-    
+    Ize, Iye, J0e, Ae, αe, Ee, Ge, geo = Dados_fundamentais(ele, dados_elementos, dicionario_materiais, dicionario_geometrias)
     
     # Descobre os dados do Elemento
     Le = malha.L[ele]
