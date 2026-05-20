@@ -1,6 +1,9 @@
 ######################################################################################
 # Rotina para fazer a montagem da matriz de rotação já no caso da viga em 3 dimensões#
 ######################################################################################
+#
+# Rotina mapea o elemento local para o global, ou seja, a matriz de rotação do elemento.
+#
 
 function Rotacao3d(e, elems, coord, α)
 
