@@ -1,7 +1,7 @@
 #
 # Retorna o vetor 12x1 com os esforços nodais do elemento ele
 #
-function Forcas_elemento(ele,malha::Malha,U::Vector{T}) where T
+function Forcas_elemento(ele,malha::Malha,U::Vector{T},x0) where T
     
     # Recupera dados da estrutura malha
     conect = malha.conect
@@ -58,10 +58,14 @@ function Forcas_elemento(ele,malha::Malha,U::Vector{T}) where T
 
     end
 
+    Ke_param = Ke * fkparam(x0[ele])   # parametrizado
+    fe = Ke_param * ul - fde
+
     # Multiplica pela rigidez (também no sistema local)
     # e compensa pelo carregamento distribuídos (reações de 
     # engastamento perfeito)
     fe = Ke*ul - fde
+
 
     # Devolve as forças generalizadas nos nós deste elemento
     return geo,fe 

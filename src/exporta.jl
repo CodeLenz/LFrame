@@ -41,7 +41,7 @@ end
 #
 # Grava os esforços internos em uma pasta específica
 #
-function Gera_esforcos(malha::Malha,U::AbstractVector,iter::Int)
+function Gera_esforcos(malha::Malha,U::AbstractVector,iter::Int,x0)
    
    # Cria o arquivo completo do .esf com o nome do yaml
    #nome_esf = joinpath(esf, basename(malha.nome_arquivo) * ".esf")
@@ -62,7 +62,7 @@ function Gera_esforcos(malha::Malha,U::AbstractVector,iter::Int)
    for ele = 1:malha.ne
 
       # Calcula as forças nodais no elemento e recupera a geometria do elemento 
-      geo,Fe =  Forcas_elemento(ele,malha,U)
+      geo,Fe =  Forcas_elemento(ele,malha,U,x0)
 
       print(fd,geo," ")
 
