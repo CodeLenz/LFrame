@@ -61,11 +61,6 @@ function Forcas_elemento(ele,malha::Malha,U::Vector{T},x0::Vector{T},fkparam::Fu
     Ke_param = Ke * fkparam(x0[ele])   # parametrizado
     fe = Ke_param * ul - fde
 
-    # Multiplica pela rigidez (também no sistema local)
-    # e compensa pelo carregamento distribuídos (reações de 
-    # engastamento perfeito)
-    fe = Ke*ul - fde
-
 
     # Devolve as forças generalizadas nos nós deste elemento
     return geo,fe 
