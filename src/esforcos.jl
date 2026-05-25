@@ -1,7 +1,7 @@
 #
 # Retorna o vetor 12x1 com os esforços nodais do elemento ele
 #
-function Forcas_elemento(ele,malha::Malha,U::Vector{T},x0) where T
+function Forcas_elemento(ele,malha::Malha,U::Vector{T},x0::Vector{T},fkparam::Function) where T
     
     # Recupera dados da estrutura malha
     conect = malha.conect
