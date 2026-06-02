@@ -1,0 +1,62 @@
+#
+# exemplo 5.5 logan 4 ed pg 244 
+#
+
+materiais:
+  - nome: "aco"
+    G: 12e3
+    Ex: 30e3
+    S_esc: 350e6 # não importa para o exemplo
+    ρ: 7800.0 # não importa para o exemplo
+
+
+loads: 1 2 -100
+
+geometrias:
+  - Iz: 400
+    A: 100 # não importa para o exemplo
+    Iy: 400
+    nome: "tubo1"
+    α: 0
+    J0: 110
+
+# temos que passar ft → in
+coordenadas:
+  240.0 0.0 120.0
+  0.0   0.0 240.0
+  0.0   0.0   0.0
+  240.0 0.0   0.0
+
+
+conectividades: 
+  1 2
+  1 3
+  1 4
+
+apoios: 
+  2 1 0.0
+  2 2 0.0
+  2 3 0.0
+  2 4 0.0
+  2 5 0.0
+  2 6 0.0
+  3 1 0.0
+  3 2 0.0
+  3 3 0.0
+  3 4 0.0
+  3 5 0.0
+  3 6 0.0
+  4 1 0.0
+  4 2 0.0
+  4 3 0.0
+  4 4 0.0
+  4 5 0.0
+  4 6 0.0
+
+dados_elementos: 
+  aco tubo1
+  aco tubo1
+  aco tubo1
+  
+# massa concentrada mesmo se não existe precisa add
+mass: # n tem
