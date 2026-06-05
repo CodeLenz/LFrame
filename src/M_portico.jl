@@ -1,14 +1,14 @@
 #
 # Rotina que monta a matriz mássica de um elemento
 #
-function Me_portico3d(Ae::T, ρe::T, Le::T) where T
+function Me_portico3d(Ae::T, ρe::T, Jeq::T, Le::T) where T
 
     # Termos de barra
     M_barra = (Ae*ρe*Le)*[1.0/3.0 1.0/6.0 ; 1.0/6.0 1.0/3.0]
     gls_barra = [1;7]
 
     # Termos de eixo
-    M_eixo = (Ae*ρe*Le)*[1.0/3.0 1.0/6.0 ; 1.0/6.0 1.0/3.0]
+    M_eixo = (Jeq*ρe*Le)*[1.0/3.0 1.0/6.0 ; 1.0/6.0 1.0/3.0]
     gls_eixo = [4;10]
 
     # Viga no plano xy
@@ -33,4 +33,4 @@ function Me_portico3d(Ae::T, ρe::T, Le::T) where T
 
 
    return M            
-  end
+end

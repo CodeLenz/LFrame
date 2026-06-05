@@ -178,7 +178,7 @@ function Monta_Mg(malha::Malha, x::Vector{T}, fmparam::Function) where T
                                                            dicionario_geometrias)
 
         # Parametrização SIMP da rigidez
-        Me = Me_portico3d(Ae,ρe,Le)
+        Me = Me_portico3d(Ae,ρe,J0e,Le)
 
         # Monta a matriz de rotação do elemento
         R = Rotacao3d(e, elems, coord, αe)
