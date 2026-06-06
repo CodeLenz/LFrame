@@ -20,7 +20,10 @@ function Me_portico3d(Ae::T, ρe::T, Jeq::T, Le::T) where T
 
 
     # A matriz massica independe do sentido de coordenadas
-    M_xz = M_xy
+    M_xz = ((Ae*ρe*Le)/420)*[156   -22*Le  54  13*Le  ;
+                     -22*Le    4*Le^2   -13*Le    -3*Le^2   ;
+                     54  -13*Le  156  22*Le ;
+                     13Le -3Le^2 22*Le 4*Le^2]
     gls_xz = [3;5;9;11]
 
     # Monta a matriz mássica do elemento de pórtico 3D

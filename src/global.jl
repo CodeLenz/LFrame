@@ -29,7 +29,7 @@ function Monta_Kg(malha::Malha, x::Vector{T}, fkparam::Function) where T
 
         # Parametrização SIMP da rigidez
         Ke = Ke_portico3d(Ee, Ize, Iye, Ge, J0e, Le, Ae)
-
+        
         # Monta a matriz de rotação do elemento
         R = Rotacao3d(e, elems, coord, αe)
 
