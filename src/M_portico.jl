@@ -18,8 +18,7 @@ function Me_portico3d(Ae::T, ρe::T, Jeq::T, Le::T) where T
                      -13Le -3Le^2 -22*Le 4*Le^2]
     gls_xy = [2;6;8;12]
 
-
-    # A matriz massica independe do sentido de coordenadas
+    # Viga no plano xz
     M_xz = ((Ae*ρe*Le)/420)*[156   -22*Le  54  13*Le  ;
                      -22*Le    4*Le^2   -13*Le    -3*Le^2   ;
                      54  -13*Le  156  22*Le ;
