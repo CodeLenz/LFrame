@@ -202,13 +202,13 @@ Saidas: Vetor das frequencia naturais e modos do pórtico e estrutura de malha
         estrutura com os dados da malha 
 
 """
-function Modal3D(arquivo::AbstractString, posfile=true; verbose=false , x0=[], kparam=Function[],mparam=Function[])
+function Modal3D(arquivo::AbstractString, posfile=true; verbose=false , x0=[], kparam=Function[],mparam=Function[], export_gmsh=false, gmsh_file="modos.msh", n_modos=6)
 
    # Le os dado::AbstractStrings do problema
    malha = Le_YAML(arquivo; verbose=verbose)
 
    # Roda a rotina principal, devolvendo U e a estrutura de malha
-   Modal3D(malha, posfile; x0=x0, kparam=kparam,mparam=mparam)
+   Modal3D(malha, posfile; x0=x0, kparam=kparam,mparam=mparam, export_gmsh=export_gmsh, gmsh_file=gmsh_file, n_modos=n_modos)
 
 end
 
