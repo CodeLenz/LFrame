@@ -194,7 +194,7 @@ function Modal3D(malha::Malha, posfile=true; x0=[], kparam=Function[],mparam=Fun
          U_full = zeros(6 * malha.nnos)
          U_full[gdls_livres] .= real.(U0[:, i])
 
-         nome_view = "Modo $i  omega=$(round(real(ωn[i]), digits=4)) rad_s"
+         nome_view = "Modo $i  ωn=$(round(ωn[i], digits=4)) rad_s"
          Lgmsh_export_nodal_vector(nome_pos, U_full, 6, nome_view, Float64(i))
       end
 
