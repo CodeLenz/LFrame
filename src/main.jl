@@ -114,7 +114,7 @@ Saidas: Vetor das frequencia naturais e modos do pórtico e estrutura de malha
         estrutura com os dados da malha 
 
 """
-function Modal3D(malha::Malha, posfile=true; x0=[], kparam=Function[],mparam=Function[], n_modos=6,iter=1)
+function Modal3D(malha::Malha, posfile=false; x0=[], kparam=Function[],mparam=Function[], n_modos=6,iter=1)
 
    # Se ρ não foi informado, inicializamos com 1.0
    if isempty(x0)
@@ -172,7 +172,7 @@ function Modal3D(malha::Malha, posfile=true; x0=[], kparam=Function[],mparam=Fun
    # Exporta para o Gmsh se solicitado
    if posfile
 
-      nome_pos = malha.nome_arquivo *"_iter$(iter)_modos.pos"
+      nome_pos = malha.nome_arquivo * "_iter$(iter)_modos.pos"
 
       if isfile(nome_pos)
          rm(nome_pos)
@@ -181,8 +181,10 @@ function Modal3D(malha::Malha, posfile=true; x0=[], kparam=Function[],mparam=Fun
       etype = ones(Int64, malha.ne)
       Lgmsh_export_init(nome_pos, malha.nnos, malha.ne, malha.coord, etype, malha.conect)
 
-      n_exp = min(n_modos, length(ωn))
+      # Exporta as densidades relativas por elemento
+      Lgmsh_export_element_scalar(nome_pos, x0, "Densidade relativa")
 
+      n_exp = min(n_modos, length(ωn))
       gdls_livres = dofs_livres(malha.nnos, malha.apoios)
 
       for i in 1:n_exp
@@ -214,7 +216,7 @@ Saidas: Vetor das frequencia naturais e modos do pórtico e estrutura de malha
         estrutura com os dados da malha 
 
 """
-function Modal3D(arquivo::AbstractString, posfile=true; verbose=false , x0=[], kparam=Function[],mparam=Function[], n_modos=6,iter=1)
+function Modal3D(arquivo::AbstractString, posfile=false; verbose=false , x0=[], kparam=Function[],mparam=Function[], n_modos=6,iter=1)
 
    # Le os dado::AbstractStrings do problema
    malha = Le_YAML(arquivo; verbose=verbose)
