@@ -157,20 +157,17 @@ function Modal3D(malha::Malha, posfile=true; x0=[], kparam=Function[],mparam=Fun
    Kr,Mr = CondicoesContorno(malha,KG,MG)
 
    # Resolução do problema de autovalor generalizado
-   λ, U0 = eigs(Kr, Mr; nev=n_modos, which=:SM)
+   λ, U0 = eigen(Matrix(Kr), Matrix(Mr))
 
    # Loop pelo autovalores
    for i in eachindex(λ)
-
-      # Verifica se é um modo de corpo rígido e faz ele ser 0.0 para quando tirar a raiz não dar problema
       if isapprox(λ[i], 0.0; atol=1e-6)
          λ[i] = 0.0
       end
-
    end
-   
+
    # frequencia natural
-  ωn = sqrt.(real.(λ))
+   ωn = sqrt.(λ)
 
    # Exporta para o Gmsh se solicitado
    if posfile
@@ -184,23 +181,26 @@ function Modal3D(malha::Malha, posfile=true; x0=[], kparam=Function[],mparam=Fun
       etype = ones(Int64, malha.ne)
       Lgmsh_export_init(nome_pos, malha.nnos, malha.ne, malha.coord, etype, malha.conect)
 
-      n_exp = size(U0, 2)
+      n_exp = min(n_modos, length(ωn))
 
-      gdls_livres = livres(malha)
+      gdls_livres = dofs_livres(malha.nnos, malha.apoios)
 
       for i in 1:n_exp
 
-         # Expande para 6*nnos
          U_full = zeros(6 * malha.nnos)
          U_full[gdls_livres] .= real.(U0[:, i])
 
-         nome_view = "Modo $i  ωn=$(round(ωn[i], digits=4)) rad_s"
+         nome_view = "Modo $i  wn=$(round(ωn[i], digits=4)) rad_s"
          Lgmsh_export_nodal_vector(nome_pos, U_full, 6, nome_view, Float64(i))
       end
 
    end
 
-   return ωn, U0, malha
+   # Fatia para retornar só os n_modos pedidos
+   ωna = ωn[1:n_modos]
+   U0a = U0[:, 1:n_modos]
+
+   return ωna, U0a, malha
 end
 
 """
