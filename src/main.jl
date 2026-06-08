@@ -114,7 +114,7 @@ Saidas: Vetor das frequencia naturais e modos do pórtico e estrutura de malha
         estrutura com os dados da malha 
 
 """
-function Modal3D(malha::Malha, posfile=true; x0=[], kparam=Function[],mparam=Function[])
+function Modal3D(malha::Malha, posfile=true; x0=[], kparam=Function[],mparam=Function[], export_gmsh=false, gmsh_file="modos.msh", n_modos=6)
 
    # Se ρ não foi informado, inicializamos com 1.0
    if isempty(x0)
@@ -157,7 +157,7 @@ function Modal3D(malha::Malha, posfile=true; x0=[], kparam=Function[],mparam=Fun
    Kr,Mr = CondicoesContorno(malha,KG,MG)
 
    # Resolução do problema de autovalor generalizado
-   λ, U0 = eigen(Matrix(Kr), Matrix(Mr))
+   λ, U0 = eigs(Kr, Mr; nev=n_modos, which=:SM)
 
    # Loop pelo autovalores
    for i in eachindex(λ)
@@ -171,6 +171,21 @@ function Modal3D(malha::Malha, posfile=true; x0=[], kparam=Function[],mparam=Fun
    
    # frequencia natural
    ωn = sqrt.(λ)
+
+   # Exporta para o Gmsh se solicitado
+   if export_gmsh
+      dim = 3
+      Lgmsh_export_init(gmsh_file, malha.nn, malha.ne, malha.coord, malha.etype, malha.connect)
+        
+      n_exp = min(n_modos, length(ωn))
+      for i in 1:n_exp
+         modo = U0[:, i]
+         nome = "Modo $i  omega=$(round(ωn[i], digits=4)) rad_s"
+         Lgmsh_export_nodal_vector(gmsh_file, modo, dim, nome, Float64(i))
+      end
+      println("Modos exportados para: $gmsh_file")
+   end
+
 
    return ωn,U0,malha
    

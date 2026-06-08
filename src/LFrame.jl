@@ -7,6 +7,7 @@ module LFrame
 	using OrderedCollections
     using YAML
 	using Lgmsh
+	using Arpack
 	
 	# Carregando as outras rotinas:
 	include("struct_malha.jl")
