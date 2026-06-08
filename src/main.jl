@@ -174,36 +174,30 @@ function Modal3D(malha::Malha, posfile=true; x0=[], kparam=Function[],mparam=Fun
 
    # Exporta para o Gmsh se solicitado
    if posfile
-      
+
       nome_pos = malha.nome_arquivo * "_modos.pos"
 
       if isfile(nome_pos)
          rm(nome_pos)
       end
 
-      # Todos os elementos são do tipo 1 (viga)
       etype = ones(Int64, malha.ne)
-
       Lgmsh_export_init(nome_pos, malha.nnos, malha.ne, malha.coord, etype, malha.conect)
 
-      n_exp = min(n_modos, length(ωn))
+      n_exp = size(U0, 2)
+
+      gdls_livres = livres(malha)
+
       for i in 1:n_exp
 
-         # Filtra só as translações, igual ao Gera_pos_U
-         U_trans = zeros(3 * malha.nnos)
-         cont = 1
-         for j in 1:malha.nnos
-            for k in 1:3
-               U_trans[cont] = real(U0[6*(j-1)+k, i])
-               cont += 1
-            end
-         end
+         # Expande para 6*nnos
+         U_full = zeros(6 * malha.nnos)
+         U_full[gdls_livres] .= real.(U0[:, i])
 
          nome_view = "Modo $i  omega=$(round(real(ωn[i]), digits=4)) rad_s"
-         Lgmsh_export_nodal_vector(nome_pos, U_trans, 3, nome_view, Float64(i))
+         Lgmsh_export_nodal_vector(nome_pos, U_full, 6, nome_view, Float64(i))
       end
 
-      println("Modos exportados para: $nome_pos")
    end
 
    return ωn, U0, malha
