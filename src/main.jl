@@ -114,7 +114,7 @@ Saidas: Vetor das frequencia naturais e modos do pórtico e estrutura de malha
         estrutura com os dados da malha 
 
 """
-function Modal3D(malha::Malha, posfile=true; x0=[], kparam=Function[],mparam=Function[], n_modos=6)
+function Modal3D(malha::Malha, posfile=true; x0=[], kparam=Function[],mparam=Function[], n_modos=6,iter=1)
 
    # Se ρ não foi informado, inicializamos com 1.0
    if isempty(x0)
@@ -172,7 +172,7 @@ function Modal3D(malha::Malha, posfile=true; x0=[], kparam=Function[],mparam=Fun
    # Exporta para o Gmsh se solicitado
    if posfile
 
-      nome_pos = malha.nome_arquivo * "_modos.pos"
+      nome_pos = malha.nome_arquivo *"_iter$(iter)_modos.pos"
 
       if isfile(nome_pos)
          rm(nome_pos)
@@ -190,7 +190,7 @@ function Modal3D(malha::Malha, posfile=true; x0=[], kparam=Function[],mparam=Fun
          U_full = zeros(6 * malha.nnos)
          U_full[gdls_livres] .= real.(U0[:, i])
 
-         nome_view = "Modo $i  wn=$(round(ωn[i], digits=4)) rad_s"
+         nome_view = "Modo $i iter $iter  wn=$(round(ωn[i], digits=4)) rad_s"
          Lgmsh_export_nodal_vector(nome_pos, U_full, 6, nome_view, Float64(i))
       end
 
@@ -214,13 +214,13 @@ Saidas: Vetor das frequencia naturais e modos do pórtico e estrutura de malha
         estrutura com os dados da malha 
 
 """
-function Modal3D(arquivo::AbstractString, posfile=true; verbose=false , x0=[], kparam=Function[],mparam=Function[], n_modos=6)
+function Modal3D(arquivo::AbstractString, posfile=true; verbose=false , x0=[], kparam=Function[],mparam=Function[], n_modos=6,iter=1)
 
    # Le os dado::AbstractStrings do problema
    malha = Le_YAML(arquivo; verbose=verbose)
 
    # Roda a rotina principal, devolvendo U e a estrutura de malha
-   Modal3D(malha, posfile; x0=x0, kparam=kparam,mparam=mparam, n_modos=n_modos)
+   Modal3D(malha, posfile; x0=x0, kparam=kparam,mparam=mparam, n_modos=n_modos,iter=iter)
 
 end
 
